@@ -24,7 +24,7 @@ jobs:
           install:
             - docker pull epitechcontent/epitest-docker
           script:
-            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && echo no Makefile yet"
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && echo no Makefile yet "
 
         - stage: tests
           name: "Unit Tests"
