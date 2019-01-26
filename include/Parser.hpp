@@ -24,11 +24,11 @@ namespace Parser
     class Parser
     {
     public:
-        ~Parser();
-
         static std::map<std::string, Component::ComponentSetting> ParseFile(const std::string &filepath);
         static std::ifstream OpenFile(const std::string &filepath);
         static const std::string ClearLine(std::string &line);
+        static bool IsLineComment(const std::string &line);
+        static const std::string RemoveComment(std::string &line);
     };
 
     class Error : public std::exception
