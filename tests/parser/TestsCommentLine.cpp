@@ -12,16 +12,23 @@
 
 Test(Parser, comment_line_comment)
 {
-    cr_assert_eq(Parser::Parser::IsLineComment("# toto"), 1);
-    cr_assert_eq(Parser::Parser::IsLineComment("  # toto"), 1);
-    cr_assert_eq(Parser::Parser::IsLineComment(" \t \t   #"), 1);
+    cr_assert_eq(Parser::Parser::IsLineUseless("# toto"), 1);
+    cr_assert_eq(Parser::Parser::IsLineUseless("  # toto"), 1);
+    cr_assert_eq(Parser::Parser::IsLineUseless(" \t \t   #"), 1);
 }
 
 Test(Parser, comment_line_not_comment)
 {
-    cr_assert_eq(Parser::Parser::IsLineComment(" toto"), 0);
-    cr_assert_eq(Parser::Parser::IsLineComment("   toto"), 0);
-    cr_assert_eq(Parser::Parser::IsLineComment("  feff "), 0);
+    cr_assert_eq(Parser::Parser::IsLineUseless(" toto"), 0);
+    cr_assert_eq(Parser::Parser::IsLineUseless("   toto"), 0);
+    cr_assert_eq(Parser::Parser::IsLineUseless("  feff "), 0);
+}
+
+Test(Parser, comment_line_is_line_useful)
+{
+    cr_assert_eq(Parser::Parser::IsLineUseless(" "), 1);
+    cr_assert_eq(Parser::Parser::IsLineUseless("  \t "), 1);
+    cr_assert_eq(Parser::Parser::IsLineUseless(""), 1);
 }
 
 Test(Parser, comment_line_remove_comment_commented_line)

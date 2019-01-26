@@ -9,6 +9,6 @@
 
 int main(int argc, char **argv)
 {
-    Parser::Parser::OpenFile("toto");
+    Parser::Parser::ParseFile("./conf_files/primitives/5input_and.nts");
     return 0;
 }

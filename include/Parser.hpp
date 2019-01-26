@@ -27,8 +27,9 @@ namespace Parser
         static std::map<std::string, Component::ComponentSetting> ParseFile(const std::string &filepath);
         static std::ifstream OpenFile(const std::string &filepath);
         static const std::string ClearLine(std::string &line);
-        static bool IsLineComment(const std::string &line);
+        static bool IsLineUseless(const std::string &line);
         static const std::string RemoveComment(std::string &line);
+        static std::map<std::string, std::string> ChipsetHandler(std::ifstream &file);
     };
 
     class Error : public std::exception

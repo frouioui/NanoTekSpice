@@ -23,14 +23,14 @@ std::ifstream Parser::Parser::OpenFile(const std::string &filepath)
     return file;
 }
 
-bool Parser::Parser::IsLineComment(const std::string &line)
+bool Parser::Parser::IsLineUseless(const std::string &line)
 {
     unsigned int i = 0;
 
     while (i < line.size() && SPACE_OR_TAB(line[i])) {
         i++;
     }
-    return line[i] == '#';
+    return line[i] == '#' || i == line.size();
 }
 
 const std::string Parser::Parser::RemoveComment(std::string &line)
@@ -47,6 +47,8 @@ const std::string Parser::Parser::ClearLine(std::string &line)
 {
     std::string result;
 
+    if (line[0] == '\n')
+        line.erase(0);
     for (size_t i = 0; i < line.size(); i++) {
         if ((SPACE(line[i]) || TAB(line[i])) && i + 1 == line.length()) {
             break;
@@ -57,17 +59,41 @@ const std::string Parser::Parser::ClearLine(std::string &line)
     return result;
 }
 
-std::map<std::string, Component::ComponentSetting> Parser::Parser::ParseFile(const std::string &filepath)
+std::map<std::string, std::string> Parser::Parser::ChipsetHandler(std::ifstream &file)
 {
-    std::map<std::string, Component::ComponentSetting> ret;
-    std::ifstream file = Parser::Parser::OpenFile(filepath);
+    std::map<std::string, std::string> chipsetInfo;
     std::string line;
 
+    std::getline(file, line);
     while (file.eof() == false) {
         std::getline(file, line);
 
-        if (IsLineComment(line) == true) {
+        if (IsLineUseless(line) == true)
             continue;
+        line = RemoveComment(line);
+        line = ClearLine(line);
+        std::cout << line << std::endl;
+    }
+    return chipsetInfo;
+}
+
+std::map<std::string, Component::ComponentSetting> Parser::Parser::ParseFile(const std::string &filepath)
+{
+    std::map<std::string, Component::ComponentSetting> ret;
+    std::map<std::string, std::string> chipsetInfo;
+    std::ifstream file = Parser::Parser::OpenFile(filepath);
+
+    while (file.eof() == false) {
+        std::string line;
+        std::getline(file, line);
+
+        if (IsLineUseless(line) == true)
+            continue;
+        line = RemoveComment(line);
+        line = ClearLine(line);
+
+        if (line.compare(".chipsets:") == 0) {
+            chipsetInfo = ChipsetHandler(file);
         }
     }
     return ret;
