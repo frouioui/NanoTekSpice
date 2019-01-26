@@ -33,6 +33,8 @@ jobs:
             - docker pull epitechcontent/epitest-docker
           script:
             - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_run_coverage || echo not implemented yet"
+          after_script:
+            - bash <(curl -s https://codecov.io/bash) || echo "Codecov - Coverage error."
         -
           name: "Functional Tests"
           if: branch IN (master, dev, tests, travis)
