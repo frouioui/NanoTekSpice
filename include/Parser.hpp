@@ -5,26 +5,25 @@
 ** Declaration of the Paser class
 */
 
-#if !defined(_PASER_HPP)
-#define _PASER_HPP
+#if !defined(_PARSER_HPP)
+#define _PARSER_HPP
 
 #include <string>
 #include <map>
 #include <exception>
+#include <fstream>
 #include "Component.hpp"
 
 namespace Parser
 {
+
     class Parser
     {
     public:
-        Parser();
         ~Parser();
 
-        std::map<std::string, Circuit::Component::ComponentSetting> ParseFile(const std::string &filepath);
-
-    private:
-    
+        static std::map<std::string, Component::ComponentSetting> ParseFile(const std::string &filepath);
+        static std::ifstream openFile(const std::string &filepath);
     };
 
     class Error : public std::exception
@@ -45,4 +44,4 @@ namespace Parser
 } // Parser
 
 
-#endif // _PASER_HPP
+#endif // _PARSER_HPP
