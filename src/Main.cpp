@@ -9,6 +9,6 @@
 
 int main(int argc, char **argv)
 {
-    Parser::Parser::openFile("toto");
+    Parser::Parser::OpenFile("toto");
     return 0;
 }

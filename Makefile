@@ -15,7 +15,8 @@ PATH_TEST = ./tests
 
 PATH_SRC = ./src
 
-UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp
+UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp			\
+			$(PATH_TEST)/parser/TestsClearLine.cpp
 
 MAIN = $(PATH_SRC)/Main.cpp
 

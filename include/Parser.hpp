@@ -14,6 +14,10 @@
 #include <fstream>
 #include "Component.hpp"
 
+#define SPACE(c) (c == ' ')
+#define TAB(c) (c == '\t')
+#define SPACE_OR_TAB(c) (SPACE(c) || TAB(c))
+
 namespace Parser
 {
 
@@ -23,22 +27,37 @@ namespace Parser
         ~Parser();
 
         static std::map<std::string, Component::ComponentSetting> ParseFile(const std::string &filepath);
-        static std::ifstream openFile(const std::string &filepath);
+        static std::ifstream OpenFile(const std::string &filepath);
+        static const std::string ClearLine(std::string &line);
     };
 
     class Error : public std::exception
     {
         public:
-            Error(std::string const &message, std::string const &component = "Unknown");
+            Error(const std::string &message, const std::string &where = "Unknown");
             virtual ~Error() throw() {};
 
-            std::string const &getComponent() const;
+            const std::string &where() const;
             const char* what() const noexcept override;
 
         protected:
-            std::string _component;
+            std::string _where;
         private:
             std::string _message;
+    };
+
+    class FileError : public Error
+    {
+        public:
+            FileError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+            virtual ~FileError() throw() {};
+    };
+
+    class FormatError : public Error
+    {
+        public:
+            FormatError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+            virtual ~FormatError() throw() {};
     };
 
 } // Parser
