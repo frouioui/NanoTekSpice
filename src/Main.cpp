@@ -5,10 +5,13 @@
 ** Main file of the nanotekspice project
 */
 
+#include <istream>
 #include "Parser.hpp"
 
 int main(int argc, char **argv)
 {
-    Parser::Parser::ParseFile("./conf_files/primitives/5input_and.nts");
+    std::ifstream file("/home/pflorent/Project/School/2nd-Year/OOP/nano/NanoTekSpice/tests/assets/parser/test_file_get_link_big");
+
+    Parser::Parser::GetLinks(file);
     return 0;
 }

@@ -21,16 +21,6 @@ namespace Component
         CLOCK
     }; // TODO: add all the other components...
 
-    class Component
-    {
-    public:
-        Component();
-        ~Component();
-
-    private:
-        
-    };
-
     struct Link
     {
         std::string OriginName;
@@ -41,6 +31,7 @@ namespace Component
 
     struct ComponentSetting
     {
+        std::string value;
         Type type;
         std::vector<Link> links;
     };
