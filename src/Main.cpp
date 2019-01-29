@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-    std::ifstream file("/home/pflorent/Project/School/2nd-Year/OOP/nano/NanoTekSpice/tests/assets/parser/test_file_get_link_big");
+    std::ifstream file("./tests/assets/parser/test_file_get_link_big");
 
     Parser::Parser::GetLinks(file);
     return 0;

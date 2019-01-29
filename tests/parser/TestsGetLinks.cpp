@@ -12,7 +12,7 @@
 
 Test(Parser, get_link_simple_file)
 {
-    std::ifstream file("/home/pflorent/Project/School/2nd-Year/OOP/nano/NanoTekSpice/tests/assets/parser/test_file_get_link_simple");
+    std::ifstream file("./tests/assets/parser/test_file_get_link_simple");
     std::vector<Component::Link> links = Parser::Parser::GetLinks(file);
 
     cr_assert_eq(links.at(0).OriginName.compare("a"), 0);
@@ -28,7 +28,7 @@ Test(Parser, get_link_simple_file)
 
 Test(Parser, get_link_bigger_file)
 {
-    std::ifstream file("/home/pflorent/Project/School/2nd-Year/OOP/nano/NanoTekSpice/tests/assets/parser/test_file_get_link_big");
+    std::ifstream file("./tests/assets/parser/test_file_get_link_big");
     std::vector<Component::Link> links = Parser::Parser::GetLinks(file);
 
     cr_assert_eq(links.at(0).OriginName.compare("a"), 0);
@@ -58,12 +58,12 @@ Test(Parser, get_link_bigger_file)
 
     cr_assert_eq(links.at(5).OriginName.compare("fofo"), 0);
     cr_assert_eq(links.at(5).DestinationName.compare("gate"), 0);
-    cr_assert_eq(links.at(5).OriginPin, 4);
-    cr_assert_eq(links.at(5).DestinationPin, 8);
+    cr_assert_eq(links.at(5).OriginPin, 1);
+    cr_assert_eq(links.at(5).DestinationPin, 2);
 
     cr_assert_eq(links.at(6).OriginName.compare("EOW"), 0);
     cr_assert_eq(links.at(6).DestinationName.compare("gate"), 0);
-    cr_assert_eq(links.at(6).OriginPin, 2);
+    cr_assert_eq(links.at(6).OriginPin, 1);
     cr_assert_eq(links.at(6).DestinationPin, 1);
 
     cr_assert_eq(links.at(7).OriginName.compare("DU"), 0);
