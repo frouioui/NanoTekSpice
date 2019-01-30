@@ -47,13 +47,16 @@ const std::string Parser::Parser::RemoveComment(std::string &line)
 
 Component::Type Parser::Parser::GetType(const std::string &type)
 {
-    if (type.compare("input") == 0)
-        return Component::Type::INPUT;
-    else if (type.compare("output") == 0)
-        return Component::Type::OUTPUT;
-    else if (type.compare("clock") == 0)
-        return Component::Type::CLOCK;
-    return Component::Type::NOT_SET;
+    char types[Component::NUMBER_OF_TYPE][10] = {"input", "output", "clock", "true", "false",
+    "4001", "4008", "4011", "4013", "4017", "4030", "4040", "4069", "4071",
+    "4081", "4094", "4801", "2716"};
+
+    for (unsigned int i = 0; i < Component::NUMBER_OF_TYPE; i++) {
+        if (type.compare(types[i]) == 0) {
+            return Component::Type(i + 1);
+        }
+    }
+    throw FormatError("The given type doesn't exist", "GetTypes");
 }
 
 const std::vector<Component::Link> Parser::Parser::GetLinks(std::ifstream &file)
@@ -160,7 +163,7 @@ void Parser::Parser::CheckNames(const std::vector<Component::ComponentSetting> &
 
 void Parser::Parser::CheckLinks(const std::vector<Component::ComponentSetting> &chipsetInfo)
 {
-    
+
 }
 
 void Parser::Parser::CheckType(const std::vector<Component::ComponentSetting> &chipsetInfo)

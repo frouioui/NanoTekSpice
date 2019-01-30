@@ -17,7 +17,7 @@ Test(Parser, new_chipset_info_input)
     cr_assert_eq(info.type, Component::Type::INPUT);
 }
 
-Test(Parser, split_line_output)
+Test(Parser, new_chipset_info_output)
 {
     Component::ComponentSetting info;
 
@@ -26,7 +26,7 @@ Test(Parser, split_line_output)
     cr_assert_eq(info.type, Component::Type::OUTPUT);
 }
 
-Test(Parser, split_line_clock)
+Test(Parser, new_chipset_info_clock)
 {
     Component::ComponentSetting info;
 
@@ -35,11 +35,9 @@ Test(Parser, split_line_clock)
     cr_assert_eq(info.type, Component::Type::CLOCK);
 }
 
-Test(Parser, split_line_not_set)
+Test(Parser, new_chipset_info_set)
 {
     Component::ComponentSetting info;
 
-    info = Parser::Parser::CreateNewChipsetInfo("ifeef", "902323");
-    cr_assert_eq(info.value.compare("902323"), 0);
-    cr_assert_eq(info.type, Component::Type::NOT_SET);
+    cr_assert_throw(Parser::Parser::CreateNewChipsetInfo("ifeef", "902323"), Parser::FormatError);
 }
