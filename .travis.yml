@@ -32,7 +32,7 @@ jobs:
           install:
             - docker pull epitechcontent/epitest-docker
           script:
-            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_run_coverage || echo not implemented yet"
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_run_coverage"
           after_script:
             - bash <(curl -s https://codecov.io/bash) || echo "Codecov - Coverage error."
         -

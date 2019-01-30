@@ -5,10 +5,11 @@
 ** Main file of the nanotekspice project
 */
 
+#include <istream>
 #include "Parser.hpp"
 
 int main(int argc, char **argv)
 {
-    Parser::Parser::ParseFile("./conf_files/primitives/5input_and.nts");
+    std::vector<Component::ComponentSetting> settings = Parser::Parser::ParseFile("./tests/assets/exemple/public/primitives/5input_and.nts");
     return 0;
 }

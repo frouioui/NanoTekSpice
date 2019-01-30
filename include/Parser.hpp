@@ -24,14 +24,23 @@ namespace Parser
     class Parser
     {
     public:
-        static std::map<std::string, Component::ComponentSetting> ParseFile(const std::string &filepath);
+        static std::vector<Component::ComponentSetting> ParseFile(const std::string &filepath);
+        static std::vector<Component::ComponentSetting> BeginParsing(std::ifstream &file);
+        static void CheckLinks(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        static void CheckNames(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        static void CheckType(const std::vector<Component::ComponentSetting> &chipsetInfo);
         static std::ifstream OpenFile(const std::string &filepath);
         static const std::string ClearLine(std::string &line);
         static bool IsLineUseless(const std::string &line);
         static const std::string RemoveComment(std::string &line);
-        static std::map<std::string, std::string> ChipsetHandler(std::ifstream &file);
+        static Component::Type GetType(const std::string &type);
+        static const std::vector<Component::Link> GetLinks(std::ifstream &file);
+        static std::map<std::string, std::string> SplitLineInTwo(const std::string &line);
+        static const Component::ComponentSetting CreateNewChipsetInfo(const std::string &name, const std::string &type);
+        static void AddLinksToChipsetInfo(const std::vector<Component::Link> &allLinks, std::vector<Component::ComponentSetting> &components);
     };
 
+    // TODO: Put the error class in an other file and make it its own class.
     class Error : public std::exception
     {
         public:

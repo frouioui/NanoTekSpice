@@ -15,9 +15,14 @@ PATH_TEST = ./tests
 
 PATH_SRC = ./src
 
-UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp			\
-			$(PATH_TEST)/parser/TestsClearLine.cpp			\
-			$(PATH_TEST)/parser/TestsCommentLine.cpp		\
+UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
+			$(PATH_TEST)/parser/TestsClearLine.cpp				\
+			$(PATH_TEST)/parser/TestsCommentLine.cpp			\
+			$(PATH_TEST)/parser/TestsSplitLineInTwo.cpp			\
+			$(PATH_TEST)/parser/TestsCreateNewChipsetInfo.cpp	\
+			$(PATH_TEST)/parser/TestsGetLinks.cpp				\
+			$(PATH_TEST)/parser/TestsParseFile.cpp				\
+			$(PATH_TEST)/parser/TestsErrorHandling.cpp			\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
@@ -37,16 +42,19 @@ all: $(BINARY_NAME)
 $(BINARY_NAME): $(OBJS)
 	$(CXX) -o $(BINARY_NAME) $(HEADER) $(OBJS)
 
+run:
+	echo "bite"
+
 debug:
 	$(CXX) -o $(BINARY_NAME) $(HEADER) $(SRC) $(MAIN) -g3
 
 tests_run:
 	g++ -o $(BINARY_UT_NAME) $(UT_SRC) $(SRC) $(CXXFLAGS) $(LDFLAGS) $(HEADER)
-	./$(BINARY_UT_NAME)
+	./$(BINARY_UT_NAME) -j1
 
 tests_run_coverage:
 	g++ -o $(BINARY_UT_NAME) $(UT_SRC) $(SRC) $(CXXFLAGS) $(LDFLAGS) $(HEADER)
-	./$(BINARY_UT_NAME)
+	./$(BINARY_UT_NAME) -j1
 	echo "\n"
 	gcov *.gcno
 

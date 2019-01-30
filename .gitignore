@@ -26,8 +26,15 @@
 *.a
 *.lib
 
+# Unit tests
+*.gcda
+*.gcno
+
 # Executables
 *.exe
 *.out
 *.app
+nanotekspice
+unit_tests
+
 .vscode
