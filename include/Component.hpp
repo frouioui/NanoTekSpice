@@ -28,7 +28,7 @@ namespace Component
         ~Component();
 
     private:
-        
+
     };
 
     struct Link
