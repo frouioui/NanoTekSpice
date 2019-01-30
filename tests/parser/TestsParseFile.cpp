@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Parser.hpp"
 
-Test(Parser, parse_file_easy_file)
+Test(Parser, parse_file_easy_correct_file)
 {
     std::vector<Component::ComponentSetting> settings = Parser::Parser::ParseFile("./tests/assets/exemple/public/primitives/5input_and.nts");
 
@@ -22,7 +22,7 @@ Test(Parser, parse_file_easy_file)
     cr_assert_eq(settings.at(0).links.at(0).DestinationPin, 1);
 }
 
-Test(Parser, parse_file_easy_file_2)
+Test(Parser, parse_file_easy_correct_file_2)
 {
     std::vector<Component::ComponentSetting> settings = Parser::Parser::ParseFile("./tests/assets/exemple/public/primitives/5input_and.nts");
 

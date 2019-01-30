@@ -22,6 +22,7 @@ UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/parser/TestsCreateNewChipsetInfo.cpp	\
 			$(PATH_TEST)/parser/TestsGetLinks.cpp				\
 			$(PATH_TEST)/parser/TestsParseFile.cpp				\
+			$(PATH_TEST)/parser/TestsErrorHandling.cpp			\
 
 MAIN = $(PATH_SRC)/Main.cpp
 

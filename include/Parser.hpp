@@ -26,6 +26,9 @@ namespace Parser
     public:
         static std::vector<Component::ComponentSetting> ParseFile(const std::string &filepath);
         static std::vector<Component::ComponentSetting> BeginParsing(std::ifstream &file);
+        static void CheckLinks(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        static void CheckNames(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        static void CheckType(const std::vector<Component::ComponentSetting> &chipsetInfo);
         static std::ifstream OpenFile(const std::string &filepath);
         static const std::string ClearLine(std::string &line);
         static bool IsLineUseless(const std::string &line);
