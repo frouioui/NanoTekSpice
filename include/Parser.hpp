@@ -14,6 +14,7 @@
 #include <fstream>
 #include "Component.hpp"
 
+// TODO: remove and use the lib function
 #define SPACE(c) (c == ' ')
 #define TAB(c) (c == '\t')
 #define SPACE_OR_TAB(c) (SPACE(c) || TAB(c))
@@ -24,50 +25,53 @@ namespace Parser
     class Parser
     {
     public:
-        static std::vector<Component::ComponentSetting> ParseFile(const std::string &filepath);
-        static std::vector<Component::ComponentSetting> BeginParsing(std::ifstream &file);
-        static void CheckLinks(const std::vector<Component::ComponentSetting> &chipsetInfo);
-        static void CheckNames(const std::vector<Component::ComponentSetting> &chipsetInfo);
-        static void CheckType(const std::vector<Component::ComponentSetting> &chipsetInfo);
-        static std::ifstream OpenFile(const std::string &filepath);
-        static const std::string ClearLine(std::string &line);
-        static bool IsLineUseless(const std::string &line);
-        static const std::string RemoveComment(std::string &line);
-        static Component::Type GetType(const std::string &type);
-        static const std::vector<Component::Link> GetLinks(std::ifstream &file);
-        static std::map<std::string, std::string> SplitLineInTwo(const std::string &line);
-        static const Component::ComponentSetting CreateNewChipsetInfo(const std::string &name, const std::string &type);
-        static void AddLinksToChipsetInfo(const std::vector<Component::Link> &allLinks, std::vector<Component::ComponentSetting> &components);
+        Parser(const std::string &filename);
+        ~Parser();
+
+        const std::vector<Component::ComponentSetting> &Parse();
+        void ReadFile();
+        std::ifstream OpenFile() const;
+
+    private:
+        std::string _filename;
+        std::vector<std::string> _lines;
     };
 
-    // TODO: Put the error class in an other file and make it its own class.
-    class Error : public std::exception
+    class LineParser
     {
-        public:
-            Error(const std::string &message, const std::string &where = "Unknown");
-            virtual ~Error() throw() {};
+    public:
+        LineParser(const std::string &line);
+        ~LineParser();
 
-            const std::string &where() const;
-            const char* what() const noexcept override;
+        const std::string &GetLine() const;
 
-        protected:
-            std::string _where;
-        private:
-            std::string _message;
+        bool IsUseless() const;
+        void ClearLine();
+        void RemoveComment();
+
+        const Component::Type &GetType(const std::string &typeStr) const;
+        const Component::ComponentSetting &GetInfoComponent() const;
+        const Component::Link &GetLink() const;
+
+        const std::map<std::string, std::string> &SplitLineInTwo() const;
+
+    private:
+        std::string _line;
     };
 
-    class FileError : public Error
+    class Checker
     {
-        public:
-            FileError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
-            virtual ~FileError() throw() {};
-    };
+    public:
+        Checker(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        ~Checker();
 
-    class FormatError : public Error
-    {
-        public:
-            FormatError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
-            virtual ~FormatError() throw() {};
+        void Check() const;
+        void CheckLinks() const;
+        void CheckNames() const;
+        void CheckType() const;
+
+    private:
+        std::vector<Component::ComponentSetting> _chipsetInfo;
     };
 
 } // Parser
