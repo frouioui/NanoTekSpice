@@ -47,28 +47,28 @@ namespace Parser
             Error(const std::string &message, const std::string &where = "Unknown");
             virtual ~Error() throw() {};
 
-            const std::string &where() const;
-            const char* what() const noexcept override;
+			const std::string &where() const;
+			const char* what() const noexcept override;
 
-        protected:
-            std::string _where;
-        private:
-            std::string _message;
-    };
+		protected:
+			std::string _where;
+		private:
+			std::string _message;
+	};
 
-    class FileError : public Error
-    {
-        public:
-            FileError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
-            virtual ~FileError() throw() {};
-    };
+	class FileError : public Error
+	{
+		public:
+			FileError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+			virtual ~FileError() throw() {};
+	};
 
-    class FormatError : public Error
-    {
-        public:
-            FormatError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
-            virtual ~FormatError() throw() {};
-    };
+	class FormatError : public Error
+	{
+		public:
+			FormatError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+			virtual ~FormatError() throw() {};
+	};
 
 } // Parser
 
