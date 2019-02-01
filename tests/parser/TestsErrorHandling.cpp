@@ -9,18 +9,19 @@
 #include <string>
 #include <iostream>
 #include "Parser.hpp"
+#include "Error.hpp"
 
 Test(Parser, error_handling_check_type)
 {
-    cr_assert_throw(Parser::Parser::ParseFile("./tests/assets/exemple/errored/false_check_type"), Parser::FormatError);
+    cr_assert_throw(Parser::Parser("./tests/assets/exemple/errored/false_check_type").Parse(), Error::Paser::FormatError);
 }
 
 Test(Parser, error_handling_check_name)
 {
-    cr_assert_throw(Parser::Parser::ParseFile("./tests/assets/exemple/errored/false_check_name"), Parser::FormatError);
+    cr_assert_throw(Parser::Parser("./tests/assets/exemple/errored/false_check_name").Parse(), Error::Paser::FormatError);
 }
 
 Test(Parser, error_handling_split_line)
 {
-    cr_assert_throw(Parser::Parser::SplitLineInTwo("oneLine"), Parser::FormatError);
+    cr_assert_throw(Parser::LineParser("oneLine").SplitLineInTwo(), Error::Paser::FormatError);
 }

@@ -62,7 +62,7 @@ void Parser::LineParser::RemoveComment()
         _line.erase(pos);
 }
 
-const Component::Type &Parser::LineParser::GetType(const std::string &typeStr) const
+Component::Type Parser::LineParser::GetType(const std::string &typeStr) const
 {
     char types[Component::NUMBER_OF_TYPE][10] = {"input", "output", "clock", "true", "false",
     "4001", "4008", "4011", "4013", "4017", "4030", "4040", "4069", "4071",
@@ -76,7 +76,7 @@ const Component::Type &Parser::LineParser::GetType(const std::string &typeStr) c
     throw Error::Paser::FormatError("The given type doesn't exist", "GetTypes");
 }
 
-const std::map<std::string, std::string> Parser::LineParser::SplitLineInTwo()
+std::map<std::string, std::string> Parser::LineParser::SplitLineInTwo() const
 {
     std::map<std::string, std::string> map;
     size_t pos = _line.find_first_of(' ');
@@ -92,7 +92,7 @@ const std::map<std::string, std::string> Parser::LineParser::SplitLineInTwo()
     return map;
 }
 
-const Component::ComponentSetting &Parser::LineParser::GetInfoComponent() const
+Component::ComponentSetting Parser::LineParser::GetInfoComponent() const
 {
     Component::ComponentSetting newInfo;
     std::map<std::string, std::string> lineInfo;
@@ -104,7 +104,7 @@ const Component::ComponentSetting &Parser::LineParser::GetInfoComponent() const
     return newInfo;
 }
 
-const Component::Link &Parser::LineParser::GetLink() const
+Component::Link Parser::LineParser::GetLink() const
 {
     std::map<std::string, std::string> lineInfo = SplitLineInTwo();
     Component::Link link;

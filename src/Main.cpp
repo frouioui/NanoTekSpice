@@ -10,6 +10,6 @@
 
 int main(int argc, char **argv)
 {
-    std::vector<Component::ComponentSetting> settings = Parser::Parser::ParseFile("./tests/assets/exemple/public/primitives/5input_and.nts");
+    std::vector<Component::ComponentSetting> settings = Parser::Parser("./tests/assets/exemple/public/primitives/5input_and.nts").Parse();
     return 0;
 }

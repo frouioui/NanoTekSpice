@@ -16,18 +16,18 @@ PATH_TEST = ./tests
 PATH_SRC = ./src
 
 UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
-			$(PATH_TEST)/parser/TestsClearLine.cpp				\
-			$(PATH_TEST)/parser/TestsCommentLine.cpp			\
-			$(PATH_TEST)/parser/TestsSplitLineInTwo.cpp			\
-			$(PATH_TEST)/parser/TestsCreateNewChipsetInfo.cpp	\
-			$(PATH_TEST)/parser/TestsGetLinks.cpp				\
 			$(PATH_TEST)/parser/TestsParseFile.cpp				\
 			$(PATH_TEST)/parser/TestsErrorHandling.cpp			\
+			$(PATH_TEST)/parser/line/TestsClearLine.cpp				\
+			$(PATH_TEST)/parser/line/TestsCommentLine.cpp			\
+			$(PATH_TEST)/parser/line/TestsSplitLineInTwo.cpp			\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
 SRC =	$(PATH_SRC)/parser/Parser.cpp			\
 		$(PATH_SRC)/parser/ParserError.cpp		\
+		$(PATH_SRC)/parser/Checker.cpp			\
+		$(PATH_SRC)/parser/LineParser.cpp		\
 
 HEADER	=	-I./include/
 

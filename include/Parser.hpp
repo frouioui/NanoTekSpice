@@ -28,9 +28,12 @@ namespace Parser
         Parser(const std::string &filename);
         ~Parser();
 
-        const std::vector<Component::ComponentSetting> &Parse();
+        const std::vector<Component::ComponentSetting> Parse();
         void ReadFile();
         std::ifstream OpenFile() const;
+        void AddLinksToChipsetInfo(const std::vector<Component::Link> &allLinks, std::vector<Component::ComponentSetting> &components);
+        void HandleChipsets(unsigned int &i, std::vector<Component::ComponentSetting> &ret);
+        void HandleLinks(unsigned int &i, std::vector<Component::Link> &allLinks);
 
     private:
         std::string _filename;
@@ -49,11 +52,10 @@ namespace Parser
         void ClearLine();
         void RemoveComment();
 
-        const Component::Type &GetType(const std::string &typeStr) const;
-        const Component::ComponentSetting &GetInfoComponent() const;
-        const Component::Link &GetLink() const;
-
-        const std::map<std::string, std::string> &SplitLineInTwo() const;
+        Component::Type GetType(const std::string &typeStr) const;
+        Component::ComponentSetting GetInfoComponent() const;
+        Component::Link GetLink() const;
+        std::map<std::string, std::string> SplitLineInTwo() const;
 
     private:
         std::string _line;
@@ -62,10 +64,10 @@ namespace Parser
     class Checker
     {
     public:
-        Checker(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        Checker();
         ~Checker();
 
-        void Check() const;
+        void Check(const std::vector<Component::ComponentSetting> &chipsetInfo);
         void CheckLinks() const;
         void CheckNames() const;
         void CheckType() const;

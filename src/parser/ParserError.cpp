@@ -6,18 +6,19 @@
 */
 
 #include <string>
+#include "Error.hpp"
 #include "Parser.hpp"
 
-Parser::Error::Error(const std::string &message, const std::string &where) : _where(where), _message(message)
+Error::Error::Error(const std::string &message, const std::string &where) : _where(where), _message(message)
 {
 }
 
-const std::string &Parser::Error::where() const
+const std::string &Error::Error::where() const
 {
     return _where;
 }
 
-const char *Parser::Error::what() const noexcept
+const char *Error::Error::what() const noexcept
 {
     return _message.c_str();
 }
