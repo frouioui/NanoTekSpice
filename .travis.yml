@@ -7,6 +7,9 @@ sudo: require
 service:
   - docker
 
+git:
+  depth: false
+
 ## NOTIFICATIONS
 notifications:
   email:
@@ -28,7 +31,7 @@ jobs:
 
         - stage: tests
           name: "Unit Tests"
-          if: branch IN (master, dev, tests, travis, parser)
+          if: branch IN (master, dev, tests, travis, parser, /parser_v\d/)
           install:
             - docker pull epitechcontent/epitest-docker
           script:
