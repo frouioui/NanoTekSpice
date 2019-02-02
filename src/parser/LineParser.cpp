@@ -28,15 +28,6 @@ const std::string &Parser::LineParser::GetLine() const
     return _line;
 }
 
-bool Parser::LineParser::IsUseless() const
-{
-    size_t pos = 0;
-
-    while (pos < _line.size() && std::isspace(_line[pos]))
-        pos++;
-    return _line[pos] == '#' || pos == _line.size();
-}
-
 void Parser::LineParser::ClearLine()
 {
     std::string newString;

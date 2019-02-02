@@ -18,9 +18,10 @@ PATH_SRC = ./src
 UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/parser/TestsParseFile.cpp				\
 			$(PATH_TEST)/parser/TestsErrorHandling.cpp			\
-			$(PATH_TEST)/parser/line/TestsClearLine.cpp				\
-			$(PATH_TEST)/parser/line/TestsCommentLine.cpp			\
-			$(PATH_TEST)/parser/line/TestsSplitLineInTwo.cpp			\
+			$(PATH_TEST)/parser/line/TestsClearLine.cpp			\
+			$(PATH_TEST)/parser/line/TestsCommentLine.cpp		\
+			$(PATH_TEST)/parser/line/TestsSplitLineInTwo.cpp	\
+			$(PATH_TEST)/parser/checker/TestsIsUseless.cpp		\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
@@ -51,6 +52,9 @@ debug:
 tests_run:
 	g++ -o $(BINARY_UT_NAME) $(UT_SRC) $(SRC) $(CXXFLAGS) $(LDFLAGS) $(HEADER)
 	./$(BINARY_UT_NAME) -j1
+
+tests_run_docker:
+	docker run -v $(PWD):/app epitechcontent/epitest-docker bash -c "cd app && make fclean && make tests_run && gcovr"
 
 tests_run_coverage:
 	g++ -o $(BINARY_UT_NAME) $(UT_SRC) $(SRC) $(CXXFLAGS) $(LDFLAGS) $(HEADER)

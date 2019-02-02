@@ -10,27 +10,6 @@
 #include <iostream>
 #include "Parser.hpp"
 
-Test(Parser, comment_line_comment)
-{
-    cr_assert_eq(Parser::LineParser("# toto").IsUseless(), 1);
-    cr_assert_eq(Parser::LineParser("  # toto").IsUseless(), 1);
-    cr_assert_eq(Parser::LineParser(" \t \t   #").IsUseless(), 1);
-}
-
-Test(Parser, comment_line_not_comment)
-{
-    cr_assert_eq(Parser::LineParser(" toto").IsUseless(), 1);
-    cr_assert_eq(Parser::LineParser("   toto").IsUseless(), 1);
-    cr_assert_eq(Parser::LineParser("  feff ").IsUseless(), 1);
-}
-
-Test(Parser, comment_line_is_line_useful)
-{
-    cr_assert_eq(Parser::LineParser(" ").IsUseless(), 1);
-    cr_assert_eq(Parser::LineParser("  \t ").IsUseless(), 1);
-    cr_assert_eq(Parser::LineParser("").IsUseless(), 1);
-}
-
 Test(Parser, comment_line_remove_comment_commented_line)
 {
     Parser::LineParser line1("input toto #toto");

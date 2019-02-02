@@ -52,8 +52,9 @@ void Parser::Parser::ReadFile()
     while (file.eof() == false) {
         std::string line;
         getline(file, line);
+        Checker checker(line);
         LineParser lineParser(line);
-        if (lineParser.IsUseless() == true)
+        if (checker.IsUseless() == true)
             continue;
         lineParser.RemoveComment();
         lineParser.ClearLine();
@@ -64,31 +65,36 @@ void Parser::Parser::ReadFile()
 void Parser::Parser::HandleChipsets(unsigned int &i, std::vector<Component::ComponentSetting> &ret)
 {
     i++;
-    while (i < _lines.size() && _lines[i + 1].compare(".links:") != 0) {
+    while (i < _lines.size() && _lines[i].compare(".links:") != 0) {
         LineParser lineParser(_lines[i]);
         Component::ComponentSetting info;
         info = lineParser.GetInfoComponent();
         ret.push_back(info);
-        i++;
+        if (_lines[i + 1].compare(".links:") == 0)
+            break;
+        else
+            i++;
     }
 }
 
 void Parser::Parser::HandleLinks(unsigned int &i, std::vector<Component::Link> &allLinks)
 {
     i++;
-    while (i < _lines.size() && _lines[i + 1].compare(".chipsets:") != 0) {
+    while (i < _lines.size() && _lines[i].compare(".chipsets:") != 0) {
         LineParser lineParser(_lines[i]);
         Component::Link link = lineParser.GetLink();
         allLinks.push_back(link);
-        i++;
+        if (_lines[i + 1].compare(".chipsets:") == 0)
+            break;
+        else
+            i++;
     }
 }
 
-const std::vector<Component::ComponentSetting> Parser::Parser::Parse()
+const Parser::container_setting_t Parser::Parser::Parse()
 {
     std::vector<Component::ComponentSetting> ret;
     std::vector<Component::Link> allLinks;
-    Checker check;
     bool chipsetKeyword = false;
     bool linksKeyword = false;
 
@@ -105,6 +111,7 @@ const std::vector<Component::ComponentSetting> Parser::Parser::Parse()
     if (chipsetKeyword == false || linksKeyword == false)
         throw Error::Paser::FormatError("Must have a .chipsets and a .links in your file", "Parse");
     AddLinksToChipsetInfo(allLinks, ret);
-    check.Check(ret);
+    Checker check(ret);
+    check.Check();
     return ret;
 }

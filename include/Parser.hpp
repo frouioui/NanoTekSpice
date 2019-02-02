@@ -14,13 +14,14 @@
 #include <fstream>
 #include "Component.hpp"
 
-// TODO: remove and use the lib function
 #define SPACE(c) (c == ' ')
 #define TAB(c) (c == '\t')
-#define SPACE_OR_TAB(c) (SPACE(c) || TAB(c))
 
 namespace Parser
 {
+
+    using container_setting_t = std::vector<Component::ComponentSetting>;
+    using container_link_t = std::vector<Component::Link>;
 
     class Parser
     {
@@ -28,12 +29,12 @@ namespace Parser
         Parser(const std::string &filename);
         ~Parser();
 
-        const std::vector<Component::ComponentSetting> Parse();
+        const container_setting_t Parse();
         void ReadFile();
         std::ifstream OpenFile() const;
-        void AddLinksToChipsetInfo(const std::vector<Component::Link> &allLinks, std::vector<Component::ComponentSetting> &components);
-        void HandleChipsets(unsigned int &i, std::vector<Component::ComponentSetting> &ret);
-        void HandleLinks(unsigned int &i, std::vector<Component::Link> &allLinks);
+        void AddLinksToChipsetInfo(const container_link_t &allLinks, container_setting_t &components);
+        void HandleChipsets(unsigned int &i, container_setting_t &ret);
+        void HandleLinks(unsigned int &i, container_link_t &allLinks);
 
     private:
         std::string _filename;
@@ -48,7 +49,6 @@ namespace Parser
 
         const std::string &GetLine() const;
 
-        bool IsUseless() const;
         void ClearLine();
         void RemoveComment();
 
@@ -64,16 +64,20 @@ namespace Parser
     class Checker
     {
     public:
-        Checker();
+        Checker(const container_setting_t &chipsetInfo);
+        Checker(const std::string &line);
         ~Checker();
 
-        void Check(const std::vector<Component::ComponentSetting> &chipsetInfo);
+        void Check();
         void CheckLinks() const;
         void CheckNames() const;
         void CheckType() const;
 
+        bool IsUseless() const;
+
     private:
-        std::vector<Component::ComponentSetting> _chipsetInfo;
+        container_setting_t _chipsetInfo;
+        std::string _line;
     };
 
 } // Parser
