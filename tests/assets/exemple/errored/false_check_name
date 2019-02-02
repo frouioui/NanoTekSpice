@@ -1,15 +1,12 @@
-# Admiral Business Machines 1954-2042
-# 5 bits and gate
-
 .chipsets:
 input		a
 input		b
 input		c
-input		d
+TRUCMUCH		d
 input		e
 
 output		s
-4081		gate
+TINEFN349834		gate
 
 .links:
 a:1		gate:1

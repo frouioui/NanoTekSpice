@@ -7,6 +7,9 @@ sudo: require
 service:
   - docker
 
+git:
+  depth: false
+
 ## NOTIFICATIONS
 notifications:
   email:
@@ -24,22 +27,24 @@ jobs:
           install:
             - docker pull epitechcontent/epitest-docker
           script:
-            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && echo no Makefile yet "
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make fclean && make"
 
         - stage: tests
           name: "Unit Tests"
-          if: branch IN (master, dev, tests, travis)
+          if: branch IN (master, dev, tests, travis, parser, /parser_v\d/)
           install:
             - docker pull epitechcontent/epitest-docker
           script:
-            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && echo no unit test yet"
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_run_coverage"
+          after_script:
+            - bash <(curl -s https://codecov.io/bash) || echo "Codecov - Coverage error."
         -
           name: "Functional Tests"
           if: branch IN (master, dev, tests, travis)
           before_script:
             - docker pull epitechcontent/epitest-docker
           script:
-            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && echo no functional test yet"
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_functional || echo no functional test yet"
 
         - stage: deploy
           name: "Deployement"
