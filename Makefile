@@ -23,11 +23,19 @@ UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/parser/TestsGetLinks.cpp				\
 			$(PATH_TEST)/parser/TestsParseFile.cpp				\
 			$(PATH_TEST)/parser/TestsErrorHandling.cpp			\
+			$(PATH_TEST)/Components/TestsFactoryInput.cpp		\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
 SRC =	$(PATH_SRC)/parser/Parser.cpp			\
 		$(PATH_SRC)/parser/ParserError.cpp		\
+		$(PATH_SRC)/Components/Factory.cpp		\
+		$(PATH_SRC)/Components/Input.cpp		\
+		$(PATH_SRC)/Components/Output.cpp		\
+		$(PATH_SRC)/Components/True.cpp			\
+		$(PATH_SRC)/Components/False.cpp		\
+		$(PATH_SRC)/Components/C4001.cpp		\
+		$(PATH_SRC)/Error.cpp					\
 
 HEADER	=	-I./include/
 

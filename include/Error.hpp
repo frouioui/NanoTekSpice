@@ -44,7 +44,12 @@ namespace Error {
 	}
 
 	namespace Component {
-
+		class ComputeError : public Error
+		{
+			public:
+				ComputeError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+				virtual ~ComputeError() throw() {};
+		};
 	}
 }
 

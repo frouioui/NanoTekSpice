@@ -8,9 +8,9 @@
 #include "Output.hpp"
 #include "Error.hpp"
 
-Output::Output(const std::string &name) : _name(name)
+Output::Output()
 {
-	_input.insert(std::pair<std::size_t, nts::Pin>(1, {nts::UNDEFINED, nullptr, -1}));
+	_input.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::UNDEFINED, nullptr, -1}));
 }
 
 Output::~Output()
@@ -28,7 +28,7 @@ void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t other
 
 	if (search == _input.end())
 		throw Error::Paser::FileError("No corresponding pin", "Output::setLink");
-	_input[pin] = {nts::UNDEFINED, &other, static_cast<int>(otherPin)};
+	_input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 	other.setOutput(otherPin, *this, pin);
 }
 
@@ -43,5 +43,9 @@ void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t other
 
 	if (search == _input.end())
 		throw Error::Paser::FileError("No corresponding pin", "Output::setInput");
-	_input[pin] = {nts::UNDEFINED, &other, static_cast<int>(otherPin)};
+	_input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
+}
+
+void Output::setOutput(std::size_t, nts::IComponent &, std::size_t)
+{
 }

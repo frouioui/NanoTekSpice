@@ -31,9 +31,16 @@ namespace nts
 	};
 
 	struct Pin {
+		size_t pin;
 		nts::Tristate state;
-		nts::IComponent *DestinationName;
-		int DestinationPin;
+		nts::IComponent *destinationName;
+		int destinationPin;
+	};
+
+	struct Door {
+		nts::Pin input1;
+		nts::Pin input2;
+		nts::Pin output;
 	};
 }
 

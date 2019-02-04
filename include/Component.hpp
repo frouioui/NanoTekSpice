@@ -9,6 +9,7 @@
 #define _COMPONENT_HPP
 
 #include <vector>
+#include <memory>
 #include <string>
 
 namespace Component
@@ -41,10 +42,10 @@ namespace Component
 
     struct Link
     {
-        std::string OriginName;
-        int OriginPin;
-        std::string DestinationName;
-        int DestinationPin;
+        std::string originName;
+        int originPin;
+        std::string destinationName;
+        int destinationPin;
     };
 
     struct ComponentSetting
@@ -53,7 +54,6 @@ namespace Component
         Type type;
         std::vector<Link> links;
     };
-
 } // Component
 
 

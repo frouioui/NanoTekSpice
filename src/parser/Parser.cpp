@@ -85,13 +85,13 @@ const std::vector<Component::Link> Parser::Parser::GetLinks(std::ifstream &file)
         pos = source.find_first_of(':');
         if (pos == std::string::npos)
             throw FormatError("Links destination must be separated by ':'", "GetLinks");
-        newLink.OriginName = source.substr(0, pos);
-        newLink.OriginPin = std::atoi(source.substr(pos + 1).c_str());
+        newLink.originName = source.substr(0, pos);
+        newLink.originPin = std::atoi(source.substr(pos + 1).c_str());
         pos = destination.find_first_of(':');
         if (pos == std::string::npos)
             throw FormatError("Links destination must be separated by ':'", "GetLinks");
-        newLink.DestinationName = destination.substr(0, pos);
-        newLink.DestinationPin = std::atoi(destination.substr(pos + 1).c_str());
+        newLink.destinationName = destination.substr(0, pos);
+        newLink.destinationPin = std::atoi(destination.substr(pos + 1).c_str());
         links.push_back(newLink);
     }
     return links;
@@ -101,7 +101,7 @@ void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &a
 {
     for (unsigned int j = 0; j < components.size(); j++) {
         for (unsigned int i = 0; i < allLinks.size(); i++) {
-            if (allLinks.at(i).OriginName.compare(components.at(j).value.c_str()) == 0) {
+            if (allLinks.at(i).originName.compare(components.at(j).value.c_str()) == 0) {
                 components.at(j).links.push_back(allLinks.at(i));
             }
         }

@@ -25,13 +25,14 @@ class C4001 : public nts::IComponent
 
 		void setName(const std::string &name);
 
-		void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
-		void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
+		void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
+		void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
 
 	private:
+		void checkSelfLink(std::size_t pin1, std::size_t pin2);
+
 		std::string _name;
-		std::map<size_t, nts::Pin> _input;
-		std::map<size_t, nts::Pin> _output;
+		std::map<size_t, nts::Door> _doors;
 };
 
 #endif /* !C4001_HPP_ */
