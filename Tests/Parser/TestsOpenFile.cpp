@@ -12,7 +12,7 @@
 
 Test(Parser, open_file_check_file_open)
 {
-    std::ifstream file = Parser::Parser("./tests/assets/parser/test_file_open_file_check_file_open").OpenFile();
+    std::ifstream file = Parser::Parser("./Tests/assets/parser/test_file_open_file_check_file_open").OpenFile();
 
     cr_assert_eq(file.is_open(), 1);
 }
@@ -34,7 +34,7 @@ Test(Parser, open_file_check_file_does_not_exist_what_where)
 
 Test(Parser, open_file_check_content)
 {
-    std::ifstream file = Parser::Parser("./tests/assets/parser/test_file_open_file_check_content").OpenFile();
+    std::ifstream file = Parser::Parser("./Tests/assets/parser/test_file_open_file_check_content").OpenFile();
     char c = 0;
     int compare = 0;
     std::string content;

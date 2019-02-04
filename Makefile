@@ -11,26 +11,26 @@ BINARY_UT_NAME = unit_tests
 
 CXX	=	g++ $(HEADER)
 
-PATH_TEST = ./tests
+PATH_TEST = ./Tests
 
-PATH_SRC = ./src
+PATH_SRC = ./Src
 
-UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
-			$(PATH_TEST)/parser/TestsParseFile.cpp				\
-			$(PATH_TEST)/parser/TestsErrorHandling.cpp			\
-			$(PATH_TEST)/parser/line/TestsClearLine.cpp			\
-			$(PATH_TEST)/parser/line/TestsCommentLine.cpp		\
-			$(PATH_TEST)/parser/line/TestsSplitLineInTwo.cpp	\
-			$(PATH_TEST)/parser/checker/TestsIsUseless.cpp		\
+UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp				\
+			$(PATH_TEST)/Parser/TestsParseFile.cpp				\
+			$(PATH_TEST)/Parser/TestsErrorHandling.cpp			\
+			$(PATH_TEST)/Parser/Line/TestsClearLine.cpp			\
+			$(PATH_TEST)/Parser/Line/TestsCommentLine.cpp		\
+			$(PATH_TEST)/Parser/Line/TestsSplitLineInTwo.cpp	\
+			$(PATH_TEST)/Parser/Checker/TestsIsUseless.cpp		\
 			$(PATH_TEST)/Components/TestsFactoryInput.cpp		\
-			$(PATH_TEST)/argument/TestsGetFilename.cpp			\
-			$(PATH_TEST)/argument/TestsGetInputValue.cpp		\
+			$(PATH_TEST)/Argument/TestsGetFilename.cpp			\
+			$(PATH_TEST)/Argument/TestsGetInputValue.cpp		\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
-SRC =	$(PATH_SRC)/parser/Parser.cpp			\
-		$(PATH_SRC)/parser/Checker.cpp			\
-		$(PATH_SRC)/parser/LineParser.cpp		\
+SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
+		$(PATH_SRC)/Parser/Checker.cpp			\
+		$(PATH_SRC)/Parser/LineParser.cpp		\
 		$(PATH_SRC)/Components/Factory.cpp		\
 		$(PATH_SRC)/Components/Input.cpp		\
 		$(PATH_SRC)/Components/Output.cpp		\
@@ -38,9 +38,10 @@ SRC =	$(PATH_SRC)/parser/Parser.cpp			\
 		$(PATH_SRC)/Components/False.cpp		\
 		$(PATH_SRC)/Components/C4001.cpp		\
 		$(PATH_SRC)/Error.cpp					\
-		$(PATH_SRC)/argument/ArgumentParser.cpp	\
+		$(PATH_SRC)/Argument/ArgumentParser.cpp	\
+		$(PATH_SRC)/Simulation/Simulation.cpp	\
 
-HEADER	=	-I./include/
+HEADER	=	-I./Include/
 
 CXXFLAGS	=	-W -Wextra -Werror
 
