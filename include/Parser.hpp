@@ -16,61 +16,74 @@
 
 #define SPACE(c) (c == ' ')
 #define TAB(c) (c == '\t')
-#define SPACE_OR_TAB(c) (SPACE(c) || TAB(c))
 
 namespace Parser
 {
 
+    using container_setting_t = std::vector<Component::ComponentSetting>;
+    using container_link_t = std::vector<Component::Link>;
+
     class Parser
     {
     public:
-        static std::vector<Component::ComponentSetting> ParseFile(const std::string &filepath);
-        static std::vector<Component::ComponentSetting> BeginParsing(std::ifstream &file);
-        static void CheckLinks(const std::vector<Component::ComponentSetting> &chipsetInfo);
-        static void CheckNames(const std::vector<Component::ComponentSetting> &chipsetInfo);
-        static void CheckType(const std::vector<Component::ComponentSetting> &chipsetInfo);
-        static std::ifstream OpenFile(const std::string &filepath);
-        static const std::string ClearLine(std::string &line);
-        static bool IsLineUseless(const std::string &line);
-        static const std::string RemoveComment(std::string &line);
-        static Component::Type GetType(const std::string &type);
-        static const std::vector<Component::Link> GetLinks(std::ifstream &file);
-        static std::map<std::string, std::string> SplitLineInTwo(const std::string &line);
-        static const Component::ComponentSetting CreateNewChipsetInfo(const std::string &name, const std::string &type);
-        static void AddLinksToChipsetInfo(const std::vector<Component::Link> &allLinks, std::vector<Component::ComponentSetting> &components);
+        Parser(const std::string &filename);
+        ~Parser();
+
+        const container_setting_t Parse();
+        void ReadFile();
+        std::ifstream OpenFile() const;
+        void AddLinksToChipsetInfo(const container_link_t &allLinks, container_setting_t &components);
+        void HandleChipsets(unsigned int &i, container_setting_t &ret);
+        void HandleLinks(unsigned int &i, container_link_t &allLinks);
+
+    private:
+        std::string _filename;
+        std::vector<std::string> _lines;
     };
 
-    // TODO: Put the error class in an other file and make it its own class.
-    class Error : public std::exception
+    class LineParser
     {
-        public:
-            Error(const std::string &message, const std::string &where = "Unknown");
-            virtual ~Error() throw() {};
+    public:
+        LineParser(const std::string &line);
+        ~LineParser();
 
-			const std::string &where() const;
-			const char* what() const noexcept override;
+        const std::string &GetLine() const;
 
-		protected:
-			std::string _where;
-		private:
-			std::string _message;
-	};
+        void ClearLine();
+        void RemoveComment();
 
-	class FileError : public Error
-	{
-		public:
-			FileError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
-			virtual ~FileError() throw() {};
-	};
+        Component::Type GetType(const std::string &typeStr) const;
+        Component::ComponentSetting GetInfoComponent() const;
+        Component::Link GetLink() const;
+        std::map<std::string, std::string> SplitLineInTwo() const;
 
-	class FormatError : public Error
-	{
-		public:
-			FormatError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
-			virtual ~FormatError() throw() {};
-	};
+    private:
+        std::string _line;
+    };
+
+    class Checker
+    {
+    public:
+        Checker(const container_setting_t &chipsetInfo, const container_link_t &allLinks);
+        Checker(const container_setting_t &chipsetInfo);
+        Checker(const container_link_t &allLinks);
+        Checker(const std::string &line);
+        ~Checker();
+
+        void Check();
+        void CheckNames() const;
+        void CheckType() const;
+        void CheckOutputs() const;
+        void CheckLinksMultiple() const;
+
+        bool IsUseless() const;
+
+    private:
+        container_setting_t _chipsetInfo;
+        container_link_t _allLinks;
+        std::string _line;
+    };
 
 } // Parser
-
 
 #endif // _PARSER_HPP

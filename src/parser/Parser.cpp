@@ -15,232 +15,110 @@
 #include <cstddef>
 #include "Component.hpp"
 #include "Parser.hpp"
+#include "Error.hpp"
 
-std::ifstream Parser::Parser::OpenFile(const std::string &filepath)
+Parser::Parser::Parser(const std::string &filename) : _filename(filename)
 {
-    std::ifstream file(filepath);
+}
+
+Parser::Parser::~Parser()
+{
+}
+
+std::ifstream Parser::Parser::OpenFile() const
+{
+    std::ifstream file(_filename);
 
     if (file.is_open() == false)
-        throw FileError("The file cannot be opened", "OpenFile");
+        throw Error::Paser::FileError("The file cannot be opened", "OpenFile");
     return file;
-}
-
-bool Parser::Parser::IsLineUseless(const std::string &line)
-{
-    unsigned int i = 0;
-
-    while (i < line.size() && SPACE_OR_TAB(line[i])) {
-        i++;
-    }
-    return line[i] == '#' || i == line.size();
-}
-
-const std::string Parser::Parser::RemoveComment(std::string &line)
-{
-    std::size_t pos = line.rfind('#');
-
-    if (pos == std::string::npos)
-        return line;
-    line.erase(pos);
-    return line;
-}
-
-Component::Type Parser::Parser::GetType(const std::string &type)
-{
-    char types[Component::NUMBER_OF_TYPE][10] = {"input", "output", "clock", "true", "false",
-    "4001", "4008", "4011", "4013", "4017", "4030", "4040", "4069", "4071",
-    "4081", "4094", "4801", "2716"};
-
-    for (unsigned int i = 0; i < Component::NUMBER_OF_TYPE; i++) {
-        if (type.compare(types[i]) == 0) {
-            return Component::Type(i + 1);
-        }
-    }
-    throw FormatError("The given type doesn't exist", "GetTypes");
-}
-
-const std::vector<Component::Link> Parser::Parser::GetLinks(std::ifstream &file)
-{
-    std::vector<Component::Link> links;
-
-    while (file.eof() == false) {
-        std::string line;
-        std::getline(file, line);
-        if (IsLineUseless(line) == true)
-            continue;
-        line = RemoveComment(line);
-        line = ClearLine(line);
-
-        // Split the string for the first time
-        size_t pos = line.find_first_of(' ');
-        if (pos == std::string::npos)
-            pos = line.find_first_of('\t');
-        if (pos == std::string::npos)
-            throw FormatError("Links must be two key/value separated by a space or tab", "GetLinks");
-        std::string source = line.substr(0, pos);
-        std::string destination = line.substr(pos + 1);
-
-        // Split the substrings, fill the new Link struct
-        Component::Link newLink;
-        pos = source.find_first_of(':');
-        if (pos == std::string::npos)
-            throw FormatError("Links destination must be separated by ':'", "GetLinks");
-        newLink.originName = source.substr(0, pos);
-        newLink.originPin = std::atoi(source.substr(pos + 1).c_str());
-        pos = destination.find_first_of(':');
-        if (pos == std::string::npos)
-            throw FormatError("Links destination must be separated by ':'", "GetLinks");
-        newLink.destinationName = destination.substr(0, pos);
-        newLink.destinationPin = std::atoi(destination.substr(pos + 1).c_str());
-        links.push_back(newLink);
-    }
-    return links;
 }
 
 void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &allLinks, std::vector<Component::ComponentSetting> &components)
 {
     for (unsigned int j = 0; j < components.size(); j++) {
         for (unsigned int i = 0; i < allLinks.size(); i++) {
-            if (allLinks.at(i).originName.compare(components.at(j).name.c_str()) == 0) {
-                components.at(j).links.push_back(allLinks.at(i));
+            if (allLinks[i].originName == allLinks[i].destinationName &&
+                allLinks[i].originPin == allLinks[i].destinationPin) {
+                throw Error::Paser::FileError("A link cannot be linked to itself", "AddLinksToChipsetInfo");
+            }
+            if (allLinks[i].originName.compare(components[j].value.c_str()) == 0) {
+                components[j].links.push_back(allLinks[i]);
+                break;
             }
         }
     }
 }
 
-const std::string Parser::Parser::ClearLine(std::string &line)
+void Parser::Parser::ReadFile()
 {
-    std::string result;
+    std::ifstream file = OpenFile();
 
-    if (line[0] == '\n')
-        line.erase(0);
-    for (size_t i = 0; i < line.size(); i++) {
-        if ((SPACE(line[i]) || TAB(line[i])) && i + 1 == line.length()) {
-            break;
-        } else if (!((line[i] == ' ' || line[i] == '\t') && (line[i + 1] == ' ' || line[i + 1] == '\t'))) {
-            result += line[i];
-        }
-    }
-    return result;
-}
-
-// Create a new ComponentSetting struct with the given information
-const Component::ComponentSetting Parser::Parser::CreateNewChipsetInfo(const std::string &key, const std::string &value)
-{
-    Component::ComponentSetting newInfo;
-
-    newInfo.name = value;
-    newInfo.type = GetType(key);
-    return (newInfo);
-}
-
-// This function splits a line in two, the separator if ' ' or '\t'
-std::map<std::string, std::string> Parser::Parser::SplitLineInTwo(const std::string &line)
-{
-    std::map<std::string, std::string> map;
-    size_t pos = line.find_first_of(' ');
-
-    if (pos == std::string::npos)
-        pos = line.find_first_of('\t');
-    if (pos == std::string::npos)
-        throw FormatError("Chipset line was incorect, needs a key and a value", "SplitLineInTwo");
-    map["value"] = line.substr(pos + 1);
-    map["key"] = line.substr(0, pos);
-    return map;
-}
-
-void Parser::Parser::CheckNames(const std::vector<Component::ComponentSetting> &chipsetInfo)
-{
-    for (unsigned int i = 0; i < chipsetInfo.size(); i++) {
-        for (unsigned int j = 0; j < chipsetInfo.size(); j++) {
-            if (j == i)
-                continue;
-            if (chipsetInfo.at(i).name == chipsetInfo.at(j).name)
-                throw FormatError("Name appear twice on file", "CheckNames");
-        }
-    }
-}
-
-void Parser::Parser::CheckLinks(const std::vector<Component::ComponentSetting> &chipsetInfo)
-{
-
-}
-
-void Parser::Parser::CheckType(const std::vector<Component::ComponentSetting> &chipsetInfo)
-{
-    for (unsigned int i = 0; i < chipsetInfo.size(); i++) {
-        if (chipsetInfo.at(i).type == Component::NOT_SET)
-            throw FormatError("The type a chipset is incorrect", "CheckType");
-    }
-}
-
-// BeginParsing will parse the whole file from the ".chipsets:" to the end
-// This function is called by the ParseFile function
-std::vector<Component::ComponentSetting> Parser::Parser::BeginParsing(std::ifstream &file)
-{
-    bool correct = false;
-    std::vector<Component::ComponentSetting> chipsetInfo;
-    std::vector<Component::Link> allLinks;
-
-    // Iterates from the .chipset to the end of the file
     while (file.eof() == false) {
         std::string line;
-        std::getline(file, line);
-
-        // Remove useless data on the line
-        if (IsLineUseless(line) == true)
+        getline(file, line);
+        Checker checker(line);
+        LineParser lineParser(line);
+        if (checker.IsUseless() == true)
             continue;
-        line = RemoveComment(line);
-        line = ClearLine(line);
-
-        // Once we reach the .links section, launch the links parser
-        // and check the values once it is done
-        if (line.compare(".links:") == 0) {
-            correct = true;
-            allLinks = GetLinks(file);
-            AddLinksToChipsetInfo(allLinks, chipsetInfo);
-            CheckLinks(chipsetInfo);
-            break;
-        } else {
-            // Parse the current line and add it to the chipsetInfo array
-            std::map<std::string, std::string> lineInfo = SplitLineInTwo(line);
-            chipsetInfo.push_back(CreateNewChipsetInfo(lineInfo["key"], lineInfo["value"]));
-        }
+        lineParser.RemoveComment();
+        lineParser.ClearLine();
+        _lines.push_back(lineParser.GetLine());
     }
-    if (correct == false)
-        throw FormatError("Must have a links section", "BeginParsing");
-    return chipsetInfo;
 }
 
-// ParseFile will parse the given file
-// And return and array of ComponentSetting
-std::vector<Component::ComponentSetting> Parser::Parser::ParseFile(const std::string &filepath)
+void Parser::Parser::HandleChipsets(unsigned int &i, std::vector<Component::ComponentSetting> &ret)
 {
-    bool correct = false;
-    std::vector<Component::ComponentSetting> chipsetInfo;
-    std::ifstream file = Parser::Parser::OpenFile(filepath);
+    i++;
+    while (i < _lines.size() && _lines[i].compare(".links:") != 0) {
+        LineParser lineParser(_lines[i]);
+        Component::ComponentSetting info;
+        info = lineParser.GetInfoComponent();
+        ret.push_back(info);
+        if (_lines[i + 1].compare(".links:") == 0)
+            break;
+        else
+            i++;
+    }
+}
 
-    // This loop will iterate until the first section begins (".chipsets:")
-    while (file.eof() == false) {
-        std::string line;
-        std::getline(file, line);
+void Parser::Parser::HandleLinks(unsigned int &i, std::vector<Component::Link> &allLinks)
+{
+    i++;
+    while (i < _lines.size() && _lines[i].compare(".chipsets:") != 0) {
+        LineParser lineParser(_lines[i]);
+        Component::Link link = lineParser.GetLink();
+        allLinks.push_back(link);
+        if (_lines[i + 1].compare(".chipsets:") == 0)
+            break;
+        else
+            i++;
+    }
+}
 
-        // Remove useless data on the line
-        if (IsLineUseless(line) == true)
-            continue;
-        line = RemoveComment(line);
-        line = ClearLine(line);
+const Parser::container_setting_t Parser::Parser::Parse()
+{
+    container_setting_t ret;
+    container_link_t allLinks;
+    bool chipsetKeyword = false;
+    bool linksKeyword = false;
 
-        // Launch the main parsing loop
-        if (line.compare(".chipsets:") == 0) {
-            correct = true;
-            chipsetInfo = BeginParsing(file);
-            CheckNames(chipsetInfo);
-            CheckType(chipsetInfo);
+    ReadFile();
+    for (unsigned int i = 0; i < _lines.size(); i++) {
+        if (_lines[i].compare(".chipsets:") == 0) {
+            HandleChipsets(i, ret);
+            chipsetKeyword = true;
+        } else if (_lines[i].compare(".links:") == 0) {
+            HandleLinks(i, allLinks);
+            Checker check(allLinks);
+            check.CheckLinksMultiple();
+            linksKeyword = true;
         }
     }
-    // If there is no .chipsets section
-    if (correct == false)
-        throw FormatError("Must have a chipset section", "ParseFile");
-    return chipsetInfo;
+    if (chipsetKeyword == false || linksKeyword == false)
+        throw Error::Paser::FormatError("Must have a .chipsets and a .links in your file", "Parse");
+    AddLinksToChipsetInfo(allLinks, ret);
+    Checker check(ret, allLinks);
+    check.Check();
+    return ret;
 }
