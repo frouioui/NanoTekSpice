@@ -50,14 +50,14 @@ void Parser::Checker::CheckOutputs() const
         if (_chipsetInfo[i].type != Component::Type::OUTPUT)
             continue;
         for (unsigned int j = 0; j < _allLinks.size(); j++) {
-            if (_allLinks[j].destinationName == _chipsetInfo[i].value ||
-            _allLinks[j].originName == _chipsetInfo[i].value) {
+            if (_allLinks[j].destinationName == _chipsetInfo[i].name ||
+            _allLinks[j].originName == _chipsetInfo[i].name) {
                 found = true;
                 break;
             }
         }
         if (found == false)
-            throw Error::Paser::FormatError("Output must have at least one link", "CheckOutputs");
+            throw Error::Parser::FormatError("Output must have at least one link", "CheckOutputs");
         found = true;
     }
 }
@@ -74,10 +74,10 @@ void Parser::Checker::CheckLinksMultiple() const
             if (j != i) {
                 if ((name == _allLinks[j].originName && pin == _allLinks[j].originPin) ||
                     (name == _allLinks[j].destinationName && pin == _allLinks[j].destinationPin))
-                    throw Error::Paser::FormatError("Link is already used somewhere else", "CheckLinksMultiple");
+                    throw Error::Parser::FormatError("Link is already used somewhere else", "CheckLinksMultiple");
             } else {
                 if (name == _allLinks[j].destinationName && pin == _allLinks[j].destinationPin)
-                    throw Error::Paser::FormatError("Link is already used somewhere else", "CheckLinksMultiple");
+                    throw Error::Parser::FormatError("Link is already used somewhere else", "CheckLinksMultiple");
             }
         }
     }
@@ -89,8 +89,8 @@ void Parser::Checker::CheckNames() const
         for (unsigned int j = 0; j < _chipsetInfo.size(); j++) {
             if (j == i)
                 continue;
-            if (_chipsetInfo[i].value == _chipsetInfo[j].value)
-                throw Error::Paser::FormatError("Name appear twice on file", "CheckNames");
+            if (_chipsetInfo[i].name == _chipsetInfo[j].name)
+                throw Error::Parser::FormatError("Name appear twice on file", "CheckNames");
         }
     }
 }
@@ -99,7 +99,7 @@ void Parser::Checker::CheckType() const
 {
     for (unsigned int i = 0; i < _chipsetInfo.size(); i++) {
         if (_chipsetInfo[i].type == Component::NOT_SET)
-            throw Error::Paser::FormatError("The type a chipset is incorrect", "CheckType");
+            throw Error::Parser::FormatError("The type a chipset is incorrect", "CheckType");
     }
 }
 

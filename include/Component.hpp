@@ -9,6 +9,7 @@
 #define _COMPONENT_HPP
 
 #include <vector>
+#include <memory>
 #include <string>
 
 namespace Component
@@ -49,11 +50,11 @@ namespace Component
 
     struct ComponentSetting
     {
+        std::string name;
         std::string value;
         Type type;
         std::vector<Link> links;
     };
-
 } // Component
 
 

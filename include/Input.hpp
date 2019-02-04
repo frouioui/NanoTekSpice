@@ -15,17 +15,18 @@
 class Input : public nts::IComponent
 {
 	public:
-		Input(const std::string &name);
+		Input();
 		~Input();
 
 	nts::Tristate compute(std::size_t pin = 1) override;
 	void setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin) override;
 	void dump() const override;
 
+	void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
 	void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
 
 	private:
-		const std::string &_name;
+		std::string _name;
 		std::map<size_t, nts::Pin> _output;
 };
 

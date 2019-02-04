@@ -15,7 +15,7 @@
 class Output : public nts::IComponent
 {
 	public:
-		Output(const std::string &name);
+		Output();
 		~Output();
 
 	nts::Tristate compute(std::size_t pin = 1) override;
@@ -23,9 +23,10 @@ class Output : public nts::IComponent
 	void dump() const override;
 
 	void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
+	void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
 
 	private:
-		const std::string &_name;
+		std::string _name;
 		std::map<size_t, nts::Pin> _input;
 };
 

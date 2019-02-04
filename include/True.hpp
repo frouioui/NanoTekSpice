@@ -1,0 +1,33 @@
+/*
+** EPITECH PROJECT, 2019
+** OOP_NanoTekSpice
+** File description:
+** True class
+*/
+
+#ifndef TRUE_HPP_
+	#define TRUE_HPP_
+
+#include "IComponent.hpp"
+#include <iostream>
+#include <map>
+
+class True : public nts::IComponent
+{
+	public:
+		True();
+		~True();
+
+	nts::Tristate compute(std::size_t pin = 1) override;
+	void setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin) override;
+	void dump() const override;
+
+	void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
+	void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
+
+	private:
+		std::string _name;
+		std::map<size_t, nts::Pin> _output;
+};
+
+#endif /* !TRUE_HPP_ */
