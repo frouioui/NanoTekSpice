@@ -16,10 +16,10 @@ Test(Parser, parse_file_easy_correct_file)
 
     cr_assert_eq(settings.at(0).type, Component::INPUT);
     cr_assert_eq(settings.at(0).value.compare("a"), 0);
-    cr_assert_eq(settings.at(0).links.at(0).OriginName.compare("a"), 0);
-    cr_assert_eq(settings.at(0).links.at(0).OriginPin, 1);
-    cr_assert_eq(settings.at(0).links.at(0).DestinationName.compare("gate"), 0);
-    cr_assert_eq(settings.at(0).links.at(0).DestinationPin, 1);
+    cr_assert_eq(settings.at(0).links.at(0).originName.compare("a"), 0);
+    cr_assert_eq(settings.at(0).links.at(0).originPin, 1);
+    cr_assert_eq(settings.at(0).links.at(0).destinationName.compare("gate"), 0);
+    cr_assert_eq(settings.at(0).links.at(0).destinationPin, 1);
 }
 
 Test(Parser, parse_file_easy_correct_file_2)
@@ -28,8 +28,8 @@ Test(Parser, parse_file_easy_correct_file_2)
 
     cr_assert_eq(settings.at(4).type, Component::INPUT);
     cr_assert_eq(settings.at(4).value.compare("e"), 0);
-    cr_assert_eq(settings.at(4).links.at(0).OriginName.compare("e"), 0);
-    cr_assert_eq(settings.at(4).links.at(0).OriginPin, 1);
-    cr_assert_eq(settings.at(4).links.at(0).DestinationName.compare("gate"), 0);
-    cr_assert_eq(settings.at(4).links.at(0).DestinationPin, 8);
+    cr_assert_eq(settings.at(4).links.at(0).originName.compare("e"), 0);
+    cr_assert_eq(settings.at(4).links.at(0).originPin, 1);
+    cr_assert_eq(settings.at(4).links.at(0).destinationName.compare("gate"), 0);
+    cr_assert_eq(settings.at(4).links.at(0).destinationPin, 8);
 }

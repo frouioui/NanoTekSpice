@@ -32,8 +32,8 @@ namespace nts
 
 	struct Pin {
 		nts::Tristate state;
-		nts::IComponent *DestinationName;
-		int DestinationPin;
+		nts::IComponent *destinationName;
+		int destinationPin;
 	};
 }
 

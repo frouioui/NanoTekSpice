@@ -64,23 +64,26 @@ namespace Parser
     class Checker
     {
     public:
+        Checker(const container_setting_t &chipsetInfo, const container_link_t &allLinks);
         Checker(const container_setting_t &chipsetInfo);
+        Checker(const container_link_t &allLinks);
         Checker(const std::string &line);
         ~Checker();
 
         void Check();
-        void CheckLinks() const;
         void CheckNames() const;
         void CheckType() const;
+        void CheckOutputs() const;
+        void CheckLinksMultiple() const;
 
         bool IsUseless() const;
 
     private:
         container_setting_t _chipsetInfo;
+        container_link_t _allLinks;
         std::string _line;
     };
 
 } // Parser
-
 
 #endif // _PARSER_HPP

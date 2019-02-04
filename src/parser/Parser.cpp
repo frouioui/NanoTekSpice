@@ -38,8 +38,13 @@ void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &a
 {
     for (unsigned int j = 0; j < components.size(); j++) {
         for (unsigned int i = 0; i < allLinks.size(); i++) {
-            if (allLinks.at(i).OriginName.compare(components.at(j).value.c_str()) == 0) {
-                components.at(j).links.push_back(allLinks.at(i));
+            if (allLinks[i].originName == allLinks[i].destinationName &&
+                allLinks[i].originPin == allLinks[i].destinationPin) {
+                throw Error::Paser::FileError("A link cannot be linked to itself", "AddLinksToChipsetInfo");
+            }
+            if (allLinks[i].originName.compare(components[j].value.c_str()) == 0) {
+                components[j].links.push_back(allLinks[i]);
+                break;
             }
         }
     }
@@ -93,8 +98,8 @@ void Parser::Parser::HandleLinks(unsigned int &i, std::vector<Component::Link> &
 
 const Parser::container_setting_t Parser::Parser::Parse()
 {
-    std::vector<Component::ComponentSetting> ret;
-    std::vector<Component::Link> allLinks;
+    container_setting_t ret;
+    container_link_t allLinks;
     bool chipsetKeyword = false;
     bool linksKeyword = false;
 
@@ -105,13 +110,15 @@ const Parser::container_setting_t Parser::Parser::Parse()
             chipsetKeyword = true;
         } else if (_lines[i].compare(".links:") == 0) {
             HandleLinks(i, allLinks);
+            Checker check(allLinks);
+            check.CheckLinksMultiple();
             linksKeyword = true;
         }
     }
     if (chipsetKeyword == false || linksKeyword == false)
         throw Error::Paser::FormatError("Must have a .chipsets and a .links in your file", "Parse");
     AddLinksToChipsetInfo(allLinks, ret);
-    Checker check(ret);
+    Checker check(ret, allLinks);
     check.Check();
     return ret;
 }
