@@ -27,7 +27,7 @@ void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t other
 	auto search = _input.find(pin);
 
 	if (search == _input.end())
-		throw Error::Paser::FileError("No corresponding pin", "Output::setLink");
+		throw Error::Parser::FileError("No corresponding pin", "Output::setLink");
 	_input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 	other.setOutput(otherPin, *this, pin);
 }
@@ -42,7 +42,7 @@ void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t other
 	auto search = _input.find(pin);
 
 	if (search == _input.end())
-		throw Error::Paser::FileError("No corresponding pin", "Output::setInput");
+		throw Error::Parser::FileError("No corresponding pin", "Output::setInput");
 	_input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 }
 

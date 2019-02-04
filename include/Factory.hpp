@@ -24,8 +24,8 @@ class Factory {
 		const std::string &value);
 
 	private:
-		using ptr_component_t = std::unique_ptr<nts::IComponent>;
-		using func_t = std::function<ptr_component_t(const std::string&)>;
+		using ptrIComponent_t = std::unique_ptr<nts::IComponent>;
+		using func_t = std::function<ptrIComponent_t(const std::string&)>;
 		std::map<Component::Type, func_t> _componentsCreator;
 
 		std::vector<Component::ComponentSetting> _components;

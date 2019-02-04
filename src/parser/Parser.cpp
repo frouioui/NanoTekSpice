@@ -101,7 +101,7 @@ void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &a
 {
     for (unsigned int j = 0; j < components.size(); j++) {
         for (unsigned int i = 0; i < allLinks.size(); i++) {
-            if (allLinks.at(i).originName.compare(components.at(j).value.c_str()) == 0) {
+            if (allLinks.at(i).originName.compare(components.at(j).name.c_str()) == 0) {
                 components.at(j).links.push_back(allLinks.at(i));
             }
         }
@@ -129,7 +129,7 @@ const Component::ComponentSetting Parser::Parser::CreateNewChipsetInfo(const std
 {
     Component::ComponentSetting newInfo;
 
-    newInfo.value = value;
+    newInfo.name = value;
     newInfo.type = GetType(key);
     return (newInfo);
 }
@@ -155,7 +155,7 @@ void Parser::Parser::CheckNames(const std::vector<Component::ComponentSetting> &
         for (unsigned int j = 0; j < chipsetInfo.size(); j++) {
             if (j == i)
                 continue;
-            if (chipsetInfo.at(i).value == chipsetInfo.at(j).value)
+            if (chipsetInfo.at(i).name == chipsetInfo.at(j).name)
                 throw FormatError("Name appear twice on file", "CheckNames");
         }
     }

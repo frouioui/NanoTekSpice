@@ -13,7 +13,7 @@ Test(Parser, new_chipset_info_input)
     Component::ComponentSetting info;
 
     info = Parser::Parser::CreateNewChipsetInfo("input", "4");
-    cr_assert_eq(info.value.compare("4"), 0);
+    cr_assert_eq(info.name.compare("4"), 0);
     cr_assert_eq(info.type, Component::Type::INPUT);
 }
 
@@ -22,7 +22,7 @@ Test(Parser, new_chipset_info_output)
     Component::ComponentSetting info;
 
     info = Parser::Parser::CreateNewChipsetInfo("output", "343");
-    cr_assert_eq(info.value.compare("343"), 0);
+    cr_assert_eq(info.name.compare("343"), 0);
     cr_assert_eq(info.type, Component::Type::OUTPUT);
 }
 
@@ -31,7 +31,7 @@ Test(Parser, new_chipset_info_clock)
     Component::ComponentSetting info;
 
     info = Parser::Parser::CreateNewChipsetInfo("clock", "76");
-    cr_assert_eq(info.value.compare("76"), 0);
+    cr_assert_eq(info.name.compare("76"), 0);
     cr_assert_eq(info.type, Component::Type::CLOCK);
 }
 

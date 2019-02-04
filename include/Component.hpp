@@ -50,7 +50,7 @@ namespace Component
 
     struct ComponentSetting
     {
-        std::string value;
+        std::string name;
         Type type;
         std::vector<Link> links;
     };

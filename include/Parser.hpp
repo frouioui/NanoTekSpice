@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** OOP_NanoTekSpice
 ** File description:
-** Declaration of the Paser class
+** Declaration of the Parser class
 */
 
 #if !defined(_PARSER_HPP)

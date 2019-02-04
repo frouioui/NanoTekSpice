@@ -53,7 +53,7 @@ void C4001::checkSelfLink(std::size_t pin1, std::size_t pin2)
 			output = true;
 	}
 	if (!(input == true && output == true))
-		throw Error::Paser::FileError("No corresponding pin", "C4001::checkSelfLink");
+		throw Error::Parser::FileError("No corresponding pin", "C4001::checkSelfLink");
 }
 
 void C4001::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin)
@@ -83,7 +83,7 @@ void C4001::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
 		}
 	}
 	if (find == false)
-		throw Error::Paser::FileError("No corresponding pin", "C4001::setLink");
+		throw Error::Parser::FileError("No corresponding pin", "C4001::setLink");
 }
 
 void C4001::dump() const
@@ -119,7 +119,7 @@ void C4001::setInput(std::size_t pin, nts::IComponent &other, std::size_t otherP
 		}
 	}
 	if (find == false)
-		throw Error::Paser::FileError("No corresponding pin", "C4001::setInput");
+		throw Error::Parser::FileError("No corresponding pin", "C4001::setInput");
 }
 
 void C4001::setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
@@ -134,7 +134,7 @@ void C4001::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
 		}
 	}
 	if (find == false)
-		throw Error::Paser::FileError("No corresponding pin", "C4001::setOutput");
+		throw Error::Parser::FileError("No corresponding pin", "C4001::setOutput");
 }
 
 void C4001::setName(const std::string &name)

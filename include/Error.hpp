@@ -27,7 +27,7 @@ namespace Error {
 			std::string _message;
 	};
 
-	namespace Paser {
+	namespace Parser {
 		class FileError : public Error
 		{
 			public:

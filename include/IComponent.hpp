@@ -9,6 +9,7 @@
 	#define ICOMPONENT_HPP_
 
 #include <cstddef>
+#include <memory>
 
 namespace nts
 {
@@ -17,6 +18,7 @@ namespace nts
 		TRUE = true ,
 		FALSE = false
 	};
+
 	class IComponent
 	{
 	public:
@@ -29,6 +31,8 @@ namespace nts
 		virtual void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
 		virtual void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
 	};
+
+	using ptrIComponent_t = std::unique_ptr<nts::IComponent>;
 
 	struct Pin {
 		size_t pin;
