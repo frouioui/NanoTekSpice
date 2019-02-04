@@ -30,7 +30,7 @@ std::ifstream Parser::Parser::OpenFile() const
     std::ifstream file(_filename);
 
     if (file.is_open() == false)
-        throw Error::Paser::FileError("The file cannot be opened", "OpenFile");
+        throw Error::Parser::FileError("The file cannot be opened", "OpenFile");
     return file;
 }
 
@@ -40,9 +40,9 @@ void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &a
         for (unsigned int i = 0; i < allLinks.size(); i++) {
             if (allLinks[i].originName == allLinks[i].destinationName &&
                 allLinks[i].originPin == allLinks[i].destinationPin) {
-                throw Error::Paser::FileError("A link cannot be linked to itself", "AddLinksToChipsetInfo");
+                throw Error::Parser::FileError("A link cannot be linked to itself", "AddLinksToChipsetInfo");
             }
-            if (allLinks[i].originName.compare(components[j].value.c_str()) == 0) {
+            if (allLinks[i].originName.compare(components[j].name.c_str()) == 0) {
                 components[j].links.push_back(allLinks[i]);
                 break;
             }
@@ -116,7 +116,7 @@ const Parser::container_setting_t Parser::Parser::Parse()
         }
     }
     if (chipsetKeyword == false || linksKeyword == false)
-        throw Error::Paser::FormatError("Must have a .chipsets and a .links in your file", "Parse");
+        throw Error::Parser::FormatError("Must have a .chipsets and a .links in your file", "Parse");
     AddLinksToChipsetInfo(allLinks, ret);
     Checker check(ret, allLinks);
     check.Check();

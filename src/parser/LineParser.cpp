@@ -64,7 +64,7 @@ Component::Type Parser::LineParser::GetType(const std::string &typeStr) const
             return Component::Type(i + 1);
         }
     }
-    throw Error::Paser::FormatError("The given type doesn't exist", "GetTypes");
+    throw Error::Parser::FormatError("The given type doesn't exist", "GetTypes");
 }
 
 std::map<std::string, std::string> Parser::LineParser::SplitLineInTwo() const
@@ -76,7 +76,7 @@ std::map<std::string, std::string> Parser::LineParser::SplitLineInTwo() const
         pos = _line.find_first_of('\t');
 
     if (pos == std::string::npos)
-        throw Error::Paser::FormatError("Chipset line was incorect, needs a key and a value", "SplitLineInTwo");
+        throw Error::Parser::FormatError("Chipset line was incorect, needs a key and a value", "SplitLineInTwo");
 
     map["value"] = _line.substr(pos + 1);
     map["key"] = _line.substr(0, pos);
@@ -87,10 +87,10 @@ Component::ComponentSetting Parser::LineParser::GetInfoComponent() const
 {
     Component::ComponentSetting newInfo;
     std::map<std::string, std::string> lineInfo;
-    
+
     lineInfo = SplitLineInTwo();
 
-    newInfo.value = lineInfo["value"];
+    newInfo.name = lineInfo["value"];
     newInfo.type = GetType(lineInfo["key"]);
     return newInfo;
 }
@@ -104,14 +104,14 @@ Component::Link Parser::LineParser::GetLink() const
     // Get the source
     pos = lineInfo["key"].find_first_of(':');
     if (pos == std::string::npos)
-        throw Error::Paser::FormatError("Links source must be separated by ':'", "GetLinks");
+        throw Error::Parser::FormatError("Links source must be separated by ':'", "GetLinks");
     link.originName = lineInfo["key"].substr(0, pos);
     link.originPin = std::atoi(lineInfo["key"].substr(pos + 1).c_str());
 
     // Get the destination
     pos = lineInfo["value"].find_first_of(':');
     if (pos == std::string::npos)
-        throw Error::Paser::FormatError("Links destination must be separated by ':'", "GetLinks");
+        throw Error::Parser::FormatError("Links destination must be separated by ':'", "GetLinks");
     link.destinationName = lineInfo["value"].substr(0, pos);
     link.destinationPin = std::atoi(lineInfo["value"].substr(pos + 1).c_str());
     return link;

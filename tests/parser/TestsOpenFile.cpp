@@ -19,14 +19,14 @@ Test(Parser, open_file_check_file_open)
 
 Test(Parser, open_file_check_file_does_not_exist_throw)
 {
-    cr_assert_throw(Parser::Parser("bad").OpenFile(), Error::Paser::FileError);
+    cr_assert_throw(Parser::Parser("bad").OpenFile(), Error::Parser::FileError);
 }
 
 Test(Parser, open_file_check_file_does_not_exist_what_where)
 {
     try {
         Parser::Parser("bad").OpenFile();
-    } catch (Error::Paser::FileError &error) {
+    } catch (Error::Parser::FileError &error) {
         cr_assert_eq(error.where().compare("OpenFile"), 0);
         cr_assert_str_eq(error.what(), "The file cannot be opened");
     }
