@@ -16,10 +16,10 @@ class Circuit {
 		Circuit();
 		~Circuit();
 
-		void createAllComponents();
+		std::map<std::string, nts::ptrIComponent_t>createAllComponents(std::string path);
 
 	private:
-	std::map<std::string, nts::ptrIComponent_t> _allComponents;
+		std::map<std::string, nts::ptrIComponent_t> _allComponents;
 };
 
 #endif /* !CIRCUIT_HPP_ */

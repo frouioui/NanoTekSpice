@@ -27,7 +27,6 @@ UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
 MAIN = $(PATH_SRC)/Main.cpp
 
 SRC =	$(PATH_SRC)/parser/Parser.cpp			\
-		$(PATH_SRC)/parser/ParserError.cpp		\
 		$(PATH_SRC)/parser/Checker.cpp			\
 		$(PATH_SRC)/parser/LineParser.cpp		\
 		$(PATH_SRC)/Components/Factory.cpp		\

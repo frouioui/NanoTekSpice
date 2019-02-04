@@ -51,6 +51,7 @@ namespace Component
     struct ComponentSetting
     {
         std::string name;
+        std::string value;
         Type type;
         std::vector<Link> links;
     };

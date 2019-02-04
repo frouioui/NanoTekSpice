@@ -35,6 +35,18 @@ Factory::~Factory()
 {
 }
 
+// std::map<std::string, nts::ptrIComponent_t> Factory::getComponents() const noexcept
+// {
+// 	return _allComponents;
+// }
+
+void Factory::createAllComponents(const std::vector<Component::ComponentSetting> &settings)
+{
+	for (auto it  = settings.begin(); it != settings.end(); ++it) {
+		_allComponents[it->name] = createComponent(it->type, it->value);
+	}
+}
+
 std::unique_ptr<nts::IComponent> Factory::createComponent(const Component::Type type,
 const std::string &value)
 {
