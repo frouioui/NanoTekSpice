@@ -22,6 +22,8 @@ UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/parser/line/TestsCommentLine.cpp		\
 			$(PATH_TEST)/parser/line/TestsSplitLineInTwo.cpp	\
 			$(PATH_TEST)/parser/checker/TestsIsUseless.cpp		\
+			$(PATH_TEST)/argument/TestsGetFilename.cpp			\
+			$(PATH_TEST)/argument/TestsGetInputValue.cpp		\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
@@ -29,6 +31,7 @@ SRC =	$(PATH_SRC)/parser/Parser.cpp			\
 		$(PATH_SRC)/parser/ParserError.cpp		\
 		$(PATH_SRC)/parser/Checker.cpp			\
 		$(PATH_SRC)/parser/LineParser.cpp		\
+		$(PATH_SRC)/argument/ArgumentParser.cpp	\
 
 HEADER	=	-I./include/
 
