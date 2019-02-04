@@ -14,12 +14,18 @@
 namespace Argument
 {
 
+    struct Argument {
+        std::string filename;
+        std::map<std::string, std::string> intputValues;
+    };
+
     class ArgumentParser
     {
     public:
         ArgumentParser(int argc, char **argv);
         ~ArgumentParser();
 
+        const Argument GetArgument() const;
         const std::string GetFilename() const;
         const std::map<std::string, std::string> GetInputValue() const;
 

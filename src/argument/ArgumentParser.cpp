@@ -17,6 +17,15 @@ Argument::ArgumentParser::~ArgumentParser()
 {
 }
 
+const Argument::Argument Argument::ArgumentParser::GetArgument() const
+{
+    Argument args;
+
+    args.filename = GetFilename();
+    args.intputValues = GetInputValue();
+    return args;
+}
+
 const std::string Argument::ArgumentParser::GetFilename() const
 {
     if (_argc < 2) {

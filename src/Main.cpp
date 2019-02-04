@@ -7,11 +7,12 @@
 
 #include <iostream>
 #include "Parser.hpp"
+#include "ArgumentParser.hpp"
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
-        return 1;
-    std::vector<Component::ComponentSetting> settings = Parser::Parser(argv[1]).Parse();
+    Argument::ArgumentParser argParser(argc, argv);
+    const Argument::Argument args = argParser.GetArgument();
+
     return 0;
 }
