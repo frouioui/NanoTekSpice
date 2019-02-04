@@ -105,14 +105,14 @@ Component::Link Parser::LineParser::GetLink() const
     pos = lineInfo["key"].find_first_of(':');
     if (pos == std::string::npos)
         throw Error::Paser::FormatError("Links source must be separated by ':'", "GetLinks");
-    link.OriginName = lineInfo["key"].substr(0, pos);
-    link.OriginPin = std::atoi(lineInfo["key"].substr(pos + 1).c_str());
+    link.originName = lineInfo["key"].substr(0, pos);
+    link.originPin = std::atoi(lineInfo["key"].substr(pos + 1).c_str());
 
     // Get the destination
     pos = lineInfo["value"].find_first_of(':');
     if (pos == std::string::npos)
         throw Error::Paser::FormatError("Links destination must be separated by ':'", "GetLinks");
-    link.DestinationName = lineInfo["value"].substr(0, pos);
-    link.DestinationPin = std::atoi(lineInfo["value"].substr(pos + 1).c_str());
+    link.destinationName = lineInfo["value"].substr(0, pos);
+    link.destinationPin = std::atoi(lineInfo["value"].substr(pos + 1).c_str());
     return link;
 }
