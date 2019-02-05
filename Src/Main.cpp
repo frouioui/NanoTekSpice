@@ -13,16 +13,28 @@
 
 int main(int argc, char **argv)
 {
-    Simulation::Simulation simulator;
+    // Argument manager
     Argument::ArgumentParser argParser(argc, argv);
     Argument::Argument args;
 
+    // Container for all the components and their link
+    Parser::container_setting_t components;
+
+    // Simulation class
+    Simulation::Simulation simulator;
+
     try {
+        // Get args
         args = argParser.GetArgument();
+        
+        // Parse file
+        components = Parser::Parser(args.filename).Parse();
     } catch (Error::Error e) {
         std::cout << e.what() << std::endl;
         return (84);
     }
+
+    // TODO: Give something to the simulator (circuit, components ...)
 
     simulator.Run();
     return 0;
