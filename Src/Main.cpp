@@ -8,11 +8,22 @@
 #include <iostream>
 #include "Parser.hpp"
 #include "ArgumentParser.hpp"
+#include "Simulation.hpp"
+#include "Error.hpp"
 
 int main(int argc, char **argv)
 {
+    Simulation::Simulation simulator;
     Argument::ArgumentParser argParser(argc, argv);
-    const Argument::Argument args = argParser.GetArgument();
+    Argument::Argument args;
 
+    try {
+        args = argParser.GetArgument();
+    } catch (Error::Error e) {
+        std::cout << e.what() << std::endl;
+        return (84);
+    }
+
+    simulator.Run();
     return 0;
 }

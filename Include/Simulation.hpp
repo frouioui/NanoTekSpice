@@ -17,7 +17,11 @@ namespace Simulation
         Simulation();
         ~Simulation();
 
+        void Run();
+        void DisplayPrompt() const;
+
     private:
+        
     };
 
 } // Simulation
