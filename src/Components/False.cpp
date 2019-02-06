@@ -8,7 +8,8 @@
 #include "False.hpp"
 #include "Error.hpp"
 
-False::False()
+False::False() :
+Component::MyComponent(nts::CFALSE)
 {
 	_output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::FALSE, nullptr, -1}));
 }
@@ -53,14 +54,4 @@ void False::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
 	if (search == _output.end())
 		throw Error::Parser::FileError("No corresponding pin", "False::setOutput");
 	_output[pin] = {pin, nts::FALSE, &other, static_cast<int>(otherPin)};
-}
-
-const std::string &False::getName() const noexcept
-{
-	return _name;
-}
-
-void False::setName(const std::string &name) noexcept
-{
-	_name = name;
 }

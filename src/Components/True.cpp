@@ -7,8 +7,10 @@
 
 #include "True.hpp"
 #include "Error.hpp"
+#include "IComponent.hpp"
 
-True::True()
+True::True() :
+Component::MyComponent(nts::CTRUE)
 {
 	_output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::TRUE, nullptr, -1}));
 }
@@ -53,14 +55,4 @@ void True::setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherP
 	if (search == _output.end())
 		throw Error::Parser::FileError("No corresponding pin", "True::setOutput");
 	_output[pin] = {pin, nts::TRUE, &other, static_cast<int>(otherPin)};
-}
-
-const std::string &True::getName() const noexcept
-{
-	return _name;
-}
-
-void True::setName(const std::string &name) noexcept
-{
-	_name = name;
 }

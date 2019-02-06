@@ -7,8 +7,10 @@
 
 #include "Input.hpp"
 #include "Error.hpp"
+#include "IComponent.hpp"
 
-Input::Input()
+Input::Input() :
+Component::MyComponent(nts::INPUT)
 {
 	_output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::UNDEFINED, nullptr, -1}));
 }
@@ -60,15 +62,7 @@ void Input::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
 
 	if (search == _output.end())
 		throw Error::Parser::FileError("No corresponding pin", "Input::setOutput");
+	if (_output[pin].destinationName != nullptr)
+		throw Error::Component::LinkError("Pin already linked", "Input::setOutput");
 	_output[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
-}
-
-const std::string &Input::getName() const noexcept
-{
-	return _name;
-}
-
-void Input::setName(const std::string &name) noexcept
-{
-	_name = name;
 }

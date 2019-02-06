@@ -18,13 +18,6 @@ Circuit::~Circuit()
 {
 }
 
-void Circuit::dump() const
-{
-	for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
-		it->second->dump();
-	}
-}
-
 void Circuit::linkAllComponents(const std::vector<Component::ComponentSetting> &settings)
 {
 	Factory fact;
@@ -43,4 +36,20 @@ void Circuit::createAllComponents(std::string path)
 	}
 
 	linkAllComponents(settings);
+}
+
+nts::Tristate Circuit::compute()
+{
+	for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
+		if (it->second->getType() == nts::OUTPUT)
+			return it->second->compute();
+	}
+	return nts::UNDEFINED;
+}
+
+void Circuit::dump() const
+{
+	for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
+		it->second->dump();
+	}
 }

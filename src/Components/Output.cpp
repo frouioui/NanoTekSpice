@@ -7,8 +7,10 @@
 
 #include "Output.hpp"
 #include "Error.hpp"
+#include "IComponent.hpp"
 
-Output::Output()
+Output::Output() :
+Component::MyComponent(nts::OUTPUT)
 {
 	_input.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::UNDEFINED, nullptr, -1}));
 }
@@ -19,7 +21,14 @@ Output::~Output()
 
 nts::Tristate Output::compute(std::size_t pin)
 {
-	return nts::UNDEFINED;
+	auto search = _input.find(pin);
+
+	if (search == _input.end())
+		throw Error::Component::ComputeError("No corresponding pin", "Output::compute");
+	if (search->second.destinationName == nullptr) {
+		return nts::UNDEFINED;
+	}
+	return search->second.destinationName->compute(search->second.destinationPin);
 }
 
 void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin)
@@ -51,19 +60,11 @@ void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t other
 
 	if (search == _input.end())
 		throw Error::Parser::FileError("No corresponding pin", "Output::setInput");
+	if (_input[pin].destinationName != nullptr)
+		throw Error::Component::LinkError("Pin already linked", "Output::setInput");
 	_input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 }
 
 void Output::setOutput(std::size_t, nts::IComponent &, std::size_t)
 {
-}
-
-const std::string &Output::getName() const noexcept
-{
-	return _name;
-}
-
-void Output::setName(const std::string &name) noexcept
-{
-	_name = name;
 }

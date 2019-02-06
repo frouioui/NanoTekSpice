@@ -7,8 +7,10 @@
 
 #include "C4001.hpp"
 #include "Error.hpp"
+#include "IComponent.hpp"
 
-C4001::C4001()
+C4001::C4001() :
+Component::MyComponent(nts::C4001)
 {
 	nts::Pin pin1 = {1, nts::UNDEFINED, nullptr, -1};
 	nts::Pin pin2 = {2, nts::UNDEFINED, nullptr, -1};
@@ -35,8 +37,39 @@ C4001::~C4001()
 {
 }
 
+nts::Tristate C4001::computeInput(nts::Pin pin)
+{
+	if (pin.destinationName == nullptr)
+		return pin.state;
+	pin.state = pin.destinationName->compute(pin.destinationPin);
+	return pin.state;
+}
+
+nts::Tristate C4001::computeOutput(nts::Door door)
+{
+	nts::Tristate input1State = computeInput(door.input1);
+	nts::Tristate input2State = computeInput(door.input2);
+
+	if (input1State == nts::FALSE && input2State == nts::FALSE)
+		return nts::TRUE;
+	if (input1State == nts::TRUE || input2State == nts::TRUE)
+		return nts::FALSE;
+	return nts::UNDEFINED;
+}
+
 nts::Tristate C4001::compute(std::size_t pin)
 {
+	for (auto it_d = _doors.begin(); it_d != _doors.end(); ++it_d) {
+		if (pin == it_d->first) {
+			return computeOutput(it_d->second);
+		}
+	}
+	for (auto it_d = _doors.begin(); it_d != _doors.end(); ++it_d) {
+		if (pin == it_d->second.input1.pin)
+			return computeInput(it_d->second.input1);
+		else if (pin == it_d->second.input2.pin)
+			return computeInput(it_d->second.input2);
+	}
 	return nts::UNDEFINED;
 }
 
@@ -44,6 +77,7 @@ void C4001::checkSelfLink(std::size_t pin1, std::size_t pin2)
 {
 	bool input = false;
 	bool output = false;
+
 	for (auto it = _doors.begin(); it != _doors.end(); ++it) {
 		if (it->second.input1.pin == pin1 || it->second.input1.pin == pin2)
 			input = true;
@@ -124,11 +158,15 @@ void C4001::setInput(std::size_t pin, nts::IComponent &other, std::size_t otherP
 
 	for (auto it = _doors.begin(); it != _doors.end() && find == false; ++it) {
 		if (it->second.input1.pin == pin) {
+			if (it->second.input1.destinationName != nullptr)
+				throw Error::Component::LinkError("Pin already linked", "C4001::setInput");
 			it ->second.input1.destinationName = &other;
 			it->second.input1.destinationPin = otherPin;
 			find = true;
 		}
 		if (it->second.input2.pin == pin) {
+			if (it->second.input2.destinationName != nullptr)
+				throw Error::Component::LinkError("Pin already linked", "C4001::setInput");
 			it ->second.input2.destinationName = &other;
 			it->second.input2.destinationPin = otherPin;
 			find = true;
@@ -151,14 +189,4 @@ void C4001::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
 	}
 	if (find == false)
 		throw Error::Parser::FileError("No corresponding pin", "C4001::setOutput");
-}
-
-const std::string &C4001::getName() const noexcept
-{
-	return _name;
-}
-
-void C4001::setName(const std::string &name) noexcept
-{
-	_name = name;
 }

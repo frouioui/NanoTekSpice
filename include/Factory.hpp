@@ -19,7 +19,7 @@ class Factory {
 		Factory();
 		~Factory();
 
-		std::unique_ptr<nts::IComponent> createComponent(const Component::Type type,
+		std::unique_ptr<nts::IComponent> createComponent(const nts::Type type,
 		const std::string &value);
 
 		void linkAllComponents(std::map<std::string, nts::ptrIComponent_t> &components,
@@ -28,7 +28,7 @@ class Factory {
 
 	private:
 		using func_t = std::function<nts::ptrIComponent_t(const std::string&)>;
-		std::map<Component::Type, func_t> _componentsCreator;
+		std::map<nts::Type, func_t> _componentsCreator;
 
 		// void setLinks(std::map<std::string, nts::ptrIComponent_t> &components,
 		// <std::string, nts::ptrIComponent_t> component, const std::vector<Component::Link> &links);

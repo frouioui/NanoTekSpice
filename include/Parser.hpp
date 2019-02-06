@@ -52,7 +52,7 @@ namespace Parser
         void ClearLine();
         void RemoveComment();
 
-        Component::Type GetType(const std::string &typeStr) const;
+        nts::Type GetType(const std::string &typeStr) const;
         Component::ComponentSetting GetInfoComponent() const;
         Component::Link GetLink() const;
         std::map<std::string, std::string> SplitLineInTwo() const;

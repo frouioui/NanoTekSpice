@@ -31,6 +31,7 @@ SRC =	$(PATH_SRC)/parser/Parser.cpp			\
 		$(PATH_SRC)/parser/Checker.cpp			\
 		$(PATH_SRC)/parser/LineParser.cpp		\
 		$(PATH_SRC)/Components/Factory.cpp		\
+		$(PATH_SRC)/Components/Component.cpp		\
 		$(PATH_SRC)/Components/Input.cpp		\
 		$(PATH_SRC)/Components/Output.cpp		\
 		$(PATH_SRC)/Components/True.cpp			\

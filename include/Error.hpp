@@ -56,6 +56,12 @@ namespace Error {
 				CreationError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
 				virtual ~CreationError() throw() {};
 		};
+		class LinkError : public Error
+		{
+			public:
+				LinkError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+				virtual ~LinkError() throw() {};
+		};
 	}
 }
 

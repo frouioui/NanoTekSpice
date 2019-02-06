@@ -15,19 +15,19 @@
 
 Factory::Factory()
 {
-	_componentsCreator[Component::INPUT] = [this] (const std::string& value) {
+	_componentsCreator[nts::INPUT] = [this] (const std::string& value) {
 		return this->createInput(value);
 	};
-	_componentsCreator[Component::OUTPUT] = [this] (const std::string& value) {
+	_componentsCreator[nts::OUTPUT] = [this] (const std::string& value) {
 		return this->createOutput(value);
 	};
-	_componentsCreator[Component::TRUE] = [this] (const std::string& value) {
+	_componentsCreator[nts::CTRUE] = [this] (const std::string& value) {
 		return this->createTrue(value);
 	};
-	_componentsCreator[Component::FALSE] = [this] (const std::string& value) {
+	_componentsCreator[nts::CFALSE] = [this] (const std::string& value) {
 		return this->createFalse(value);
 	};
-	_componentsCreator[Component::C4001] = [this] (const std::string& value) {
+	_componentsCreator[nts::C4001] = [this] (const std::string& value) {
 		return this->create4001(value);
 	};
 }
@@ -59,7 +59,7 @@ const std::vector<Component::ComponentSetting> &settings)
 	}
 }
 
-std::unique_ptr<nts::IComponent> Factory::createComponent(const Component::Type type,
+std::unique_ptr<nts::IComponent> Factory::createComponent(const nts::Type type,
 const std::string &value)
 {
 	auto it = _componentsCreator.find(type);

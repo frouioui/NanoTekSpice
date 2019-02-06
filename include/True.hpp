@@ -8,11 +8,11 @@
 #ifndef TRUE_HPP_
 	#define TRUE_HPP_
 
-#include "IComponent.hpp"
+#include "Component.hpp"
 #include <iostream>
 #include <map>
 
-class True : public nts::IComponent
+class True : public Component::MyComponent
 {
 	public:
 		True();
@@ -25,11 +25,7 @@ class True : public nts::IComponent
 		void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
 		void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
 
-		const std::string &getName() const noexcept override;
-		void setName(const std::string &name) noexcept override;
-
 	private:
-		std::string _name;
 		std::map<size_t, nts::Pin> _output;
 };
 

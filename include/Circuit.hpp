@@ -19,6 +19,8 @@ class Circuit {
 
 		void createAllComponents(std::string path);
 		void dump() const;
+		nts::Tristate compute();
+
 	private:
 		void linkAllComponents(const std::vector<Component::ComponentSetting> &settings);
 
