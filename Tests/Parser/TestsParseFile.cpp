@@ -12,7 +12,7 @@
 
 Test(Parser, parse_file_easy_correct_file)
 {
-    std::vector<Component::ComponentSetting> settings = Parser::Parser("./tests/assets/exemple/public/primitives/5input_and.nts").Parse();
+    std::vector<Component::ComponentSetting> settings = Parser::Parser("./Tests/assets/exemple/public/primitives/5input_and.nts").Parse();
 
     cr_assert_eq(settings.at(0).type, nts::INPUT);
     cr_assert_eq(settings.at(0).name.compare("a"), 0);
@@ -24,7 +24,7 @@ Test(Parser, parse_file_easy_correct_file)
 
 Test(Parser, parse_file_easy_correct_file_2)
 {
-    std::vector<Component::ComponentSetting> settings = Parser::Parser("./tests/assets/exemple/public/primitives/5input_and.nts").Parse();
+    std::vector<Component::ComponentSetting> settings = Parser::Parser("./Tests/assets/exemple/public/primitives/5input_and.nts").Parse();
 
     cr_assert_eq(settings.at(4).type, nts::INPUT);
     cr_assert_eq(settings.at(4).name.compare("e"), 0);

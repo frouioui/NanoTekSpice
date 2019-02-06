@@ -63,6 +63,16 @@ namespace Error {
 				virtual ~LinkError() throw() {};
 		};
 	}
+
+    namespace Argument
+    {
+        class KeyValueIncomplete : public Error
+        {
+            public:
+                KeyValueIncomplete(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+                virtual ~KeyValueIncomplete() throw() {};
+        };
+    } // Argument
 }
 
 #endif /* !ERROR_HPP_ */
