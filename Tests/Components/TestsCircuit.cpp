@@ -14,6 +14,6 @@ Test(Circuit, simpleConstruction)
 {
 	Circuit circuit;
 
-	circuit.createAllComponents("/home/cecile/Projects/Semestre_4/OOP/NanoTekSpice/tests/assets/exemple/public/basics/nor.nts");
+	circuit.createAllComponents("./Tests/assets/exemple/public/basics/nor.nts");
 	circuit.dump();
 }
