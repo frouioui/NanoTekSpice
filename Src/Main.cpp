@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     try {
         // Get args
         args = argParser.GetArgument();
-        
+
         // Parse file
         components = Parser::Parser(args.filename).Parse();
     } catch (Error::Error e) {
