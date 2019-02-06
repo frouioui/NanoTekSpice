@@ -14,6 +14,7 @@ class LogicalCalcul
 {
 public:
     LogicalCalcul(const nts::Tristate &inputA, const nts::Tristate &inputB);
+    LogicalCalcul(const nts::Tristate &inputA);
     ~LogicalCalcul();
 
     nts::Tristate CalculAnd() const;

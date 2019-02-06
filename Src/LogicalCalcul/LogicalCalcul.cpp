@@ -12,6 +12,10 @@ LogicalCalcul::LogicalCalcul(const nts::Tristate &inputA, const nts::Tristate &i
 {
 }
 
+LogicalCalcul::LogicalCalcul(const nts::Tristate &inputA) : _inputA(inputA), _inputB(nts::UNDEFINED)
+{
+}
+
 LogicalCalcul::~LogicalCalcul()
 {
 }
