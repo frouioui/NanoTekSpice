@@ -28,18 +28,19 @@ UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp				\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
-SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
-		$(PATH_SRC)/Parser/Checker.cpp			\
-		$(PATH_SRC)/Parser/LineParser.cpp		\
-		$(PATH_SRC)/Components/Factory.cpp		\
-		$(PATH_SRC)/Components/Input.cpp		\
-		$(PATH_SRC)/Components/Output.cpp		\
-		$(PATH_SRC)/Components/True.cpp			\
-		$(PATH_SRC)/Components/False.cpp		\
-		$(PATH_SRC)/Components/C4001.cpp		\
-		$(PATH_SRC)/Error.cpp					\
-		$(PATH_SRC)/Argument/ArgumentParser.cpp	\
-		$(PATH_SRC)/Simulation/Simulation.cpp	\
+SRC =	$(PATH_SRC)/Parser/Parser.cpp							\
+		$(PATH_SRC)/Parser/Checker.cpp							\
+		$(PATH_SRC)/Parser/LineParser.cpp						\
+		$(PATH_SRC)/Components/Factory.cpp						\
+		$(PATH_SRC)/Components/Input.cpp						\
+		$(PATH_SRC)/Components/Output.cpp						\
+		$(PATH_SRC)/Components/True.cpp							\
+		$(PATH_SRC)/Components/False.cpp						\
+		$(PATH_SRC)/Components/C4001.cpp						\
+		$(PATH_SRC)/Error.cpp									\
+		$(PATH_SRC)/Argument/ArgumentParser.cpp					\
+		$(PATH_SRC)/Simulation/Simulation.cpp					\
+		$(PATH_SRC)/LogicalCalcul/LogicalCalcul.cpp				\
 
 HEADER	=	-I./Include/
 
