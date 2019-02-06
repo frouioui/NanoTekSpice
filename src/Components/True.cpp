@@ -54,3 +54,13 @@ void True::setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherP
 		throw Error::Parser::FileError("No corresponding pin", "True::setOutput");
 	_output[pin] = {pin, nts::TRUE, &other, static_cast<int>(otherPin)};
 }
+
+const std::string &True::getName() const noexcept
+{
+	return _name;
+}
+
+void True::setName(const std::string &name) noexcept
+{
+	_name = name;
+}

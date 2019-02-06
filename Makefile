@@ -23,6 +23,7 @@ UT_SRC =	$(PATH_TEST)/parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/parser/line/TestsSplitLineInTwo.cpp	\
 			$(PATH_TEST)/parser/checker/TestsIsUseless.cpp		\
 			$(PATH_TEST)/Components/TestsFactoryInput.cpp		\
+			$(PATH_TEST)/Components/TestsCircuit.cpp			\
 
 MAIN = $(PATH_SRC)/Main.cpp
 
@@ -35,6 +36,7 @@ SRC =	$(PATH_SRC)/parser/Parser.cpp			\
 		$(PATH_SRC)/Components/True.cpp			\
 		$(PATH_SRC)/Components/False.cpp		\
 		$(PATH_SRC)/Components/C4001.cpp		\
+		$(PATH_SRC)/Components/Circuit.cpp		\
 		$(PATH_SRC)/Error.cpp					\
 
 HEADER	=	-I./include/

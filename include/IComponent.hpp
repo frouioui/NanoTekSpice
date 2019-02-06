@@ -30,6 +30,9 @@ namespace nts
 
 		virtual void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
 		virtual void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
+
+		virtual void setName(const std::string &name) noexcept = 0;
+		virtual const std::string &getName() const noexcept = 0;
 	};
 
 	using ptrIComponent_t = std::unique_ptr<nts::IComponent>;

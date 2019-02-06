@@ -23,7 +23,8 @@ class C4001 : public nts::IComponent
 		void setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin) override;
 		void dump() const override;
 
-		void setName(const std::string &name);
+		const std::string &getName() const noexcept override;
+		void setName(const std::string &name) noexcept override;
 
 		void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
 		void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin);

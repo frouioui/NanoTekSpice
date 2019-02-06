@@ -88,17 +88,33 @@ void C4001::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
 
 void C4001::dump() const
 {
-	std::cout << _name << std::endl;
+	std::cout << std::endl << "-----------------------------------------------" << std::endl;
+	std::cout << "C4001 #" <<_name << std::endl;
 	for (auto it = _doors.begin(); it != _doors.end(); ++it) {
-		std::cout << "\tdoor # " << it->first << std::endl;
-		std::cout << "\t\tinput 1: " << it->second.input1.pin <<
-		"\t" << it->second.input1.state << std::endl;
+		std::cout << "\tdoor #" << it->first << std::endl;
+		std::cout << "\t\tinput 1: pin #" << it->second.input1.pin << std::endl <<
+		"\t\t\t-> state: " << it->second.input1.state << std::endl;
+		if (it->second.input1.destinationName != nullptr)
+			std::cout << "\t\t\t->linked to: " << it->second.input1.destinationName->getName() <<
+			" - pin #" << it->second.input1.destinationPin << std::endl;
+		else
+			std::cout << "\t\t\t-> no linked" <<std::endl;
 
-		std::cout << "\t\tinput 2: " << it->second.input2.pin <<
-		"\t" << it->second.input2.state << std::endl;
+		std::cout << "\t\tinput 2: pin #" << it->second.input2.pin << std::endl <<
+		"\t\t\t-> state: " << it->second.input2.state << std::endl;
+		if (it->second.input2.destinationName != nullptr)
+			std::cout << "\t\t\t->linked to: " << it->second.input2.destinationName->getName() <<
+			" - pin #" << it->second.input2.destinationPin << std::endl;
+		else
+			std::cout << "\t\t\t-> no linked" <<std::endl;
 
-		std::cout << "\t\toutput: " << it->second.output.pin <<
-		"\t" << it->second.output.state << std::endl;
+		std::cout << "\t\toutput:  pin #" << it->second.output.pin << std::endl <<
+		"\t\t\t-> state: " << it->second.output.state << std::endl;
+		if (it->second.output.destinationName != nullptr)
+			std::cout << "\t\t\t->linked to: " << it->second.output.destinationName->getName() <<
+			" - pin #" << it->second.output.destinationPin << std::endl;
+		else
+			std::cout << "\t\t\t-> no linked" <<std::endl;
 	}
 }
 
@@ -137,7 +153,12 @@ void C4001::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
 		throw Error::Parser::FileError("No corresponding pin", "C4001::setOutput");
 }
 
-void C4001::setName(const std::string &name)
+const std::string &C4001::getName() const noexcept
+{
+	return _name;
+}
+
+void C4001::setName(const std::string &name) noexcept
 {
 	_name = name;
 }

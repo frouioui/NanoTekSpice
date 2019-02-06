@@ -9,6 +9,7 @@
 	#define CIRCUIT_HPP_
 
 #include "IComponent.hpp"
+#include "Component.hpp"
 #include <map>
 
 class Circuit {
@@ -16,9 +17,11 @@ class Circuit {
 		Circuit();
 		~Circuit();
 
-		std::map<std::string, nts::ptrIComponent_t>createAllComponents(std::string path);
-
+		void createAllComponents(std::string path);
+		void dump() const;
 	private:
+		void linkAllComponents(const std::vector<Component::ComponentSetting> &settings);
+
 		std::map<std::string, nts::ptrIComponent_t> _allComponents;
 };
 

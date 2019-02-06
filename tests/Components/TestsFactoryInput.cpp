@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** OOP_NanoTekSpice
 ** File description:
-** Test file of the clear line function
+** Unit tests for Inputs construction
 */
 
 #include <criterion/criterion.h>

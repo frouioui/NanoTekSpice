@@ -6,6 +6,7 @@
 */
 
 #include "Factory.hpp"
+#include "Error.hpp"
 #include "C4001.hpp"
 #include "Input.hpp"
 #include "Output.hpp"
@@ -35,15 +36,26 @@ Factory::~Factory()
 {
 }
 
-// std::map<std::string, nts::ptrIComponent_t> Factory::getComponents() const noexcept
-// {
-// 	return _allComponents;
-// }
-
-void Factory::createAllComponents(const std::vector<Component::ComponentSetting> &settings)
+void Factory::linkComponents(std::map<std::string, nts::ptrIComponent_t> &components,
+const Component::ComponentSetting &setting)
 {
-	for (auto it  = settings.begin(); it != settings.end(); ++it) {
-		_allComponents[it->name] = createComponent(it->type, it->value);
+	std::map<std::string, nts::ptrIComponent_t>::iterator find;
+
+	for (auto it_c = components.begin(); it_c != components.end(); ++it_c) {
+		if (setting.name == it_c->first) {
+			for (auto it_l = setting.links.begin(); it_l != setting.links.end(); ++it_l) {
+				find = components.find(it_l->destinationName);
+				it_c->second->setLink(it_l->originPin, *find->second, it_l->destinationPin);
+			}
+		}
+	}
+}
+
+void Factory::linkAllComponents(std::map<std::string, nts::ptrIComponent_t> &components,
+const std::vector<Component::ComponentSetting> &settings)
+{
+	for (auto it = settings.begin(); it != settings.end(); ++it) {
+		linkComponents(components, *it);
 	}
 }
 
@@ -53,7 +65,7 @@ const std::string &value)
 	auto it = _componentsCreator.find(type);
 
 	if (it == _componentsCreator.end())
-		return nullptr;
+		throw Error::Component::CreationError("No corresponding type", " Factory::createComponent");
 	return it->second(value);
 }
 

@@ -34,7 +34,15 @@ void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t other
 
 void Output::dump() const
 {
-	std::cout << _name << std::endl;
+	std::cout << std::endl << "-----------------------------------------------" << std::endl;
+	std::cout << "Output #" <<_name << std::endl;
+
+	for (auto it = _input.begin(); it != _input.end(); ++it) {
+		std::cout << "\tpin #" << it->second.pin << std::endl <<
+		"\t-> state: " << it->second.state << std::endl <<
+		"\t-> linked to: " << it->second.destinationName->getName() <<
+		" - pin #" << it->second.destinationPin << std::endl;
+	}
 }
 
 void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
@@ -48,4 +56,14 @@ void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t other
 
 void Output::setOutput(std::size_t, nts::IComponent &, std::size_t)
 {
+}
+
+const std::string &Output::getName() const noexcept
+{
+	return _name;
+}
+
+void Output::setName(const std::string &name) noexcept
+{
+	_name = name;
 }
