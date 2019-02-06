@@ -47,7 +47,7 @@ void Parser::Checker::CheckOutputs() const
     bool found = false;
 
     for (unsigned int i = 0; i < _chipsetInfo.size(); i++) {
-        if (_chipsetInfo[i].type != Component::Type::OUTPUT)
+        if (_chipsetInfo[i].type != nts::Type::OUTPUT)
             continue;
         for (unsigned int j = 0; j < _allLinks.size(); j++) {
             if (_allLinks[j].destinationName == _chipsetInfo[i].name ||
@@ -98,7 +98,7 @@ void Parser::Checker::CheckNames() const
 void Parser::Checker::CheckType() const
 {
     for (unsigned int i = 0; i < _chipsetInfo.size(); i++) {
-        if (_chipsetInfo[i].type == Component::NOT_SET)
+        if (_chipsetInfo[i].type == nts::NOT_SET)
             throw Error::Parser::FormatError("The type a chipset is incorrect", "CheckType");
     }
 }

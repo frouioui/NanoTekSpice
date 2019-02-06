@@ -19,17 +19,22 @@ class Factory {
 		Factory();
 		~Factory();
 
-		void createAllComponents(const std::vector<Component::ComponentSetting> &components);
-		std::unique_ptr<nts::IComponent> createComponent(const Component::Type type,
+		std::unique_ptr<nts::IComponent> createComponent(const nts::Type type,
 		const std::string &value);
 
-		// std::map<std::string, nts::ptrIComponent_t> getComponents() const noexcept;
+		void linkAllComponents(std::map<std::string, nts::ptrIComponent_t> &components,
+		const std::vector<Component::ComponentSetting> &settings);
+
 
 	private:
 		using func_t = std::function<nts::ptrIComponent_t(const std::string&)>;
-		std::map<Component::Type, func_t> _componentsCreator;
+		std::map<nts::Type, func_t> _componentsCreator;
 
-		std::map<std::string, nts::ptrIComponent_t> _allComponents;
+		// void setLinks(std::map<std::string, nts::ptrIComponent_t> &components,
+		// <std::string, nts::ptrIComponent_t> component, const std::vector<Component::Link> &links);
+
+		void linkComponents(std::map<std::string, nts::ptrIComponent_t> &components,
+		const Component::ComponentSetting &setting);
 
 		std::unique_ptr<nts::IComponent> createInput(const std::string &value) const noexcept;
 		std::unique_ptr<nts::IComponent> createOutput(const std::string &value) const noexcept;

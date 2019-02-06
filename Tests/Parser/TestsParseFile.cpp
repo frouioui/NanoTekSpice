@@ -14,7 +14,7 @@ Test(Parser, parse_file_easy_correct_file)
 {
     std::vector<Component::ComponentSetting> settings = Parser::Parser("./Tests/assets/exemple/public/primitives/5input_and.nts").Parse();
 
-    cr_assert_eq(settings.at(0).type, Component::INPUT);
+    cr_assert_eq(settings.at(0).type, nts::INPUT);
     cr_assert_eq(settings.at(0).name.compare("a"), 0);
     cr_assert_eq(settings.at(0).links.at(0).originName.compare("a"), 0);
     cr_assert_eq(settings.at(0).links.at(0).originPin, 1);
@@ -26,7 +26,7 @@ Test(Parser, parse_file_easy_correct_file_2)
 {
     std::vector<Component::ComponentSetting> settings = Parser::Parser("./Tests/assets/exemple/public/primitives/5input_and.nts").Parse();
 
-    cr_assert_eq(settings.at(4).type, Component::INPUT);
+    cr_assert_eq(settings.at(4).type, nts::INPUT);
     cr_assert_eq(settings.at(4).name.compare("e"), 0);
     cr_assert_eq(settings.at(4).links.at(0).originName.compare("e"), 0);
     cr_assert_eq(settings.at(4).links.at(0).originPin, 1);

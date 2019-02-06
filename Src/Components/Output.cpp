@@ -7,8 +7,10 @@
 
 #include "Output.hpp"
 #include "Error.hpp"
+#include "IComponent.hpp"
 
-Output::Output()
+Output::Output() :
+Component::MyComponent(nts::OUTPUT)
 {
 	_input.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::UNDEFINED, nullptr, -1}));
 }
@@ -19,7 +21,14 @@ Output::~Output()
 
 nts::Tristate Output::compute(std::size_t pin)
 {
-	return nts::UNDEFINED;
+	auto search = _input.find(pin);
+
+	if (search == _input.end())
+		throw Error::Component::ComputeError("No corresponding pin", "Output::compute");
+	if (search->second.destinationName == nullptr) {
+		return nts::UNDEFINED;
+	}
+	return search->second.destinationName->compute(search->second.destinationPin);
 }
 
 void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin)
@@ -34,7 +43,15 @@ void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t other
 
 void Output::dump() const
 {
-	std::cout << _name << std::endl;
+	std::cout << std::endl << "-----------------------------------------------" << std::endl;
+	std::cout << "Output #" <<_name << std::endl;
+
+	for (auto it = _input.begin(); it != _input.end(); ++it) {
+		std::cout << "\tpin #" << it->second.pin << std::endl <<
+		"\t-> state: " << it->second.state << std::endl <<
+		"\t-> linked to: " << it->second.destinationName->getName() <<
+		" - pin #" << it->second.destinationPin << std::endl;
+	}
 }
 
 void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
@@ -43,6 +60,8 @@ void Output::setInput(std::size_t pin, nts::IComponent &other, std::size_t other
 
 	if (search == _input.end())
 		throw Error::Parser::FileError("No corresponding pin", "Output::setInput");
+	if (_input[pin].destinationName != nullptr)
+		throw Error::Component::LinkError("Pin already linked", "Output::setInput");
 	_input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 }
 

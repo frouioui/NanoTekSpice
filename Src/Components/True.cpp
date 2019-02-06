@@ -7,8 +7,10 @@
 
 #include "True.hpp"
 #include "Error.hpp"
+#include "IComponent.hpp"
 
-True::True()
+True::True() :
+Component::MyComponent(nts::CTRUE)
 {
 	_output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::TRUE, nullptr, -1}));
 }

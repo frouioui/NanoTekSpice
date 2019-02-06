@@ -8,7 +8,8 @@
 #include "False.hpp"
 #include "Error.hpp"
 
-False::False()
+False::False() :
+Component::MyComponent(nts::CFALSE)
 {
 	_output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::FALSE, nullptr, -1}));
 }
