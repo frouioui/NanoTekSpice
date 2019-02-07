@@ -46,7 +46,7 @@ jobs:
             - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_functional || echo no functional test yet"
 
         - stage: deploy
-          name: "Deployement"
+          name: "Deployement Epitech Server"
           if: branch IN (master, travis) AND type != cron AND type != pull_request
           before_script:
             - ssh-keyscan git.epitech.eu >> ~/.ssh/known_hosts
@@ -54,13 +54,18 @@ jobs:
           script:
             - git push --repo=git@git.epitech.eu:/florent.poinsard@epitech.eu/OOP_nanotekspice_2018 --force
         -
-          name: "Deployement Docs"
+          name: "Deployement Documentation"
           if: branch IN (master, travis, docs) AND type != cron AND type != pull_request
-          deploy:
-            provider: pages
-            skip-cleanup: true
-            github-token: $GITHUB_TOKEN
-            keep-history: true
-            local-dir: ./docs
-            on:
-              branch: master
+          before_script:
+            - git checkout $TRAVIS_BRANCH
+            - docker pull epitechcontent/epitest-docker
+          script:
+            - find docs && rm -Rf docs/* || mkdir docs
+            - find html && rm -Rf html
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && dnf install doxygen -y && make doxygen && (rm -Rf latex && mv html/* docs/ && rm -Rf html)"
+          after_success:
+            - git config --global user.email "travis@travis-ci.com"
+            - git config --global user.name "Travis CI"
+            - git add --all
+            - git commit -m "[skip travis] Update Docs"
+            - git push origin master
