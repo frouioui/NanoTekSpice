@@ -10,7 +10,8 @@
 #include "Error.hpp"
 #include <iostream>
 
-Circuit::Circuit()
+Circuit::Circuit() :
+Component::MyComponent(nts::CIRCUIT)
 {
 }
 
@@ -37,7 +38,7 @@ void Circuit::createAllComponents(const Parser::container_setting_t &settings)
     linkAllComponents(settings);
 }
 
-nts::Tristate Circuit::compute()
+nts::Tristate Circuit::compute(std::size_t)
 {
     nts::Tristate state = nts::UNDEFINED;
 

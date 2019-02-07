@@ -1,55 +1,28 @@
 /*
 ** EPITECH PROJECT, 2019
-** OOP_NANOTEKSPICE
+** OOP_NanoTekSpice
 ** File description:
-** ICoponent header
+** IComponent header
 */
 
 #ifndef ICOMPONENT_HPP_
     #define ICOMPONENT_HPP_
 
+#include "Type.hpp"
+#include "Setting.hpp"
 #include <cstddef>
 #include <memory>
 
 namespace nts
 {
-    const int NUMBER_OF_TYPE = 19;
-
-    enum Type {
-        NOT_SET,
-        INPUT,
-        OUTPUT,
-        CLOCK,
-        CFALSE,
-        CTRUE,
-        C4001,
-        C4008,
-        C4011,
-        C4013,
-        C4017,
-        C4030,
-        C4040,
-        C4069,
-        C4071,
-        C4081,
-        C4094,
-        C4514,
-        C4801,
-        C2716
-    }; // TODO: add all the other components...
-
-    enum Tristate {
-        UNDEFINED = (-true),
-        TRUE = true ,
-        FALSE = false
-    };
-
     class IComponent
     {
     public:
         virtual ~IComponent() = default;
 
     public:
+        virtual void createAllComponents(const std::vector<Component::ComponentSetting> &settings) = 0;
+
         virtual nts::Tristate compute(std::size_t pin = 1) = 0;
         virtual void setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin) = 0;
         virtual void dump() const noexcept = 0;
@@ -57,13 +30,14 @@ namespace nts
         virtual void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
         virtual void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
 
+        virtual void setState(const std::string &name, const std::string &state) = 0;
         virtual void setState(const std::string &state) = 0;
 
         virtual void setName(const std::string &name) noexcept = 0;
         virtual const std::string &getName() const noexcept = 0;
 
         virtual const Type &getType() const noexcept = 0;
-    };
+    }; // !IComponent
 
     using ptrIComponent_t = std::unique_ptr<nts::IComponent>;
 
@@ -79,6 +53,6 @@ namespace nts
         nts::Pin input2;
         nts::Pin output;
     };
-}
+} // !nts
 
 #endif /* !ICOMPONENT_HPP_ */

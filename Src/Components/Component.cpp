@@ -33,3 +33,11 @@ const nts::Type &Component::MyComponent::getType() const noexcept
 void Component::MyComponent::setState(const std::string &)
 {
 }
+
+void Component::MyComponent::setState(const std::string &, const std::string &)
+{
+}
+
+void Component::MyComponent::createAllComponents(const std::vector<Component::ComponentSetting> &)
+{
+}

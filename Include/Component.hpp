@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 #include "IComponent.hpp"
+#include "Type.hpp"
 
 namespace Component
 {
@@ -21,7 +22,9 @@ namespace Component
             MyComponent(const nts::Type &type);
             ~MyComponent();
 
+            void createAllComponents(const std::vector<Component::ComponentSetting> &settings);
             virtual void setState(const std::string &state);
+            virtual void setState(const std::string &name, const std::string &state);
 
             const std::string &getName() const noexcept final;
             void setName(const std::string &name) noexcept final;
@@ -31,23 +34,8 @@ namespace Component
         protected:
             std::string _name;
             nts::Type _type;
-    };
-    struct Link
-    {
-        std::string originName;
-        int originPin;
-        std::string destinationName;
-        int destinationPin;
-    };
-
-    struct ComponentSetting
-    {
-        std::string name;
-        std::string value;
-        nts::Type type;
-        std::vector<Link> links;
-    };
-} // Component
+    }; //!MyComponent
+} // !Component
 
 
 #endif // _COMPONENT_HPP

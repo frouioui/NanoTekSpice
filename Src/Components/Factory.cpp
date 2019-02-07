@@ -7,6 +7,7 @@
 
 #include "Factory.hpp"
 #include "Error.hpp"
+#include "Circuit.hpp"
 #include "C4001.hpp"
 #include "Input.hpp"
 #include "Output.hpp"
@@ -15,6 +16,9 @@
 
 Factory::Factory()
 {
+    _componentsCreator[nts::CIRCUIT] = [this] (const std::string& value) {
+        return this->createCircuit(value);
+    };
     _componentsCreator[nts::INPUT] = [this] (const std::string& value) {
         return this->createInput(value);
     };
@@ -51,7 +55,7 @@ const Component::ComponentSetting &setting)
     }
 }
 
-void Factory::linkAllComponents(std::map<std::string, nts::ptrIComponent_t> &components,
+void Factory::linkAllComponents(std::map<std::string, std::unique_ptr<nts::IComponent>> &components,
 const std::vector<Component::ComponentSetting> &settings)
 {
     for (auto it = settings.begin(); it != settings.end(); ++it) {
@@ -65,8 +69,15 @@ const std::string &value)
     auto it = _componentsCreator.find(type);
 
     if (it == _componentsCreator.end())
-        throw Error::Component::CreationError("No corresponding type", " Factory::createComponent");
+        throw Error::Component::CreationError("No corresponding type", "Factory::createComponent");
     return it->second(value);
+}
+
+std::unique_ptr<nts::IComponent> Factory::createCircuit(const std::string &) const noexcept
+{
+    std::unique_ptr<Circuit> newCircuit = std::make_unique<Circuit>();
+
+    return newCircuit;
 }
 
 std::unique_ptr<nts::IComponent> Factory::createInput(const std::string &) const noexcept

@@ -56,8 +56,10 @@ nts::Tristate C4001::computeOutput(nts::Door &door)
 
     if (input1State == nts::FALSE && input2State == nts::FALSE)
         door.output.state = nts::TRUE;
-    if (input1State == nts::TRUE || input2State == nts::TRUE)
+    else if (input1State == nts::TRUE || input2State == nts::TRUE)
         door.output.state = nts::FALSE;
+    else
+        door.output.state = nts::UNDEFINED;
     return door.output.state;
 }
 

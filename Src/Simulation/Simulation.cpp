@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Simulation.hpp"
+#include "Factory.hpp"
 #include "ArgumentParser.hpp"
 #include "Error.hpp"
 
@@ -63,24 +64,27 @@ void Simulation::Simulation::GetAction()
 
 void Simulation::Simulation::dump() const noexcept
 {
-    _circuit.dump();
+    _circuit->dump();
 }
 
 void Simulation::Simulation::simulate()
 {
-    _circuit.compute();
+    _circuit->compute(1);
 }
 
 void Simulation::Simulation::setStates(const std::map<std::string, std::string> &inputValues)
 {
     for (auto it = inputValues.begin(); it != inputValues.end(); ++it) {
-        _circuit.setState(it->first, it->second);
+        _circuit->setState(it->first, it->second);
     }
 }
 
 void Simulation::Simulation::createCircuit(const Parser::container_setting_t &settings)
 {
-    _circuit.createAllComponents(settings);
+    Factory factory;
+
+    _circuit = factory.createComponent(nts::CIRCUIT, "");
+    _circuit->createAllComponents(settings);
 }
 
 void Simulation::Simulation::Run()

@@ -10,7 +10,6 @@
 
 #include "ArgumentParser.hpp"
 #include "Circuit.hpp"
-#include "Parser.hpp"
 
 namespace Simulation
 {
@@ -52,7 +51,8 @@ namespace Simulation
     private:
         std::string _line;
         Action _action;
-        Circuit _circuit;
+        std::unique_ptr<nts::IComponent> _circuit;
+        // Circuit _circuit;
     };
 
 } // Simulation

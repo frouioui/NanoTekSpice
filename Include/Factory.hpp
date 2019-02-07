@@ -30,12 +30,10 @@ class Factory {
         using func_t = std::function<nts::ptrIComponent_t(const std::string&)>;
         std::map<nts::Type, func_t> _componentsCreator;
 
-        // void setLinks(std::map<std::string, nts::ptrIComponent_t> &components,
-        // <std::string, nts::ptrIComponent_t> component, const std::vector<Component::Link> &links);
-
         void linkComponents(std::map<std::string, nts::ptrIComponent_t> &components,
         const Component::ComponentSetting &setting);
 
+        std::unique_ptr<nts::IComponent> createCircuit(const std::string &value) const noexcept;
         std::unique_ptr<nts::IComponent> createInput(const std::string &value) const noexcept;
         std::unique_ptr<nts::IComponent> createOutput(const std::string &value) const noexcept;
         std::unique_ptr<nts::IComponent> createTrue(const std::string &value) const noexcept;
