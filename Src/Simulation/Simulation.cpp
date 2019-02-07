@@ -17,6 +17,16 @@ Simulation::Simulation::~Simulation()
 {
 }
 
+void Simulation::Simulation::SetLine(const std::string &line)
+{
+    _line = line;
+}
+
+Simulation::Action Simulation::Simulation::GetActionVariable() const
+{
+    return _action;
+}
+
 bool Simulation::Simulation::IsItKeyValue() const
 {
     size_t pos = 0;
@@ -54,8 +64,12 @@ void Simulation::Simulation::GetAction()
                 _action = DUMP;
             else
                 _action = NOTHING;
+            break;
         } else if (IsItKeyValue() == true) {
             _action = SET_VALUE;
+            break;
+        } else {
+            _action = NOTHING;
         }
     }
 }

@@ -41,6 +41,9 @@ namespace Simulation
         void DisplayPrompt() const;
         void GetAction();
 
+        void SetLine(const std::string &line);
+        Action GetActionVariable() const;
+
         void createCircuit(const Parser::container_setting_t &settings);
         void setStates(const std::map<std::string, std::string> &inputValues);
         void simulate();
