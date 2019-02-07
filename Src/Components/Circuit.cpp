@@ -43,7 +43,12 @@ nts::Tristate Circuit::compute()
 
     for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
         if (it->second->getType() == nts::OUTPUT) {
-            state = it->second->compute();
+            try {
+                state = it->second->compute();
+            } catch (Error::Component::ComputeError e) {
+                std::cerr << e.what() << " " << e.where() << std::endl;
+                throw;
+            }
         }
     }
     return state;
@@ -58,11 +63,19 @@ void Circuit::dump() const noexcept
 
 void Circuit::setState(const std::string &name, const std::string &state)
 {
+    bool found = false;
     for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
         if (name == it->first) {
+            found = true;
             if (it->second->getType() != nts::INPUT)
-                throw Error::Component::StateError("Invalid type", "Circuit::setState");
-            it->second->setState(state);
+                throw Error::Component::StateError("Can't change value for this type", "Circuit::setState");
+            try {
+                it->second->setState(state);
+            } catch (Error::Component::StateError e) {
+                std::cerr << e.what() << std::endl;
+            }
         }
     }
+    if (found == false)
+        throw Error::Component::StateError("Unknown chipset", "Circuit::setState");
 }

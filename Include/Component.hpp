@@ -15,38 +15,38 @@
 
 namespace Component
 {
-	class MyComponent : public nts::IComponent
-	{
-		public:
-			MyComponent(const nts::Type &type);
-			~MyComponent();
+    class MyComponent : public nts::IComponent
+    {
+        public:
+            MyComponent(const nts::Type &type);
+            ~MyComponent();
 
-			virtual void setState(const std::string &state);
+            virtual void setState(const std::string &state);
 
-			const std::string &getName() const noexcept final;
-			void setName(const std::string &name) noexcept final;
+            const std::string &getName() const noexcept final;
+            void setName(const std::string &name) noexcept final;
 
-			const nts::Type &getType() const noexcept final;
+            const nts::Type &getType() const noexcept final;
 
-		protected:
-			std::string _name;
-			nts::Type _type;
-	};
-	struct Link
-	{
-		std::string originName;
-		int originPin;
-		std::string destinationName;
-		int destinationPin;
-	};
+        protected:
+            std::string _name;
+            nts::Type _type;
+    };
+    struct Link
+    {
+        std::string originName;
+        int originPin;
+        std::string destinationName;
+        int destinationPin;
+    };
 
-	struct ComponentSetting
-	{
-		std::string name;
-		std::string value;
-		nts::Type type;
-		std::vector<Link> links;
-	};
+    struct ComponentSetting
+    {
+        std::string name;
+        std::string value;
+        nts::Type type;
+        std::vector<Link> links;
+    };
 } // Component
 
 

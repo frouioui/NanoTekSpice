@@ -17,17 +17,17 @@ Component::MyComponent::~MyComponent()
 
 const std::string &Component::MyComponent::getName() const noexcept
 {
-	return _name;
+    return _name;
 }
 
 void Component::MyComponent::setName(const std::string &name) noexcept
 {
-	_name = name;
+    _name = name;
 }
 
 const nts::Type &Component::MyComponent::getType() const noexcept
 {
-	return _type;
+    return _type;
 }
 
 void Component::MyComponent::setState(const std::string &)

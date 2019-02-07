@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Simulation.hpp"
 #include "ArgumentParser.hpp"
+#include "Error.hpp"
 
 Simulation::Simulation::Simulation()
 {
@@ -101,7 +102,11 @@ void Simulation::Simulation::Run()
         if (_action == SET_VALUE) {
             Argument::ArgumentParser argParser;
             setValue = argParser.GetInputValue(_line);
-            setStates(setValue);
+            try {
+                setStates(setValue);
+            } catch (Error::Component::StateError e) {
+               std::cerr << e.what() << std::endl;
+            }
         }
         if (_action == SIMULATE)
             simulate();

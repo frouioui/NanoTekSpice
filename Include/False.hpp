@@ -20,7 +20,7 @@ class False : public Component::MyComponent
 
 		nts::Tristate compute(std::size_t pin = 1) override;
 		void setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin) override;
-		void dump() const override;
+		void dump() const noexcept override;
 
 		void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) final;
 		void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) final;

@@ -15,10 +15,10 @@ _where(where), _message(message)
 
 const std::string &Error::Error::where() const
 {
-	return _where;
+    return _where;
 }
 
 const char *Error::Error::what() const noexcept
 {
-	return _message.c_str();
+    return _message.c_str();
 }
