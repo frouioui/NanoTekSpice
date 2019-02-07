@@ -83,10 +83,28 @@ void Simulation::Simulation::createCircuit(const Parser::container_setting_t &se
     _circuit.createAllComponents(settings);
 }
 
+void Simulation::Simulation::AnalyseAction()
+{
+    std::map<std::string, std::string> setValue;
+
+    if (_action == DUMP)
+        dump();
+    if (_action == SET_VALUE) {
+        Argument::ArgumentParser argParser;
+        setValue = argParser.GetInputValue(_line);
+        try {
+            setStates(setValue);
+        } catch (Error::Component::StateError e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+    if (_action == SIMULATE)
+        simulate();
+}
+
 void Simulation::Simulation::Run()
 {
     bool exitProg = false;
-    std::map<std::string, std::string> setValue;
 
     // Run single simulation
     simulate();
@@ -97,19 +115,6 @@ void Simulation::Simulation::Run()
     while (exitProg == false && std::getline(std::cin, _line)) {
         // Examine the user's line and redirect to the right function
         GetAction();
-        if (_action == DUMP)
-            dump();
-        if (_action == SET_VALUE) {
-            Argument::ArgumentParser argParser;
-            setValue = argParser.GetInputValue(_line);
-            try {
-                setStates(setValue);
-            } catch (Error::Component::StateError e) {
-               std::cerr << e.what() << std::endl;
-            }
-        }
-        if (_action == SIMULATE)
-            simulate();
         if (IsExitProg() == true)
             return;
 

@@ -32,6 +32,7 @@ namespace Component
             std::string _name;
             nts::Type _type;
     };
+
     struct Link
     {
         std::string originName;
