@@ -10,7 +10,6 @@
 
 #include "ArgumentParser.hpp"
 #include "Circuit.hpp"
-#include "Parser.hpp"
 
 namespace Simulation
 {
@@ -40,6 +39,7 @@ namespace Simulation
         void Run();
         void DisplayPrompt() const;
         void GetAction();
+        void AnalyseAction();
 
         void createCircuit(const Parser::container_setting_t &settings);
         void setStates(const std::map<std::string, std::string> &inputValues);
@@ -52,7 +52,8 @@ namespace Simulation
     private:
         std::string _line;
         Action _action;
-        Circuit _circuit;
+        std::unique_ptr<nts::IComponent> _circuit;
+        // Circuit _circuit;
     };
 
 } // Simulation

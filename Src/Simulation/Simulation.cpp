@@ -7,7 +7,9 @@
 
 #include <iostream>
 #include "Simulation.hpp"
+#include "Factory.hpp"
 #include "ArgumentParser.hpp"
+#include "Error.hpp"
 
 Simulation::Simulation::Simulation()
 {
@@ -62,30 +64,51 @@ void Simulation::Simulation::GetAction()
 
 void Simulation::Simulation::dump() const noexcept
 {
-    _circuit.dump();
+    _circuit->dump();
 }
 
 void Simulation::Simulation::simulate()
 {
-    _circuit.compute();
+    _circuit->compute(1);
 }
 
 void Simulation::Simulation::setStates(const std::map<std::string, std::string> &inputValues)
 {
     for (auto it = inputValues.begin(); it != inputValues.end(); ++it) {
-        _circuit.setState(it->first, it->second);
+        _circuit->setState(it->first, it->second);
     }
 }
 
 void Simulation::Simulation::createCircuit(const Parser::container_setting_t &settings)
 {
-    _circuit.createAllComponents(settings);
+    Factory factory;
+
+    _circuit = factory.createComponent(nts::CIRCUIT, "");
+    _circuit->createAllComponents(settings);
+}
+
+void Simulation::Simulation::AnalyseAction()
+{
+    std::map<std::string, std::string> setValue;
+
+    if (_action == DUMP)
+        dump();
+    if (_action == SET_VALUE) {
+        Argument::ArgumentParser argParser;
+        setValue = argParser.GetInputValue(_line);
+        try {
+            setStates(setValue);
+        } catch (Error::Component::StateError e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+    if (_action == SIMULATE)
+        simulate();
 }
 
 void Simulation::Simulation::Run()
 {
     bool exitProg = false;
-    std::map<std::string, std::string> setValue;
 
     // Run single simulation
     simulate();
@@ -96,15 +119,6 @@ void Simulation::Simulation::Run()
     while (exitProg == false && std::getline(std::cin, _line)) {
         // Examine the user's line and redirect to the right function
         GetAction();
-        if (_action == DUMP)
-            dump();
-        if (_action == SET_VALUE) {
-            Argument::ArgumentParser argParser;
-            setValue = argParser.GetInputValue(_line);
-            setStates(setValue);
-        }
-        if (_action == SIMULATE)
-            simulate();
         if (IsExitProg() == true)
             return;
 
