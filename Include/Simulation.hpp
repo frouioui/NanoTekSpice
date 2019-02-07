@@ -39,6 +39,7 @@ namespace Simulation
         void Run();
         void DisplayPrompt() const;
         void GetAction();
+        void AnalyseAction();
 
         void createCircuit(const Parser::container_setting_t &settings);
         void setStates(const std::map<std::string, std::string> &inputValues);
