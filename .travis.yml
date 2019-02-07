@@ -24,28 +24,28 @@ notifications:
 
 jobs:
     include :
-        # - stage: build
-        #   name: "Build"
-        #   install:
-        #     - docker pull epitechcontent/epitest-docker
-        #   script:
-        #     - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make fclean && make"
+        - stage: build
+          name: "Build"
+          install:
+            - docker pull epitechcontent/epitest-docker
+          script:
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make fclean && make"
 
-        # - stage: tests
-        #   name: "Unit Tests"
-        #   install:
-        #     - docker pull epitechcontent/epitest-docker
-        #   script:
-        #     - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_run_coverage"
-        #   after_script:
-        #     - bash <(curl -s https://codecov.io/bash) || echo "Codecov - Coverage error."
-        # -
-        #   name: "Functional Tests"
-        #   if: branch IN (master, dev, tests, travis)
-        #   before_script:
-        #     - docker pull epitechcontent/epitest-docker
-        #   script:
-        #     - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_functional || echo no functional test yet"
+        - stage: tests
+          name: "Unit Tests"
+          install:
+            - docker pull epitechcontent/epitest-docker
+          script:
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_run_coverage"
+          after_script:
+            - bash <(curl -s https://codecov.io/bash) || echo "Codecov - Coverage error."
+        -
+          name: "Functional Tests"
+          if: branch IN (master, dev, tests, travis)
+          before_script:
+            - docker pull epitechcontent/epitest-docker
+          script:
+            - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && make tests_functional || echo no functional test yet"
 
         - stage: deploy
           name: "Deployement EPITECH"
@@ -55,13 +55,3 @@ jobs:
             - git checkout $TRAVIS_BRANCH
           script:
             - git push --repo=git@git.epitech.eu:/florent.poinsard@epitech.eu/OOP_nanotekspice_2018 --force
-        -
-          name: "Deployement Docs"
-          if: branch IN (master, travis, docs) AND type != cron AND type != pull_request
-          deploy:
-            provider: pages
-            skip-cleanup: true
-            github-token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
-            keep-history: true
-            on:
-              branch: travis
