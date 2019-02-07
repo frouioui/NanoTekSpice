@@ -10,6 +10,7 @@
 
 #include "IComponent.hpp"
 #include "Component.hpp"
+#include "Parser.hpp"
 #include <map>
 
 class Circuit {
@@ -17,9 +18,13 @@ class Circuit {
 		Circuit();
 		~Circuit();
 
-		void createAllComponents(std::string path);
-		void dump() const;
+		void createAllComponents(const Parser::container_setting_t &settings);
+
+		void setState(const std::string &name, const std::string &state);
+
 		nts::Tristate compute();
+
+		void dump() const noexcept;
 
 	private:
 		void linkAllComponents(const std::vector<Component::ComponentSetting> &settings);

@@ -9,6 +9,10 @@
 #include "ArgumentParser.hpp"
 #include "Error.hpp"
 
+Argument::ArgumentParser::ArgumentParser()
+{
+}
+
 Argument::ArgumentParser::ArgumentParser(int argc, char **argv) : _argc(argc), _argv(argv)
 {
 }
@@ -62,5 +66,24 @@ const std::map<std::string, std::string> Argument::ArgumentParser::GetInputValue
         }
         ret[key] = value;
     }
+    return ret;
+}
+
+const std::map<std::string, std::string> Argument::ArgumentParser::GetInputValue(const std::string  &line) const
+{
+    std::map<std::string, std::string> ret;
+
+    size_t pos = line.find('=', 0);
+    if (pos == std::string::npos)
+        return ret;
+    std::string key = line.substr(0, pos);
+    if (key == "") {
+        throw Error::Argument::KeyValueIncomplete("Key is missing for the given value", "GetInputValue");
+    }
+    std::string value = line.substr(pos + 1);
+    if (value == "") {
+        throw Error::Argument::KeyValueIncomplete("Value is missing for the given key", "GetInputValue");
+    }
+    ret[key] = value;
     return ret;
 }

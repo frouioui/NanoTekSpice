@@ -62,6 +62,12 @@ namespace Error {
 				LinkError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
 				virtual ~LinkError() throw() {};
 		};
+		class StateError : public Error
+		{
+			public:
+				StateError(std::string const &message, std::string const &where = "Unknown") : Error(message, where) {};
+				virtual ~StateError() throw() {};
+		};
 	}
 
     namespace Argument

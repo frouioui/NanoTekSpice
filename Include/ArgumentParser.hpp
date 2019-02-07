@@ -22,12 +22,14 @@ namespace Argument
     class ArgumentParser
     {
     public:
+        ArgumentParser();
         ArgumentParser(int argc, char **argv);
         ~ArgumentParser();
 
         const Argument GetArgument() const;
         const std::string GetFilename() const;
         const std::map<std::string, std::string> GetInputValue() const;
+        const std::map<std::string, std::string> GetInputValue(const std::string  &line) const;
 
     private:
         int _argc;

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Simulation.hpp"
+#include "ArgumentParser.hpp"
 
 Simulation::Simulation::Simulation()
 {
@@ -59,9 +60,35 @@ void Simulation::Simulation::GetAction()
     }
 }
 
+void Simulation::Simulation::dump() const noexcept
+{
+    _circuit.dump();
+}
+
+void Simulation::Simulation::simulate()
+{
+    _circuit.compute();
+}
+
+void Simulation::Simulation::setStates(const std::map<std::string, std::string> &inputValues)
+{
+    for (auto it = inputValues.begin(); it != inputValues.end(); ++it) {
+        _circuit.setState(it->first, it->second);
+    }
+}
+
+void Simulation::Simulation::createCircuit(const Parser::container_setting_t &settings)
+{
+    _circuit.createAllComponents(settings);
+}
+
 void Simulation::Simulation::Run()
 {
     bool exitProg = false;
+    std::map<std::string, std::string> setValue;
+
+    // Run single simulation
+    simulate();
 
     // Display the prompt for the first line
     Simulation::DisplayPrompt();
@@ -69,7 +96,15 @@ void Simulation::Simulation::Run()
     while (exitProg == false && std::getline(std::cin, _line)) {
         // Examine the user's line and redirect to the right function
         GetAction();
-
+        if (_action == DUMP)
+            dump();
+        if (_action == SET_VALUE) {
+            Argument::ArgumentParser argParser;
+            setValue = argParser.GetInputValue(_line);
+            setStates(setValue);
+        }
+        if (_action == SIMULATE)
+            simulate();
         if (IsExitProg() == true)
             return;
 

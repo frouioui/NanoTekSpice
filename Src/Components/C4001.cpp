@@ -37,7 +37,7 @@ C4001::~C4001()
 {
 }
 
-nts::Tristate C4001::computeInput(nts::Pin pin)
+nts::Tristate C4001::computeInput(nts::Pin &pin)
 {
 	if (pin.destinationName == nullptr)
 		return pin.state;
@@ -45,16 +45,16 @@ nts::Tristate C4001::computeInput(nts::Pin pin)
 	return pin.state;
 }
 
-nts::Tristate C4001::computeOutput(nts::Door door)
+nts::Tristate C4001::computeOutput(nts::Door &door)
 {
 	nts::Tristate input1State = computeInput(door.input1);
 	nts::Tristate input2State = computeInput(door.input2);
 
 	if (input1State == nts::FALSE && input2State == nts::FALSE)
-		return nts::TRUE;
+		door.output.state = nts::TRUE;
 	if (input1State == nts::TRUE || input2State == nts::TRUE)
-		return nts::FALSE;
-	return nts::UNDEFINED;
+		door.output.state = nts::FALSE;
+	return door.output.state;
 }
 
 nts::Tristate C4001::compute(std::size_t pin)

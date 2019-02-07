@@ -29,3 +29,7 @@ const nts::Type &Component::MyComponent::getType() const noexcept
 {
 	return _type;
 }
+
+void Component::MyComponent::setState(const std::string &)
+{
+}

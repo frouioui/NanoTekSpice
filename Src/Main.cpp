@@ -35,7 +35,8 @@ int main(int argc, char **argv)
     }
 
     // TODO: Give something to the simulator (circuit, components ...)
-
+    simulator.createCircuit(components);
+    simulator.setStates(args.intputValues);
     simulator.Run();
     return 0;
 }

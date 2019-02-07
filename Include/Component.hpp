@@ -21,6 +21,8 @@ namespace Component
 			MyComponent(const nts::Type &type);
 			~MyComponent();
 
+			virtual void setState(const std::string &state);
+
 			const std::string &getName() const noexcept final;
 			void setName(const std::string &name) noexcept final;
 
