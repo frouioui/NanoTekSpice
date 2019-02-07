@@ -19,6 +19,13 @@ Output::~Output()
 {
 }
 
+void Output::displayState(std::size_t pin) const noexcept
+{
+	auto search = _input.find(pin);
+
+	std::cout << _name << "=" << search->second.state << std::endl;
+}
+
 nts::Tristate Output::compute(std::size_t pin)
 {
 	auto search = _input.find(pin);
@@ -28,7 +35,9 @@ nts::Tristate Output::compute(std::size_t pin)
 	if (search->second.destinationName == nullptr) {
 		return nts::UNDEFINED;
 	}
-	return search->second.destinationName->compute(search->second.destinationPin);
+	_input[pin].state = search->second.destinationName->compute(search->second.destinationPin);
+	displayState(pin);
+	return _input[pin].state;
 }
 
 void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPin)

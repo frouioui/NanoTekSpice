@@ -8,6 +8,10 @@
 #if !defined(_SIMULATION_HPP)
 #define _SIMULATION_HPP
 
+#include "ArgumentParser.hpp"
+#include "Circuit.hpp"
+#include "Parser.hpp"
+
 namespace Simulation
 {
 
@@ -37,13 +41,18 @@ namespace Simulation
         void DisplayPrompt() const;
         void GetAction();
 
+        void createCircuit(const Parser::container_setting_t &settings);
+        void setStates(const std::map<std::string, std::string> &inputValues);
+        void simulate();
+        void dump() const noexcept;
+
         bool IsItKeyValue() const;
         bool IsExitProg() const;
 
     private:
         std::string _line;
         Action _action;
-        // Circuit _circuit;
+        Circuit _circuit;
     };
 
 } // Simulation

@@ -66,3 +66,13 @@ void Input::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
 		throw Error::Component::LinkError("Pin already linked", "Input::setOutput");
 	_output[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 }
+
+void Input::setState(const std::string &state)
+{
+	if (state == "0")
+		_output[1].state = nts::FALSE;
+	else if (state == "1")
+		_output[1].state = nts::TRUE;
+	else
+		throw Error::Component::StateError("Invalid state", "Input::setState");
+}
