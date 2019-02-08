@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2019
 ** OOP_NanoTekSpice
 ** File description:
-** C4001 class
+** C4071 class
 */
 
 /**
- * \file C4001.hpp
- * \brief C4001 class.
+ * \file C4071.hpp
+ * \brief C4071 class.
  * \author Cécile CADOUL
  * \author Florent POINSARD
  */
 
-#ifndef C4001_HPP_
-    #define C4001_HPP_
+#ifndef C4071_HPP_
+    #define C4071_HPP_
 
 #include "IComponent.hpp"
 #include "Component.hpp"
@@ -22,22 +22,22 @@
 #include <map>
 
 /*!
- * \class C4001
- * \brief Quad 2-input NOR gate
+ * \class C4071
+ * \brief Quad 2-input OR gate
  */
-class C4001 : public Component::MyComponent
+class C4071 : public Component::MyComponent
 {
     public:
         /*!
-         * \brief Component 4001 Constructor
+         * \brief Component 4071 Constructor
          *
-         * Initializes four NOR gates with their own output and input pins.
+         * Initializes four OR gates with their own output and input pins.
          */
-        C4001();
+        C4071();
         /*!
-         * \brief Component 4001 Destructor
+         * \brief Component 4071 Destructor
          */
-        ~C4001();
+        ~C4071();
         /*!
          * \brief Compute
          *
@@ -61,13 +61,13 @@ class C4001 : public Component::MyComponent
         /*!
          * \brief Display information
          *
-         * Display all pins state and link of component 4001
+         * Display all pins state and link of component 4071
          */
         void dump() const noexcept override;
         /*!
          * \brief Set input link method
          *
-         * Method call by another component to bind to component 4001's input
+         * Method call by another component to bind to component 4071's input
          *
          * \param pin Pin linked
          * \param other Other Component
@@ -77,7 +77,7 @@ class C4001 : public Component::MyComponent
         /*!
          * \brief Set output link method
          *
-         * Method call by another component to bind to component 4001's output
+         * Method call by another component to bind to component 4071's output
          *
          * \param pin Pin linked
          * \param other Other Component
@@ -118,4 +118,4 @@ class C4001 : public Component::MyComponent
         std::map<size_t, nts::Door> _doors; /*!< Component's doors map*/
 };
 
-#endif /* !C4001_HPP_ */
+#endif /* !C4071_HPP_ */

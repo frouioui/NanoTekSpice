@@ -5,6 +5,9 @@
 ## Makefile of the whole project
 ##
 
+## ----------- DOCUMENTATION ------------ ##
+DOC_FILE	=	Doxyfile
+
 BINARY_NAME = nanotekspice
 
 BINARY_UT_NAME = unit_tests
@@ -24,6 +27,11 @@ UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/Parser/Checker/TestsIsUseless.cpp		\
 			$(PATH_TEST)/Components/TestsFactoryInput.cpp		\
 			$(PATH_TEST)/Components/TestsCircuit.cpp			\
+			$(PATH_TEST)/Components/TestsC4001.cpp				\
+			$(PATH_TEST)/Components/TestsC4011.cpp				\
+			$(PATH_TEST)/Components/TestsC4030.cpp				\
+			$(PATH_TEST)/Components/TestsC4071.cpp				\
+			$(PATH_TEST)/Components/TestsC4081.cpp				\
 			$(PATH_TEST)/Argument/TestsGetFilename.cpp			\
 			$(PATH_TEST)/Argument/TestsGetInputValue.cpp		\
 
@@ -33,12 +41,16 @@ SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
 		$(PATH_SRC)/Parser/Checker.cpp			\
 		$(PATH_SRC)/Parser/LineParser.cpp		\
 		$(PATH_SRC)/Components/Factory.cpp		\
-		$(PATH_SRC)/Components/Component.cpp		\
+		$(PATH_SRC)/Components/Component.cpp	\
 		$(PATH_SRC)/Components/Input.cpp		\
 		$(PATH_SRC)/Components/Output.cpp		\
 		$(PATH_SRC)/Components/True.cpp			\
 		$(PATH_SRC)/Components/False.cpp		\
 		$(PATH_SRC)/Components/C4001.cpp		\
+		$(PATH_SRC)/Components/C4011.cpp		\
+		$(PATH_SRC)/Components/C4030.cpp		\
+		$(PATH_SRC)/Components/C4071.cpp		\
+		$(PATH_SRC)/Components/C4081.cpp		\
 		$(PATH_SRC)/Components/Circuit.cpp		\
 		$(PATH_SRC)/Error.cpp					\
 		$(PATH_SRC)/Argument/ArgumentParser.cpp	\
@@ -77,12 +89,13 @@ tests_run_coverage:
 	gcov *.gcno
 
 doxygen:
-	echo "<h1>TEST</h1>" >> ./index.html
+	doxygen $(DOC_FILE)
 
 clean:
 	rm -f $(OBJS) *.gc*
 
 fclean: clean
 	rm -f $(BINARY_UT_NAME) $(BINARY_NAME)
+	rm -rf ./latex ./html
 
 re: fclean all

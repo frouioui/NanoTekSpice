@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2019
 ** OOP_NanoTekSpice
 ** File description:
-** C4001 class
+** C4011 class
 */
 
 /**
- * \file C4001.hpp
- * \brief C4001 class.
+ * \file C4011.hpp
+ * \brief C4011 class.
  * \author Cécile CADOUL
  * \author Florent POINSARD
  */
 
-#ifndef C4001_HPP_
-    #define C4001_HPP_
+#ifndef C4011_HPP_
+    #define C4011_HPP_
 
 #include "IComponent.hpp"
 #include "Component.hpp"
@@ -22,22 +22,22 @@
 #include <map>
 
 /*!
- * \class C4001
- * \brief Quad 2-input NOR gate
+ * \class C4011
+ * \brief Quad 2-input NAND gate
  */
-class C4001 : public Component::MyComponent
+class C4011 : public Component::MyComponent
 {
     public:
         /*!
-         * \brief Component 4001 Constructor
+         * \brief Component 4011 Constructor
          *
-         * Initializes four NOR gates with their own output and input pins.
+         * Initializes four NAND gates with their own output and input pins.
          */
-        C4001();
+        C4011();
         /*!
-         * \brief Component 4001 Destructor
+         * \brief Component 4011 Destructor
          */
-        ~C4001();
+        ~C4011();
         /*!
          * \brief Compute
          *
@@ -61,7 +61,7 @@ class C4001 : public Component::MyComponent
         /*!
          * \brief Display information
          *
-         * Display all pins state and link of component 4001
+         * Display all pins state and link of component 4011
          */
         void dump() const noexcept override;
         /*!
@@ -118,4 +118,4 @@ class C4001 : public Component::MyComponent
         std::map<size_t, nts::Door> _doors; /*!< Component's doors map*/
 };
 
-#endif /* !C4001_HPP_ */
+#endif /* !C4011_HPP_ */
