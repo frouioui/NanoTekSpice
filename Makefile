@@ -29,6 +29,7 @@ UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/Components/TestsCircuit.cpp			\
 			$(PATH_TEST)/Components/TestsC4001.cpp				\
 			$(PATH_TEST)/Components/TestsC4011.cpp				\
+			$(PATH_TEST)/Components/TestsC4030.cpp				\
 			$(PATH_TEST)/Components/TestsC4071.cpp				\
 			$(PATH_TEST)/Components/TestsC4081.cpp				\
 			$(PATH_TEST)/Argument/TestsGetFilename.cpp			\
@@ -47,6 +48,7 @@ SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
 		$(PATH_SRC)/Components/False.cpp		\
 		$(PATH_SRC)/Components/C4001.cpp		\
 		$(PATH_SRC)/Components/C4011.cpp		\
+		$(PATH_SRC)/Components/C4030.cpp		\
 		$(PATH_SRC)/Components/C4071.cpp		\
 		$(PATH_SRC)/Components/C4081.cpp		\
 		$(PATH_SRC)/Components/Circuit.cpp		\
