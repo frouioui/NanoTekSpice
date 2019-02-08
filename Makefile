@@ -89,7 +89,6 @@ tests_run_coverage:
 	gcov *.gcno
 
 doxygen:
-	# echo "<h1>TEST</h1>" >> docs/index.html
 	doxygen $(DOC_FILE)
 
 clean:
