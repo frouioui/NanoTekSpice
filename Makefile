@@ -27,6 +27,8 @@ UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/Parser/Checker/TestsIsUseless.cpp		\
 			$(PATH_TEST)/Components/TestsFactoryInput.cpp		\
 			$(PATH_TEST)/Components/TestsCircuit.cpp			\
+			$(PATH_TEST)/Components/TestsC4001.cpp				\
+			$(PATH_TEST)/Components/TestsC4011.cpp				\
 			$(PATH_TEST)/Argument/TestsGetFilename.cpp			\
 			$(PATH_TEST)/Argument/TestsGetInputValue.cpp		\
 
@@ -36,12 +38,13 @@ SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
 		$(PATH_SRC)/Parser/Checker.cpp			\
 		$(PATH_SRC)/Parser/LineParser.cpp		\
 		$(PATH_SRC)/Components/Factory.cpp		\
-		$(PATH_SRC)/Components/Component.cpp		\
+		$(PATH_SRC)/Components/Component.cpp	\
 		$(PATH_SRC)/Components/Input.cpp		\
 		$(PATH_SRC)/Components/Output.cpp		\
 		$(PATH_SRC)/Components/True.cpp			\
 		$(PATH_SRC)/Components/False.cpp		\
 		$(PATH_SRC)/Components/C4001.cpp		\
+		$(PATH_SRC)/Components/C4011.cpp		\
 		$(PATH_SRC)/Components/Circuit.cpp		\
 		$(PATH_SRC)/Error.cpp					\
 		$(PATH_SRC)/Argument/ArgumentParser.cpp	\
