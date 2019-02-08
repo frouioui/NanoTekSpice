@@ -29,6 +29,7 @@ UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp						\
 			$(PATH_TEST)/Simulation/TestsSimulationDisplayPrompt.cpp	\
 			$(PATH_TEST)/Simulation/TestsSimulationExitProg.cpp			\
 			$(PATH_TEST)/Simulation/TestsSimulationGetAction.cpp		\
+			$(PATH_TEST)/Simulation/TestsIsItKeyValue.cpp				\
 
 MAIN = $(PATH_SRC)/Main.cpp									\
 

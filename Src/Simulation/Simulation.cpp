@@ -62,8 +62,6 @@ void Simulation::Simulation::GetAction()
                 _action = LOOP;
             else if (i == 4)
                 _action = DUMP;
-            else
-                _action = NOTHING;
             break;
         } else if (IsItKeyValue() == true) {
             _action = SET_VALUE;
