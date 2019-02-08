@@ -60,6 +60,11 @@ jobs:
             - docker pull epitechcontent/epitest-docker
           script:
             - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && dnf install doxygen -y && make doxygen" # To uncomment when doxygen will be here: && (rm -Rf latex && mv html/* docs/ && rm -Rf html)"
+          after_script:
+            - mkdir /tmp/doxygen_nano
+            - mv html/* /tmp/doxygen_nano
+            - rm -Rf *
+            - mv /html/doxygen_nano/* .
           deploy:
             provider: pages
             skip_cleanup: true

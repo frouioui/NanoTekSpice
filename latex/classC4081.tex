@@ -1,0 +1,174 @@
+\hypertarget{classC4081}{}\section{C4081 Class Reference}
+\label{classC4081}\index{C4081@{C4081}}
+
+
+Quad 2-\/input A\+ND gate.  
+
+
+
+
+{\ttfamily \#include $<$C4081.\+hpp$>$}
+
+Inheritance diagram for C4081\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classC4081}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classC4081_afa84f979826cb257f236fee5a92b4af6}{C4081}} ()
+\begin{DoxyCompactList}\small\item\em Component 4081 Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classC4081_a960a6a35c939ebd584d54a7b54daa0a7}\label{classC4081_a960a6a35c939ebd584d54a7b54daa0a7}} 
+\mbox{\hyperlink{classC4081_a960a6a35c939ebd584d54a7b54daa0a7}{$\sim$\+C4081}} ()
+\begin{DoxyCompactList}\small\item\em Component 4081 Destructor. \end{DoxyCompactList}\item 
+nts\+::\+Tristate \mbox{\hyperlink{classC4081_a1c32e380468dd0ccfe9da7fa6432d31a}{compute}} (std\+::size\+\_\+t pin=1) override
+\begin{DoxyCompactList}\small\item\em Compute. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classC4081_a21e38e780f876bcbee9e522e621654a3}{set\+Link}} (std\+::size\+\_\+t pin, \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}} \&other, std\+::size\+\_\+t other\+Pin) final
+\begin{DoxyCompactList}\small\item\em Set link method. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classC4081_a0ef9e2164c25c6aed2f2e3a54d7417fa}{dump}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Display information. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classC4081_a21323fd9bab910718335dc009b2b90c2}{set\+Input}} (std\+::size\+\_\+t pin, \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}} \&other, std\+::size\+\_\+t other\+Pin) final
+\begin{DoxyCompactList}\small\item\em Set input link method. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classC4081_af17058a91dbb223bf38c745cd7287557}{set\+Output}} (std\+::size\+\_\+t pin, \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}} \&other, std\+::size\+\_\+t other\+Pin) final
+\begin{DoxyCompactList}\small\item\em Set output link method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Quad 2-\/input A\+ND gate. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classC4081_afa84f979826cb257f236fee5a92b4af6}\label{classC4081_afa84f979826cb257f236fee5a92b4af6}} 
+\index{C4081@{C4081}!C4081@{C4081}}
+\index{C4081@{C4081}!C4081@{C4081}}
+\subsubsection{\texorpdfstring{C4081()}{C4081()}}
+{\footnotesize\ttfamily C4081\+::\+C4081 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Component 4081 Constructor. 
+
+Initializes four A\+ND gates with their own output and input pins. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classC4081_a1c32e380468dd0ccfe9da7fa6432d31a}\label{classC4081_a1c32e380468dd0ccfe9da7fa6432d31a}} 
+\index{C4081@{C4081}!compute@{compute}}
+\index{compute@{compute}!C4081@{C4081}}
+\subsubsection{\texorpdfstring{compute()}{compute()}}
+{\footnotesize\ttfamily nts\+::\+Tristate C4081\+::compute (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{pin = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Compute. 
+
+Searches for the door containing the requested pin and calculates the exit status.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & Pin requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classOutput}{Output}}\textquotesingle{}s door state. Can be true, false or undefined 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}}.
+
+\mbox{\Hypertarget{classC4081_a0ef9e2164c25c6aed2f2e3a54d7417fa}\label{classC4081_a0ef9e2164c25c6aed2f2e3a54d7417fa}} 
+\index{C4081@{C4081}!dump@{dump}}
+\index{dump@{dump}!C4081@{C4081}}
+\subsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily void C4081\+::dump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Display information. 
+
+Display all pins state and link of component 4081 
+
+Implements \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}}.
+
+\mbox{\Hypertarget{classC4081_a21323fd9bab910718335dc009b2b90c2}\label{classC4081_a21323fd9bab910718335dc009b2b90c2}} 
+\index{C4081@{C4081}!set\+Input@{set\+Input}}
+\index{set\+Input@{set\+Input}!C4081@{C4081}}
+\subsubsection{\texorpdfstring{set\+Input()}{setInput()}}
+{\footnotesize\ttfamily void C4081\+::set\+Input (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{pin,  }\item[{\mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}} \&}]{other,  }\item[{std\+::size\+\_\+t}]{other\+Pin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Set input link method. 
+
+Method call by another component to bind to component 4081\textquotesingle{}s input
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & Pin linked \\
+\hline
+{\em other} & Other Component \\
+\hline
+{\em other\+Pin} & Ohter component pin \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}}.
+
+\mbox{\Hypertarget{classC4081_a21e38e780f876bcbee9e522e621654a3}\label{classC4081_a21e38e780f876bcbee9e522e621654a3}} 
+\index{C4081@{C4081}!set\+Link@{set\+Link}}
+\index{set\+Link@{set\+Link}!C4081@{C4081}}
+\subsubsection{\texorpdfstring{set\+Link()}{setLink()}}
+{\footnotesize\ttfamily void C4081\+::set\+Link (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{pin,  }\item[{\mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}} \&}]{other,  }\item[{std\+::size\+\_\+t}]{other\+Pin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Set link method. 
+
+Link this component to another
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & Component pin that needs to be linked \\
+\hline
+{\em other} & The other Component \\
+\hline
+{\em other\+Pin} & The other component pin \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}}.
+
+\mbox{\Hypertarget{classC4081_af17058a91dbb223bf38c745cd7287557}\label{classC4081_af17058a91dbb223bf38c745cd7287557}} 
+\index{C4081@{C4081}!set\+Output@{set\+Output}}
+\index{set\+Output@{set\+Output}!C4081@{C4081}}
+\subsubsection{\texorpdfstring{set\+Output()}{setOutput()}}
+{\footnotesize\ttfamily void C4081\+::set\+Output (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{pin,  }\item[{\mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}} \&}]{other,  }\item[{std\+::size\+\_\+t}]{other\+Pin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Set output link method. 
+
+Method call by another component to bind to component 4081\textquotesingle{}s output
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & Pin linked \\
+\hline
+{\em other} & Other Component \\
+\hline
+{\em other\+Pin} & Ohter component pin \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classnts_1_1IComponent}{nts\+::\+I\+Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{C4081_8hpp}{C4081.\+hpp}}\item 
+Src/\+Components/C4081.\+cpp\end{DoxyCompactItemize}
