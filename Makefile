@@ -77,7 +77,7 @@ tests_run_coverage:
 	gcov *.gcno
 
 doxygen:
-	echo "<h1>TEST</h1>" >> docs/index.html
+	echo "<h1>TEST</h1>" >> ./index.html
 
 clean:
 	rm -f $(OBJS) *.gc*

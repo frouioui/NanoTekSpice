@@ -57,15 +57,14 @@ jobs:
           name: "Deployement Documentation"
           if: branch IN (master, travis, docs) AND type != cron AND type != pull_request
           before_script:
-            - git checkout $TRAVIS_BRANCH
             - docker pull epitechcontent/epitest-docker
           script:
-            - find docs && rm -Rf docs/* || mkdir docs
-            - find html && rm -Rf html || true
+            - rm -Rf ./* || true
             - docker run -v $PWD:/app epitechcontent/epitest-docker bash -c "cd app && dnf install doxygen -y && make doxygen" # To uncomment when doxygen will be here: && (rm -Rf latex && mv html/* docs/ && rm -Rf html)"
-          after_success:
-            - git config --global user.email "travis@travis-ci.com"
-            - git config --global user.name "Travis CI"
-            - git add --all
-            - git commit -m "[skip travis] Update Docs"
-            - git push origin master
+          deploy:
+            provider: pages
+            skip_cleanup: true
+            github_token: $GITHUB_TOKEN
+            keep_history: true
+            on:
+              branch: master
