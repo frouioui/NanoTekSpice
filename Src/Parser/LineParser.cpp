@@ -55,7 +55,7 @@ void Parser::LineParser::RemoveComment()
 
 nts::Type Parser::LineParser::GetType(const std::string &typeStr) const
 {
-    char types[nts::NUMBER_OF_TYPE][10] = {"input", "output", "clock", "true", "false",
+    char types[nts::NUMBER_OF_TYPE][11] = {"circuit", "input", "output", "clock", "true", "false",
     "4001", "4008", "4011", "4013", "4017", "4030", "4040", "4069", "4071",
     "4081", "4094", "4801", "2716"};
 

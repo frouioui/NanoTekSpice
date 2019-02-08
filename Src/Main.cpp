@@ -35,8 +35,24 @@ int main(int argc, char **argv)
     }
 
     // TODO: Give something to the simulator (circuit, components ...)
-    simulator.createCircuit(components);
-    simulator.setStates(args.intputValues);
+    try {
+        simulator.createCircuit(components);
+    }
+    catch (Error::Component::CreationError e) {
+        std::cerr << e.what() << " " << e.where() << std::endl;
+        return 84;
+    }
+    catch (Error::Parser::FileError e) {
+        std::cerr << e.what() << " " << e.where() << std::endl;
+        return 84;
+    }
+    try {
+        simulator.setStates(args.intputValues);
+    } catch (Error::Component::StateError e) {
+       std::cerr << e.what() << std::endl;
+       return 84;
+    }
+
     simulator.Run();
     return 0;
 }

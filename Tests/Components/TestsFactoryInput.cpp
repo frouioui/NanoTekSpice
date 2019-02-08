@@ -13,24 +13,24 @@
 
 Test(Factory, simpleInput)
 {
-	Factory fact;
-	std::unique_ptr<nts::IComponent> inA = fact.createComponent(nts::INPUT, "");
+    Factory fact;
+    std::unique_ptr<nts::IComponent> inA = fact.createComponent(nts::INPUT, "");
 
-	cr_assert_eq(inA->compute(1), nts::UNDEFINED);
+    cr_assert_eq(inA->compute(1), nts::UNDEFINED);
 }
 
 Test(Factory, True)
 {
-	Factory fact;
-	std::unique_ptr<nts::IComponent> inTrue = fact.createComponent(nts::CTRUE, "");
+    Factory fact;
+    std::unique_ptr<nts::IComponent> inTrue = fact.createComponent(nts::CTRUE, "");
 
-	cr_assert_eq(inTrue->compute(1), nts::TRUE);
+    cr_assert_eq(inTrue->compute(1), nts::TRUE);
 }
 
 Test(Factory, False)
 {
-	Factory fact;
-	std::unique_ptr<nts::IComponent> inFalse = fact.createComponent(nts::CFALSE, "");
+    Factory fact;
+    std::unique_ptr<nts::IComponent> inFalse = fact.createComponent(nts::CFALSE, "");
 
-	cr_assert_eq(inFalse->compute(1), nts::FALSE);
+    cr_assert_eq(inFalse->compute(1), nts::FALSE);
 }
