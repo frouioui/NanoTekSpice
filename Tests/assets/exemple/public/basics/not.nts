@@ -1,0 +1,34 @@
+# Admiral Business Machines 1954-2042
+# Six inverter gate
+
+.chipsets:
+input		i0
+input		i1
+input		i2
+input		i3
+input		i4
+input		i5
+
+output		o0
+output		o1
+output		o2
+output		o3
+output		o4
+output		o5
+
+4069		gate
+
+.links:
+i0:1		gate:1
+i1:1		gate:3
+i2:1		gate:5
+i3:1		gate:9
+i4:1		gate:11
+i5:1		gate:13
+
+o0:1		gate:2
+o1:1		gate:4
+o2:1		gate:6
+o3:1		gate:8
+o4:1		gate:10
+o5:1		gate:12
