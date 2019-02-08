@@ -5,6 +5,9 @@
 ## Makefile of the whole project
 ##
 
+## ----------- DOCUMENTATION ------------ ##
+DOC_FILE	=	Doxyfile
+
 BINARY_NAME = nanotekspice
 
 BINARY_UT_NAME = unit_tests
@@ -77,12 +80,14 @@ tests_run_coverage:
 	gcov *.gcno
 
 doxygen:
-	echo "<h1>TEST</h1>" >> docs/index.html
+	# echo "<h1>TEST</h1>" >> docs/index.html
+	doxygen $(DOC_FILE)
 
 clean:
 	rm -f $(OBJS) *.gc*
 
 fclean: clean
 	rm -f $(BINARY_UT_NAME) $(BINARY_NAME)
+	rm -rf ./latex ./html
 
 re: fclean all
