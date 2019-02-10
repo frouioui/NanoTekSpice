@@ -26,13 +26,14 @@ UT_SRC =	$(PATH_TEST)/Parser/TestsOpenFile.cpp				\
 			$(PATH_TEST)/Parser/Line/TestsSplitLineInTwo.cpp	\
 			$(PATH_TEST)/Parser/Checker/TestsIsUseless.cpp		\
 			$(PATH_TEST)/Components/TestsFactoryInput.cpp		\
-			$(PATH_TEST)/Components/TestsCircuit.cpp			\
 			$(PATH_TEST)/Components/TestsC4001.cpp				\
 			$(PATH_TEST)/Components/TestsC4011.cpp				\
 			$(PATH_TEST)/Components/TestsC4030.cpp				\
 			$(PATH_TEST)/Components/TestsC4069.cpp				\
 			$(PATH_TEST)/Components/TestsC4071.cpp				\
 			$(PATH_TEST)/Components/TestsC4081.cpp				\
+			$(PATH_TEST)/Components/TestsCircuit.cpp			\
+			$(PATH_TEST)/Components/TestsClock.cpp			\
 			$(PATH_TEST)/Argument/TestsGetFilename.cpp			\
 			$(PATH_TEST)/Argument/TestsGetInputValue.cpp		\
 
@@ -54,6 +55,7 @@ SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
 		$(PATH_SRC)/Components/C4071.cpp		\
 		$(PATH_SRC)/Components/C4081.cpp		\
 		$(PATH_SRC)/Components/Circuit.cpp		\
+		$(PATH_SRC)/Components/Clock.cpp		\
 		$(PATH_SRC)/Error.cpp					\
 		$(PATH_SRC)/Argument/ArgumentParser.cpp	\
 		$(PATH_SRC)/Simulation/Simulation.cpp	\

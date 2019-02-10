@@ -14,6 +14,7 @@
 #include "C4069.hpp"
 #include "C4071.hpp"
 #include "C4081.hpp"
+#include "Clock.hpp"
 #include "Input.hpp"
 #include "Output.hpp"
 #include "True.hpp"
@@ -26,6 +27,9 @@ Factory::Factory()
     };
     _componentsCreator[nts::INPUT] = [this] (const std::string& value) {
         return this->createInput(value);
+    };
+    _componentsCreator[nts::CLOCK] = [this] (const std::string& value) {
+        return this->createClock(value);
     };
     _componentsCreator[nts::OUTPUT] = [this] (const std::string& value) {
         return this->createOutput(value);
@@ -128,10 +132,12 @@ std::unique_ptr<nts::IComponent> Factory::createFalse(const std::string &value) 
     return newFalse;
 }
 
-// std::unique_ptr<nts::IComponent> Factory::createClock(const std::string &value) const noexcept
-// {
+std::unique_ptr<nts::IComponent> Factory::createClock(const std::string &value) const noexcept
+{
+    std::unique_ptr<Clock> newClock = std::make_unique<Clock>();
 
-// }
+    return newClock;
+}
 
 std::unique_ptr<nts::IComponent> Factory::create4001(const std::string &) const noexcept
 {
