@@ -85,6 +85,11 @@ void C4011::checkSelfLink(std::size_t pin1, std::size_t pin2)
     bool output = false;
 
     for (auto it = _doors.begin(); it != _doors.end(); ++it) {
+        if (((it->second.input1.pin == pin1 || it->second.input1.pin == pin2) ||
+        (it->second.input2.pin == pin1 || it->second.input2.pin == pin2)) &&
+        ((it->second.output.pin == pin1 || it->second.output.pin == pin2)))
+            throw Error::Component::LinkError ("Door linked to itself", "C4011::checkSelfLink");
+
         if (it->second.input1.pin == pin1 || it->second.input1.pin == pin2)
             input = true;
         if (it->second.input2.pin == pin1 || it->second.input2.pin == pin2)
