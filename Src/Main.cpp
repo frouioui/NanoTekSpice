@@ -46,6 +46,11 @@ int main(int argc, char **argv)
         std::cerr << e.what() << " " << e.where() << std::endl;
         return 84;
     }
+    catch (Error::Component::LinkError e) {
+        std::cerr << e.what() << " " << e.where() << std::endl;
+        return 84;
+    }
+
     try {
         simulator.setStates(args.intputValues);
     } catch (Error::Component::StateError e) {
