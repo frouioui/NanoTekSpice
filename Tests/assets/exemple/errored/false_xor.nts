@@ -1,0 +1,10 @@
+# Admiral Business Machines 1954-2042
+# One xor gate
+
+.chipsets:
+input		b
+4030		gate
+
+.links:
+gate:3	gate:1
+b:1		gate:2

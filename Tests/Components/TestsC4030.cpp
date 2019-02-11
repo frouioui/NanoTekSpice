@@ -11,6 +11,7 @@
 #include "Circuit.hpp"
 #include "Parser.hpp"
 #include "ArgumentParser.hpp"
+#include "Error.hpp"
 
 Test(C4030, UndefinedOutput)
 {
@@ -54,4 +55,17 @@ Test(C4030, TrueOutput)
     circuit.setState("a", "0");
     circuit.setState("b", "1");
     cr_assert_eq(circuit.compute(1), nts::TRUE);
+}
+
+Test(C4030, WrongLInk)
+{
+    Circuit circuit;
+    Parser::container_setting_t settings;
+
+    settings = Parser::Parser("./Tests/assets/exemple/errored/false_xor.nts").Parse();
+    try {
+        circuit.createAllComponents(settings);
+    } catch (Error::Component::LinkError e) {
+        cr_assert_str_eq(e.what(), "Door linked to itself");
+    }
 }

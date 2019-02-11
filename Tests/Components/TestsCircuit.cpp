@@ -19,5 +19,4 @@ Test(Circuit, simpleConstruction)
 
     settings = Parser::Parser("./Tests/assets/exemple/public/basics/nor.nts").Parse();
     circuit.createAllComponents(settings);
-    circuit.dump();
 }
