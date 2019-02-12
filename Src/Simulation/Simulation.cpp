@@ -109,6 +109,8 @@ void Simulation::Simulation::AnalyseAction()
     }
     if (_action == SIMULATE)
         simulate();
+    if (_action == DISPLAY)
+        display();
 }
 
 void Simulation::Simulation::Run()
@@ -117,7 +119,7 @@ void Simulation::Simulation::Run()
 
     // Run single simulation
     simulate();
-
+    display();
     // Display the prompt for the first line
     Simulation::DisplayPrompt();
 

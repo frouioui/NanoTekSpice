@@ -41,7 +41,6 @@ nts::Tristate Output::compute(std::size_t pin)
         std::cerr << e.what() << " " << e.where() << std::endl;
         throw;
     }
-    displayState(pin);
     return _input[pin].state;
 }
 
