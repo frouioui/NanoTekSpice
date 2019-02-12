@@ -122,6 +122,8 @@ void Simulation::Simulation::Run()
         if (IsExitProg() == true)
             return;
 
+        AnalyseAction();
+
         // Display a new prompt
         Simulation::DisplayPrompt();
     }
