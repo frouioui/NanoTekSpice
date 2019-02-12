@@ -31,6 +31,7 @@ class Circuit : public Component::MyComponent
         nts::Tristate compute(std::size_t) override;
 
         void dump() const noexcept override;
+        void displayState(std::size_t) const noexcept final;
 
     private:
         void linkAllComponents(const std::vector<Component::ComponentSetting> &settings);

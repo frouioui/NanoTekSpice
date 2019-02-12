@@ -37,7 +37,7 @@ bool Simulation::Simulation::IsExitProg() const
 
 void Simulation::Simulation::DisplayPrompt() const
 {
-    std::cout << ">";
+    std::cout << "> ";
 }
 
 void Simulation::Simulation::GetAction()
@@ -65,6 +65,11 @@ void Simulation::Simulation::GetAction()
 void Simulation::Simulation::dump() const noexcept
 {
     _circuit->dump();
+}
+
+void Simulation::Simulation::display() const noexcept
+{
+    _circuit->displayState(1);
 }
 
 void Simulation::Simulation::simulate()
@@ -104,6 +109,8 @@ void Simulation::Simulation::AnalyseAction()
     }
     if (_action == SIMULATE)
         simulate();
+    if (_action == DISPLAY)
+        display();
 }
 
 void Simulation::Simulation::Run()
@@ -112,7 +119,7 @@ void Simulation::Simulation::Run()
 
     // Run single simulation
     simulate();
-
+    display();
     // Display the prompt for the first line
     Simulation::DisplayPrompt();
 

@@ -62,6 +62,15 @@ void Circuit::dump() const noexcept
     }
 }
 
+void Circuit::displayState(std::size_t) const noexcept
+{
+    for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
+        if (it->second->getType() == nts::OUTPUT) {
+            it->second->displayState(1);
+        }
+    }
+}
+
 void Circuit::setState(const std::string &name, const std::string &state)
 {
     bool found = false;

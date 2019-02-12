@@ -45,6 +45,7 @@ namespace Simulation
         void setStates(const std::map<std::string, std::string> &inputValues);
         void simulate();
         void dump() const noexcept;
+        void display() const noexcept;
 
         bool IsItKeyValue() const;
         bool IsExitProg() const;
