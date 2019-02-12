@@ -31,6 +31,8 @@ namespace Component
 
             const nts::Type &getType() const noexcept final;
 
+            void displayState(std::size_t) const noexcept override;
+
         protected:
             std::string _name;
             nts::Type _type;

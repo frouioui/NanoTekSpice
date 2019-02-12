@@ -41,3 +41,7 @@ void Component::MyComponent::setState(const std::string &, const std::string &)
 void Component::MyComponent::createAllComponents(const std::vector<Component::ComponentSetting> &)
 {
 }
+
+void Component::MyComponent::displayState(std::size_t) const noexcept
+{
+}

@@ -26,8 +26,9 @@ class Output : public Component::MyComponent
         void setInput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) final;
         void setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherPin) final;
 
+        void displayState(std::size_t pin) const noexcept override;
+
     private:
-        void displayState(std::size_t pin) const noexcept;
 
         std::map<size_t, nts::Pin> _input;
 };
