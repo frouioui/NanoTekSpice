@@ -86,8 +86,13 @@ void Output::dump() const noexcept
 
     for (auto it = _input.begin(); it != _input.end(); ++it) {
         std::cout << "\tpin #" << it->second.pin << std::endl <<
-        "\t-> state: " << it->second.state << std::endl <<
-        "\t-> linked to: " << it->second.destinationName->getName() <<
+        "\t-> state: " << it->second.state << std::endl;
+
+        if (it->second.destinationName != nullptr)
+            std::cout << "\t\t\t->linked to: " << it->second.destinationName->getName() <<
+            " - pin #" << it->second.destinationPin << std::endl;
+        else
+            std::cout << "\t\t\t-> no linked" <<
         " - pin #" << it->second.destinationPin << std::endl;
     }
 }
