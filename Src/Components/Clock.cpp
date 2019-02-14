@@ -13,7 +13,6 @@ Clock::Clock() :
 Component::MyComponent(nts::CLOCK)
 {
     _output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::FALSE, nullptr, -1}));
-    std::cout << "clock " << _output[1].state << std::endl;
 }
 
 Clock::~Clock()
@@ -25,7 +24,6 @@ nts::Tristate Clock::compute(std::size_t pin)
     auto search = _output.find(pin);
     nts::Tristate state = nts::UNDEFINED;
 
-    std::cout << "pin " << pin << std::endl;
     if (search == _output.end())
         throw Error::Component::ComputeError("No corresponding pin", " Clock::compute");
     if (search->second.state == nts::FALSE) {
