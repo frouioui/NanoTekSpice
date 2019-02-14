@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2019
 ** OOP_NanoTekSpice
 ** File description:
-** C4011 class
+** C4008 class
 */
 
 /**
- * \file C4011.hpp
- * \brief C4011 class.
+ * \file C4008.hpp
+ * \brief C4008 class.
  * \author Cécile CADOUL
  * \author Florent POINSARD
  */
 
-#ifndef C4011_HPP_
-    #define C4011_HPP_
+#ifndef C4008_HPP_
+    #define C4008_HPP_
 
 #include "IComponent.hpp"
 #include "Component.hpp"
@@ -22,22 +22,22 @@
 #include <map>
 
 /*!
- * \class C4011
- * \brief Quad 2-input NAND gate
+ * \class C4008
+ * \brief 4-Bit Full Adder With Parallel Carry Out
  */
-class C4011 : public Component::MyComponent
+class C4008 : public Component::MyComponent
 {
     public:
         /*!
-         * \brief Component 4011 Constructor
+         * \brief Component 4008 Constructor
          *
-         * Initializes four NAND gates with their own output and input pins.
+         * Initializes 4-Bit Full Adder With Parallel Carry Out.
          */
-        C4011();
+        C4008();
         /*!
-         * \brief Component 4011 Destructor
+         * \brief Component 4008 Destructor
          */
-        ~C4011();
+        ~C4008();
         /*!
          * \brief Compute
          *
@@ -61,13 +61,13 @@ class C4011 : public Component::MyComponent
         /*!
          * \brief Display information
          *
-         * Display all pins state and link of component 4011
+         * Display all pins state and link of component 4008
          */
         void dump() const noexcept override;
         /*!
          * \brief Set input link method
          *
-         * Method call by another component to bind to component 4001's input
+         * Method call by another component to bind to component 4008's input
          *
          * \param pin Pin linked
          * \param other Other Component
@@ -77,7 +77,7 @@ class C4011 : public Component::MyComponent
         /*!
          * \brief Set output link method
          *
-         * Method call by another component to bind to component 4001's output
+         * Method call by another component to bind to component 4008's output
          *
          * \param pin Pin linked
          * \param other Other Component
@@ -114,8 +114,29 @@ class C4011 : public Component::MyComponent
          * \return Pin state
          */
         nts::Tristate computeOutput(nts::Door &door);
+        /*!
+         * \brief Compute carry out
+         *
+         * Return carry out state passed thanks to the state of its
+         *  two input pins
+         *
+         * \param input1 Input pin one
+         * \param input2 Input pin two
+         * \return Carry out state
+         */
+        void computeCarryOut(nts::Tristate intput1, nts::Tristate input2);
+        /*!
+         * \brief Compute carry in
+         *
+         * Set carry in to True if carry out equals True
+         *
+         */
+        void computeCarryIn();
 
         std::map<size_t, nts::Door> _doors; /*!< Component's doors map*/
+        nts::Pin _carryIn;
+        nts::Pin _carryOut;
+
 };
 
-#endif /* !C4011_HPP_ */
+#endif /* !C4008_HPP_ */

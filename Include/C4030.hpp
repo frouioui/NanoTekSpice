@@ -107,7 +107,7 @@ class C4030 : public Component::MyComponent
         /*!
          * \brief Compute output pin
          *
-         * Return pin state passed in parameter thank to the state of its
+         * Return pin state passed in parameter thanks to the state of its
          *  two input pins
          *
          * \param pin Output pin

@@ -9,6 +9,7 @@
 #include "Error.hpp"
 #include "Circuit.hpp"
 #include "C4001.hpp"
+#include "C4008.hpp"
 #include "C4011.hpp"
 #include "C4030.hpp"
 #include "C4069.hpp"
@@ -42,6 +43,9 @@ Factory::Factory()
     };
     _componentsCreator[nts::C4001] = [this] (const std::string& value) {
         return this->create4001(value);
+    };
+    _componentsCreator[nts::C4008] = [this] (const std::string& value) {
+        return this->create4008(value);
     };
     _componentsCreator[nts::C4011] = [this] (const std::string& value) {
         return this->create4011(value);
@@ -146,10 +150,12 @@ std::unique_ptr<nts::IComponent> Factory::create4001(const std::string &) const 
     return newC4001;
 }
 
-// std::unique_ptr<nts::IComponent> Factory::create4008(const std::string &value) const noexcept
-// {
+std::unique_ptr<nts::IComponent> Factory::create4008(const std::string &value) const noexcept
+{
+    std::unique_ptr<C4008> newC4008 = std::make_unique<C4008>();
 
-// }
+    return newC4008;
+}
 
 std::unique_ptr<nts::IComponent> Factory::create4011(const std::string &value) const noexcept
 {
