@@ -31,7 +31,7 @@ Test(Clock, FalseOutput)
 
     settings = Parser::Parser("./Tests/assets/exemple/public/basics/clock.nts").Parse();
     circuit.createAllComponents(settings);
-    cr_assert_eq(circuit.compute(1), nts::FALSE);
+    circuit.setState("clock", "0");
     circuit.setState("b", "0");
     cr_assert_eq(circuit.compute(1), nts::FALSE);
     cr_assert_eq(circuit.compute(1), nts::FALSE);
@@ -44,6 +44,7 @@ Test(Clock, TrueOutput)
 
     settings = Parser::Parser("./Tests/assets/exemple/public/basics/clock.nts").Parse();
     circuit.createAllComponents(settings);
+    circuit.setState("clock", "0");
     circuit.setState("b", "1");
     circuit.compute(1);
     cr_assert_eq(circuit.compute(1), nts::TRUE);
