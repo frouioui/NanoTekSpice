@@ -163,7 +163,7 @@ void C4514::setInput(std::size_t pin, nts::IComponent &other, std::size_t otherP
     bool find = false;
 
     for (auto it = _inputs.begin(); it != _inputs.end() && find == false; ++it) {
-        if (it->second.pin == pin) {
+        if (it->first == pin) {
             if (it->second.destinationName != nullptr)
                 throw Error::Component::LinkError("Pin already linked", "C4514::setInput");
             it->second.destinationName = &other;
@@ -180,7 +180,7 @@ void C4514::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
     bool find = false;
 
     for (auto it = _outputs.begin(); it != _outputs.end() && find == false; ++it) {
-        if (it->second.pin == pin) {
+        if (it->first == pin) {
             it->second.destinationName = &other;
             it->second.destinationPin = otherPin;
             find = true;
