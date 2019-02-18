@@ -124,12 +124,7 @@ void C4514::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
             it->second.destinationPin = otherPin;
             try {
                 other.setOutput(otherPin, *this, pin);
-            }
-            catch (Error::Parser::FileError e) {
-                std::cerr << e.what() << " " << e.where() << std::endl;
-                throw;
-            }
-            catch (Error::Component::LinkError e) {
+            } catch (Error::Error e) {
                 std::cerr << e.what() << " " << e.where() << std::endl;
                 throw;
             }
@@ -142,12 +137,7 @@ void C4514::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
             it->second.destinationPin = otherPin;
             try {
                 other.setOutput(otherPin, *this, pin);
-            }
-            catch (Error::Parser::FileError e) {
-                std::cerr << e.what() << " " << e.where() << std::endl;
-                throw;
-            }
-            catch (Error::Component::LinkError e) {
+            } catch (Error::Error e) {
                 std::cerr << e.what() << " " << e.where() << std::endl;
                 throw;
             }

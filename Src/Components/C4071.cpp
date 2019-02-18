@@ -113,12 +113,7 @@ void C4071::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
             it->second.input1.destinationPin = otherPin;
             try {
                 other.setOutput(otherPin, *this, pin);
-            }
-            catch (Error::Parser::FileError e) {
-                std::cerr << e.what() << " " << e.where() << std::endl;
-                throw;
-            }
-            catch (Error::Component::LinkError e) {
+            } catch (Error::Error e) {
                 std::cerr << e.what() << " " << e.where() << std::endl;
                 throw;
             }
@@ -129,12 +124,7 @@ void C4071::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
             it->second.input2.destinationPin = otherPin;
             try {
                 other.setOutput(otherPin, *this, pin);
-            }
-            catch (Error::Parser::FileError e) {
-                std::cerr << e.what() << " " << e.where() << std::endl;
-                throw;
-            }
-            catch (Error::Component::LinkError e) {
+            } catch (Error::Error e) {
                 std::cerr << e.what() << " " << e.where() << std::endl;
                 throw;
             }
@@ -145,12 +135,7 @@ void C4071::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
             it->second.output.destinationPin = otherPin;
             try {
                 other.setInput(otherPin, *this, pin);
-            }
-            catch (Error::Parser::FileError e) {
-                std::cerr << e.what() << " " << e.where() << std::endl;
-                throw;
-            }
-            catch (Error::Component::LinkError e) {
+            } catch (Error::Error e) {
                 std::cerr << e.what() << " " << e.where() << std::endl;
                 throw;
             }

@@ -46,12 +46,7 @@ void Clock::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
     _output[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
     try {
         other.setInput(otherPin, *this, pin);
-    }
-    catch (Error::Parser::FileError e) {
-        std::cerr << e.what() << " " << e.where() << std::endl;
-        throw;
-    }
-    catch (Error::Component::LinkError e) {
+    } catch (Error::Error e) {
         std::cerr << e.what() << " " << e.where() << std::endl;
         throw;
     }

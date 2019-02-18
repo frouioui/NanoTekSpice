@@ -38,12 +38,7 @@ void True::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPi
     _output[pin] = {pin, nts::TRUE, &other, static_cast<int>(otherPin)};
     try {
         other.setInput(otherPin, *this, pin);
-    }
-    catch (Error::Parser::FileError e) {
-        std::cerr << e.what() << " " << e.where() << std::endl;
-        throw;
-    }
-    catch (Error::Component::LinkError e) {
+    } catch (Error::Error e) {
         std::cerr << e.what() << " " << e.where() << std::endl;
         throw;
     }
