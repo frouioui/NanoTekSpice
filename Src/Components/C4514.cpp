@@ -20,22 +20,21 @@ Component::MyComponent(nts::C4514)
     _inputs[22] = {22, nts::UNDEFINED, nullptr, -1};
     _inputs[23] = {23, nts::UNDEFINED, nullptr, -1};
 
-    _outputs[11] = {0, nts::UNDEFINED, nullptr, -1};
-    _outputs[9] = {1, nts::UNDEFINED, nullptr, -1};
-    _outputs[10] = {2, nts::UNDEFINED, nullptr, -1};
-    _outputs[8] = {3, nts::UNDEFINED, nullptr, -1};
-    _outputs[7] = {4, nts::UNDEFINED, nullptr, -1};
-    _outputs[6] = {5, nts::UNDEFINED, nullptr, -1};
-    _outputs[5] = {6, nts::UNDEFINED, nullptr, -1};
+    _outputs[0] = {11, nts::UNDEFINED, nullptr, -1};
+    _outputs[1] = {9, nts::UNDEFINED, nullptr, -1};
+    _outputs[2] = {10, nts::UNDEFINED, nullptr, -1};
+    _outputs[3] = {8, nts::UNDEFINED, nullptr, -1};
     _outputs[4] = {7, nts::UNDEFINED, nullptr, -1};
-    _outputs[18] = {8, nts::UNDEFINED, nullptr, -1};
-    _outputs[17] = {9, nts::UNDEFINED, nullptr, -1};
-    _outputs[20] = {10, nts::UNDEFINED, nullptr, -1};
-    _outputs[19] = {11, nts::UNDEFINED, nullptr, -1};
-    _outputs[14] = {12, nts::UNDEFINED, nullptr, -1};
+    _outputs[5] = {6, nts::UNDEFINED, nullptr, -1};
+    _outputs[6] = {5, nts::UNDEFINED, nullptr, -1};
+    _outputs[7] = {4, nts::UNDEFINED, nullptr, -1};
+    _outputs[8] = {18, nts::UNDEFINED, nullptr, -1};
+    _outputs[9] = {17, nts::UNDEFINED, nullptr, -1};
+    _outputs[10] = {20, nts::UNDEFINED, nullptr, -1};
+    _outputs[11] = {19, nts::UNDEFINED, nullptr, -1};
+    _outputs[12] = {14, nts::UNDEFINED, nullptr, -1};
     _outputs[13] = {13, nts::UNDEFINED, nullptr, -1};
-    _outputs[13] = {13, nts::UNDEFINED, nullptr, -1};
-    _outputs[16] = {14, nts::UNDEFINED, nullptr, -1};
+    _outputs[14] = {16, nts::UNDEFINED, nullptr, -1};
     _outputs[15] = {15, nts::UNDEFINED, nullptr, -1};
 }
 
@@ -76,7 +75,9 @@ nts::Tristate C4514::computeOutput(nts::Pin &pin)
     for (auto it = _inputs.begin(); it != _inputs.end(); ++it)
         computeInput(it->second);
     conv = tranfsormBinaryToDecimal(_inputs[2].state, _inputs[3].state, _inputs[21].state, _inputs[22].state);
-    if (conv == pin.pin)
+    if (_inputs[23].state == nts::TRUE)
+        pin.state = nts::FALSE;
+    else if (conv == pin.pin)
         pin.state = nts::TRUE;
     else
         pin.state = nts::FALSE;
@@ -85,10 +86,8 @@ nts::Tristate C4514::computeOutput(nts::Pin &pin)
 
 nts::Tristate C4514::compute(std::size_t pin)
 {
-    if (_inputs[23].state == nts::TRUE)
-        _outputs[pin].state = nts::FALSE;
     for (auto it = _outputs.begin(); it != _outputs.end(); ++it) {
-        if (pin == it->first) {
+        if (pin == it->second.pin) {
             return computeOutput(it->second);
         }
     }
@@ -101,11 +100,11 @@ void C4514::checkSelfLink(std::size_t pin1, std::size_t pin2)
     bool output = false;
 
     for (auto it = _inputs.begin(); it != _inputs.end(); ++it) {
-        if (it->first == pin1 || it->first == pin2)
+        if (it->second.pin == pin1 || it->second.pin == pin2)
             input = true;
     }
     for (auto it = _outputs.begin(); it != _outputs.end(); ++it) {
-        if (it->first == pin1 || it->first == pin2)
+        if (it->second.pin == pin1 || it->second.pin == pin2)
             output = true;
     }
     if (!(input == true && output == true))
@@ -119,7 +118,7 @@ void C4514::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
     if (this == &other)
         checkSelfLink(pin, otherPin);
     for (auto it = _inputs.begin(); it != _inputs.end() && find == false; ++it) {
-        if (it->first == pin) {
+        if (it->second.pin == pin) {
             it ->second.destinationName = &other;
             it->second.destinationPin = otherPin;
             try {
@@ -132,7 +131,7 @@ void C4514::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
         }
     }
     for (auto it = _outputs.begin(); it != _outputs.end() && find == false; ++it) {
-        if (it->first == pin) {
+        if (it->second.pin == pin) {
             it ->second.destinationName = &other;
             it->second.destinationPin = otherPin;
             try {
@@ -153,7 +152,7 @@ void C4514::setInput(std::size_t pin, nts::IComponent &other, std::size_t otherP
     bool find = false;
 
     for (auto it = _inputs.begin(); it != _inputs.end() && find == false; ++it) {
-        if (it->first == pin) {
+        if (it->second.pin == pin) {
             if (it->second.destinationName != nullptr)
                 throw Error::Component::LinkError("Pin already linked", "C4514::setInput");
             it->second.destinationName = &other;
@@ -170,7 +169,7 @@ void C4514::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
     bool find = false;
 
     for (auto it = _outputs.begin(); it != _outputs.end() && find == false; ++it) {
-        if (it->first == pin) {
+        if (it->second.pin == pin) {
             it->second.destinationName = &other;
             it->second.destinationPin = otherPin;
             find = true;
