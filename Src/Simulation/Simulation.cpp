@@ -42,6 +42,10 @@ void Simulation::Simulation::DisplayPrompt() const
 
 void Simulation::Simulation::GetAction()
 {
+
+    _action = NOTHING;
+    if (_line.size() == 0)
+        return;
     for (unsigned int i = 0; i < NUMBER_OF_ACTION; i++) {
         if (_line.compare(KEYWORD_ACTION[i]) == 0) {
             if (i == 0)
@@ -120,6 +124,7 @@ void Simulation::Simulation::Run()
     // Run single simulation
     simulate();
     display();
+
     // Display the prompt for the first line
     Simulation::DisplayPrompt();
 

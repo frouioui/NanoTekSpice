@@ -36,12 +36,17 @@ void True::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherPi
     if (search == _output.end())
         throw Error::Parser::FileError("No corresponding pin", "True::setLink");
     _output[pin] = {pin, nts::TRUE, &other, static_cast<int>(otherPin)};
-    other.setInput(otherPin, *this, pin);
-}
-
-void True::dump() const noexcept
-{
-    std::cout << _name << std::endl;
+    try {
+        other.setInput(otherPin, *this, pin);
+    }
+    catch (Error::Parser::FileError e) {
+        std::cerr << e.what() << " " << e.where() << std::endl;
+        throw;
+    }
+    catch (Error::Component::LinkError e) {
+        std::cerr << e.what() << " " << e.where() << std::endl;
+        throw;
+    }
 }
 
 void True::setInput(std::size_t, nts::IComponent &, std::size_t)
@@ -54,5 +59,20 @@ void True::setOutput(std::size_t pin, nts::IComponent &other, std::size_t otherP
 
     if (search == _output.end())
         throw Error::Parser::FileError("No corresponding pin", "True::setOutput");
+    if (_output[pin].destinationName != nullptr)
+        throw Error::Component::LinkError("Pin already linked", "True::setOutput");
     _output[pin] = {pin, nts::TRUE, &other, static_cast<int>(otherPin)};
+}
+
+void True::dump() const noexcept
+{
+    std::cout << std::endl << "-----------------------------------------------" << std::endl;
+    std::cout << "True #" << _name << std::endl;
+
+    for (auto it = _output.begin(); it != _output.end(); ++it) {
+        std::cout << "\tpin #" << it->second.pin << std::endl <<
+        "\t-> state: " << it->second.state << std::endl <<
+        "\t-> linked to: " << it->second.destinationName->getName() <<
+        " - pin #" << it->second.destinationPin << std::endl;
+    }
 }

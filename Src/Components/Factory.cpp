@@ -9,11 +9,13 @@
 #include "Error.hpp"
 #include "Circuit.hpp"
 #include "C4001.hpp"
+#include "C4008.hpp"
 #include "C4011.hpp"
 #include "C4030.hpp"
 #include "C4069.hpp"
 #include "C4071.hpp"
 #include "C4081.hpp"
+#include "C4514.hpp"
 #include "Clock.hpp"
 #include "Input.hpp"
 #include "Output.hpp"
@@ -43,6 +45,9 @@ Factory::Factory()
     _componentsCreator[nts::C4001] = [this] (const std::string& value) {
         return this->create4001(value);
     };
+    _componentsCreator[nts::C4008] = [this] (const std::string& value) {
+        return this->create4008(value);
+    };
     _componentsCreator[nts::C4011] = [this] (const std::string& value) {
         return this->create4011(value);
     };
@@ -57,6 +62,9 @@ Factory::Factory()
     };
     _componentsCreator[nts::C4081] = [this] (const std::string& value) {
         return this->create4081(value);
+    };
+    _componentsCreator[nts::C4514] = [this] (const std::string& value) {
+        return this->create4514(value);
     };
 }
 
@@ -146,10 +154,12 @@ std::unique_ptr<nts::IComponent> Factory::create4001(const std::string &) const 
     return newC4001;
 }
 
-// std::unique_ptr<nts::IComponent> Factory::create4008(const std::string &value) const noexcept
-// {
+std::unique_ptr<nts::IComponent> Factory::create4008(const std::string &value) const noexcept
+{
+    std::unique_ptr<C4008> newC4008 = std::make_unique<C4008>();
 
-// }
+    return newC4008;
+}
 
 std::unique_ptr<nts::IComponent> Factory::create4011(const std::string &value) const noexcept
 {
@@ -206,10 +216,12 @@ std::unique_ptr<nts::IComponent> Factory::create4081(const std::string &value) c
 
 // }
 
-// std::unique_ptr<nts::IComponent> Factory::create4514(const std::string &value) const noexcept
-// {
+std::unique_ptr<nts::IComponent> Factory::create4514(const std::string &value) const noexcept
+{
+    std::unique_ptr<C4514> newC4514 = std::make_unique<C4514>();
 
-// }
+    return newC4514;
+}
 
 // std::unique_ptr<nts::IComponent> Factory::create4801(const std::string &value) const noexcept
 // {

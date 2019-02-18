@@ -57,7 +57,7 @@ nts::Type Parser::LineParser::GetType(const std::string &typeStr) const
 {
     char types[nts::NUMBER_OF_TYPE][11] = {"circuit", "input", "output", "clock", "true", "false",
     "4001", "4008", "4011", "4013", "4017", "4030", "4040", "4069", "4071",
-    "4081", "4094", "4801", "2716"};
+    "4081", "4094", "4514", "4801", "2716"};
 
     for (unsigned int i = 0; i < nts::NUMBER_OF_TYPE; i++) {
         if (typeStr.compare(types[i]) == 0) {

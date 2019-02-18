@@ -44,7 +44,6 @@ void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &a
             }
             if (allLinks[i].originName.compare(components[j].name.c_str()) == 0) {
                 components[j].links.push_back(allLinks[i]);
-                break;
             }
         }
     }
@@ -89,7 +88,7 @@ void Parser::Parser::HandleLinks(unsigned int &i, std::vector<Component::Link> &
         LineParser lineParser(_lines[i]);
         Component::Link link = lineParser.GetLink();
         allLinks.push_back(link);
-        if (_lines[i + 1].compare(".chipsets:") == 0)
+        if (_lines.size() > i + 1 && _lines[i + 1].compare(".chipsets:") == 0)
             break;
         else
             i++;
