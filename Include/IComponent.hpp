@@ -54,6 +54,15 @@ namespace nts
         nts::Pin input2;
         nts::Pin output;
     };
+
+    struct FFDoor {
+        nts::Pin clock;
+        nts::Pin data;
+        nts::Pin set;
+        nts::Pin reset;
+        nts::Pin out;
+        nts::Pin nout;
+    };
 } // !nts
 
 #endif /* !ICOMPONENT_HPP_ */

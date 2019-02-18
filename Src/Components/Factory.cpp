@@ -15,6 +15,7 @@
 #include "C4069.hpp"
 #include "C4071.hpp"
 #include "C4081.hpp"
+#include "C4514.hpp"
 #include "Clock.hpp"
 #include "Input.hpp"
 #include "Output.hpp"
@@ -61,6 +62,9 @@ Factory::Factory()
     };
     _componentsCreator[nts::C4081] = [this] (const std::string& value) {
         return this->create4081(value);
+    };
+    _componentsCreator[nts::C4514] = [this] (const std::string& value) {
+        return this->create4514(value);
     };
 }
 
@@ -212,10 +216,12 @@ std::unique_ptr<nts::IComponent> Factory::create4081(const std::string &value) c
 
 // }
 
-// std::unique_ptr<nts::IComponent> Factory::create4514(const std::string &value) const noexcept
-// {
+std::unique_ptr<nts::IComponent> Factory::create4514(const std::string &value) const noexcept
+{
+    std::unique_ptr<C4514> newC4514 = std::make_unique<C4514>();
 
-// }
+    return newC4514;
+}
 
 // std::unique_ptr<nts::IComponent> Factory::create4801(const std::string &value) const noexcept
 // {

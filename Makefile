@@ -56,6 +56,7 @@ SRC =	$(PATH_SRC)/Parser/Parser.cpp			\
 		$(PATH_SRC)/Components/C4069.cpp		\
 		$(PATH_SRC)/Components/C4071.cpp		\
 		$(PATH_SRC)/Components/C4081.cpp		\
+		$(PATH_SRC)/Components/C4514.cpp		\
 		$(PATH_SRC)/Components/Circuit.cpp		\
 		$(PATH_SRC)/Components/Clock.cpp		\
 		$(PATH_SRC)/Error.cpp					\

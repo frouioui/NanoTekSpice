@@ -77,7 +77,7 @@ void Input::setState(const std::string &state)
 void Input::dump() const noexcept
 {
     std::cout << std::endl << "-----------------------------------------------" << std::endl;
-    std::cout << "Input #" <<_name << std::endl;
+    std::cout << "Input #" << _name << std::endl;
 
     for (auto it = _output.begin(); it != _output.end(); ++it) {
         std::cout << "\tpin #" << it->second.pin << std::endl <<
