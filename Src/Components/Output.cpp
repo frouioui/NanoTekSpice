@@ -53,12 +53,7 @@ void Output::setLink(std::size_t pin , nts::IComponent &other, std::size_t other
     _input[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
     try {
         other.setOutput(otherPin, *this, pin);
-    }
-    catch (Error::Parser::FileError e) {
-        std::cerr << e.what() << " " << e.where() << std::endl;
-        throw;
-    }
-    catch (Error::Component::LinkError e) {
+    } catch (Error::Error e) {
         std::cerr << e.what() << " " << e.where() << std::endl;
         throw;
     }
