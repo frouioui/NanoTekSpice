@@ -12,7 +12,7 @@
 Clock::Clock() :
 Component::MyComponent(nts::CLOCK)
 {
-    _output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::FALSE, nullptr, -1}));
+    _output.insert(std::pair<std::size_t, nts::Pin>(1, {1, nts::UNDEFINED, nullptr, -1}));
 }
 
 Clock::~Clock()
@@ -43,7 +43,7 @@ void Clock::setLink(std::size_t pin , nts::IComponent &other, std::size_t otherP
 
     if (search == _output.end())
         throw Error::Parser::FileError("No corresponding pin", "Clock::setLink");
-    _output[pin] = {pin, nts::FALSE, &other, static_cast<int>(otherPin)};
+    _output[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
     try {
         other.setInput(otherPin, *this, pin);
     }
@@ -69,11 +69,17 @@ void Clock::setOutput(std::size_t pin, nts::IComponent &other, std::size_t other
         throw Error::Parser::FileError("No corresponding pin", "Clock::setOutput");
     if (_output[pin].destinationName != nullptr)
         throw Error::Component::LinkError("Pin already linked", "Clock::setOutput");
-    _output[pin] = {pin, nts::FALSE, &other, static_cast<int>(otherPin)};
+    _output[pin] = {pin, nts::UNDEFINED, &other, static_cast<int>(otherPin)};
 }
 
 void Clock::setState(const std::string &state)
 {
+    if (state == "0")
+        _output[1].state = nts::FALSE;
+    else if (state == "1")
+        _output[1].state = nts::TRUE;
+    else
+        throw Error::Component::StateError("State can only be set to 0 or 1", "Clock::setState");
 }
 
 void Clock::dump() const noexcept

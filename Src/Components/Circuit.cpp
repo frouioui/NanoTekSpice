@@ -77,7 +77,7 @@ void Circuit::setState(const std::string &name, const std::string &state)
     for (auto it = _allComponents.begin(); it != _allComponents.end(); ++it) {
         if (name == it->first) {
             found = true;
-            if (it->second->getType() != nts::INPUT)
+            if (it->second->getType() != nts::INPUT && it->second->getType() != nts::CLOCK)
                 throw Error::Component::StateError("Can't change value for this type", "Circuit::setState");
             try {
                 it->second->setState(state);
