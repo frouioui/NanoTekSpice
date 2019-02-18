@@ -44,7 +44,6 @@ void Parser::Parser::AddLinksToChipsetInfo(const std::vector<Component::Link> &a
             }
             if (allLinks[i].originName.compare(components[j].name.c_str()) == 0) {
                 components[j].links.push_back(allLinks[i]);
-                break;
             }
         }
     }

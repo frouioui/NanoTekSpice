@@ -29,33 +29,13 @@ int main(int argc, char **argv)
 
         // Parse file
         components = Parser::Parser(args.filename).Parse();
+
+        // Start simulation
+        simulator.createCircuit(components);
+        simulator.setStates(args.intputValues);
     } catch (Error::Error e) {
         std::cout << e.what() << std::endl;
         return (84);
-    }
-
-    // TODO: Give something to the simulator (circuit, components ...)
-    try {
-        simulator.createCircuit(components);
-    }
-    catch (Error::Component::CreationError e) {
-        std::cerr << e.what() << " " << e.where() << std::endl;
-        return 84;
-    }
-    catch (Error::Parser::FileError e) {
-        std::cerr << e.what() << " " << e.where() << std::endl;
-        return 84;
-    }
-    catch (Error::Component::LinkError e) {
-        std::cerr << e.what() << " " << e.where() << std::endl;
-        return 84;
-    }
-
-    try {
-        simulator.setStates(args.intputValues);
-    } catch (Error::Component::StateError e) {
-       std::cerr << e.what() << std::endl;
-       return 84;
     }
 
     simulator.Run();
